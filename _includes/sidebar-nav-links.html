@@ -1,13 +1,14 @@
 <nav id="sidebar-nav-links">
   {% if site.sidebar_home_link %}
     <a class="home-link {% if page.url == '/' %} active{% endif %}"
-        href="{{ site.baseurl }}/">Home</a>
+        href="{{ site.baseurl }}/">主页</a>
   {% endif %}
 
-  {% comment %}
+  <!--  -->
+  <!-- {% comment %}
     The code below dynamically generates a sidebar nav of pages with
     `sidebar_link: true` in the front-matter. See readme for usage.
-  {% endcomment %}
+  {% endcomment %} -->
 
   {% include page-links.html %}
   {% include category-links.html %}

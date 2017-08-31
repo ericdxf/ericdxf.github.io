@@ -12,11 +12,11 @@
     </a>
   {% endif %}
 
-  <a id="subscribe-link"
+  <!-- <a id="subscribe-link"
      class="icon" title="Subscribe" aria-label="Subscribe"
      href="{{ site.baseurl }}/feed.xml">
     {% include svg/feed.svg %}
-  </a>
+  </a> -->
 
   {% comment %}
     Check if we have tag or search pages page active before linking to it.
@@ -31,14 +31,14 @@
     {% endif %}
   {% endfor %}
 
-  {% if tags_page %}
+  <!-- {% if tags_page %}
     <a id="tags-link"
        class="icon{% if page.url == '/tags' %} active{% endif %}"
        title="Tags" aria-label="Tags"
        href="{{ site.baseurl }}{{ tags_page.url }}">
       {% include svg/tags.svg %}
     </a>
-  {% endif %}
+  {% endif %} -->
 
   {% if search_page %}
     <a id="search-link"
