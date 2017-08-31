@@ -8,11 +8,11 @@ title: Git代码首次提交到远程仓库
 首先，要有一个远程仓库，其实按照Git的分布式原理，任何一台电脑都可以作为一个远程仓库。但在实际的使用中，往往需要这个远程仓库保持全天24小时不停地运行，不然不能保证多人协作下的实时性。但是每个项目都单独搭建这么一台仓库也是费时费力的，好在前辈们已经早已想到了这个问题，GitHub就是这样一个大型的代码仓库，全世界无数的代码都托管在上面，类似的还有GitLab、码云等。当然托管上去后，你的代码就可以被所有人查看了。可以通过付费的方式设置为私有的，这个就要量力而行了。
 1. 好了，貌似有些跑偏了，现在就先在GitHub上新建一个远程仓库：
 
-![test](../assets/images/git_new_repository.png)
+![test](/assets/images/git_new_repository.png)
 之后填写仓库的信息：
-![test](../assets/images/git_new_repository_1.png)
+![test](/assets/images/git_new_repository_1.png)
 仓库创建好了之后就可以把仓库的地址拷出来备用了：
-![test](../assets/images/git_new_repository_path.png)
+![test](/assets/images/git_new_repository_path.png)
 
 2. 然后就是打开你的项目所在目录，要把本地的代码提交到远程仓库有两种方法，第一种是先把远程仓库克隆到本地，再把代码拷进去，然后提交代码。但是这种方法不推荐，更推荐的方法是先在本地代码所在路径建立一个本地仓库,Git支持把远程仓库和一个已有的本地仓库关联。我们详细介绍一下这个方式：
 首先进入项目的根目录，执行命令`git init`,生成本地仓库：
