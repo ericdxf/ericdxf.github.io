@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Git分支操作
-category: category_git
+category: Git
 ---
 
 ### git checkout

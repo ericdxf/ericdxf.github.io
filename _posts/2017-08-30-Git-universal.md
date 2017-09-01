@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Git常用操作命令记录
-category: category_git
+category: Git
 ---
 
 ### git init

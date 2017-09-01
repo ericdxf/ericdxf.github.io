@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Git忽略规则
-category: category_git
+category: Git
 ---
 
 在git中如果想忽略掉某个文件，不让这个文件提交到版本库中，可以使用修改根目录中 .gitignore 文件的方法（如果没有这个文件，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则例如：
