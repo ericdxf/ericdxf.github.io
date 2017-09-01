@@ -89,7 +89,8 @@ $ git reset --hard HEAD^
 Git中的文件删除包括两种情况，一种是本地删除文件，然后提交修改到远程仓库，包括用户在资源管理器中进行删除；另一种是直接调用`git rm`命令进行删除。
 * 第一种情况：
 1. 在工作空间中新建一个`Others`文件夹，在其中新建一个test.txt文件，然后执行`git add Others/text.txt`添加到缓冲区，再`commit` `push`到远成仓库。
-2. 本地删除该文件，比如在文件资源管理器中右键删除等，我这里是命令行删除的。
+2. 本地删除该文件，比如在文件资源管理器中右键删除等，我这里是命令行删除的。  
+
 ```
 PS C:\workspace\AtomSpace\MarkDowns> rm Others/test.txt
 PS C:\workspace\AtomSpace\MarkDowns> git status
