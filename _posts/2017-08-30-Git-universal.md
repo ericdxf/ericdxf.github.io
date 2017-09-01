@@ -84,12 +84,15 @@ $ git reset --hard HEAD^
 
 * 场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令`git reset HEAD file`，就回到了场景1，第二步按场景1操作。
 
-* 场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+* 场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。  
+
 ### git rm ***.***
 Git中的文件删除包括两种情况，一种是本地删除文件，然后提交修改到远程仓库，包括用户在资源管理器中进行删除；另一种是直接调用`git rm`命令进行删除。
 * 第一种情况：
 1. 在工作空间中新建一个`Others`文件夹，在其中新建一个test.txt文件，然后执行`git add Others/text.txt`添加到缓冲区，再`commit` `push`到远成仓库。
 2. 本地删除该文件，比如在文件资源管理器中右键删除等，我这里是命令行删除的。  
+3. 可以看出Git给出了提示，我可以通过`git add .`命令把文件删除操作提交到暂存区，之后推送到远程仓库。或者通过`git checkout Others/test.txt`命令来从暂存区还原这次删除。
+4. 通过提示我们可以看出，本地删除的话只是把工作区间中的文件给删除了，暂存区和本地仓库，远程仓库中的文件都没有改变。  
 
 ```
 PS C:\workspace\AtomSpace\MarkDowns> rm Others/test.txt
@@ -105,10 +108,9 @@ Changes not staged for commit:
 
 no changes added to commit (use "git add" and/or "git commit -a")
 ```
-3. 可以看出Git给出了提示，我可以通过`git add .`命令把文件删除操作提交到暂存区，之后推送到远程仓库。或者通过`git checkout Others/test.txt`命令来从暂存区还原这次删除。
-4. 通过提示我们可以看出，本地删除的话只是把工作区间中的文件给删除了，暂存区和本地仓库，远程仓库中的文件都没有改变。
-* 第二种情况
-通过调用`git rm Others/test.txt`命令来删除的话会删除本地文件，同时也会删除暂存区中的对应文件。我们直接看调用的情况，删除之后再调用一次`git status`命令来查看一下状态：
+* 第二种情况  
+通过调用`git rm Others/test.txt`命令来删除的话会删除本地文件，同时也会删除暂存区中的对应文件。我们直接看调用的情况，删除之后再调用一次`git status`命令来查看一下状态：  
+
 ```
 PS C:\workspace\AtomSpace\MarkDowns> git rm Others/test.txt
 rm 'Others/test.txt'
@@ -116,7 +118,7 @@ PS C:\workspace\AtomSpace\MarkDowns> git status
 On branch master
 Your branch is ahead of 'origin/master' by 1 commit.
   (use "git push" to publish your local commits)
-
+  
 Changes to be committed:
   (use "git reset HEAD <file>..." to unstage)
 
