@@ -3,6 +3,7 @@ layout: default
 ---
 
 <div class="content">
+  <!-- 根据条件判断是否显示上一页按钮 -->
   {% include pagination-newer.html %}
 
   {{ content }}
@@ -37,6 +38,6 @@ layout: default
     {% endif %}
   </article>
   {% endfor %}
-
+  <!-- 根据条件判断是否显示下一页按钮 -->
   {% include pagination-older.html %}
 </div>
