@@ -13,11 +13,12 @@
 
   > a {
     display: inline-block;
-    padding: $padding-v $padding-h;
+    // padding: 0.5rem $padding-h;
     border: solid $border-color;
     border-radius: $border-radius;
     border-width: 1px;
-    width: 60%;
+    width: 15%;
+    height: 1.6rem;
     max-width: $sidebar-width;
     background: $body-bg;
     box-shadow: $default-box-shadow;

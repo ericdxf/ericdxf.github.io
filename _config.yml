@@ -25,7 +25,7 @@ author:
   name:           'Andrew Fong'
   url:            https://twitter.com/fongandrewc
 
-paginate:         5
+paginate:         2
 
 plugins:
   - jekyll-feed
