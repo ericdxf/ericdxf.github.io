@@ -28,6 +28,7 @@ nbproject
 *.sublime-project
 *.sublime-workspace
 .idea
+password0.json
 
 # Komodo
 *.komodoproject
