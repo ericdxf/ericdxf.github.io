@@ -19,4 +19,4 @@ category: 公务员考试
 
 　　材料1：
 
-[百度一下](www.baidu.com)
+[百度一下](http://www.baidu.com)
