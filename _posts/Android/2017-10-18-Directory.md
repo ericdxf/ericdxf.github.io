@@ -25,9 +25,9 @@ Context.getFilesDir().getPath()
 Context.getCacheDir().getPath()  
 用于获取APP的cache目录 /data/data/\<application package\>/cache目录
 
-Context.getExternalFilesDir().getPath()                          
+Context.getExternalFilesDir().getPath()  
 用于获取APP的在SD卡中的cache目录/mnt/sdcard/Android/data/\<application package\>/files
 
-Context.getExternalCacheDir().getPath()                             
+Context.getExternalCacheDir().getPath()  
 用于获取APP的在SD卡中的cache目录/mnt/sdcard/Android/data/\<application package\>/cache  
 **后两个获取的是应用内部路径，即随着应用卸载会一起删除掉。**
