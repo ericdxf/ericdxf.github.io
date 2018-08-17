@@ -4,11 +4,15 @@ title: MySql初始化及用户创建
 category: MySql
 ---
 CentOS安装MySql8.0之后，部分配置和之前的5.7有比较大的差异，在这里整理一下  
-使用的安装方式是rpm安装  
+使用的安装方式是rpm安装
+```
 #wget http://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm  
 rpm -ivh mysql80-community-release-el7-1.noarch.rpm  
-然后执行安装命令  
+```
+然后执行安装命令
+```
 yum -y install mysql mysql-server mysql-devel  
+```
 再次执行安装命令可查看安装情况，会给出提示，表示安装成功
 ```
 [root@VM_94_149_centos www]# yum -y install mysql mysql-server mysql-devel
