@@ -30,15 +30,16 @@ mysql> ALTER USER USER() IDENTIFIED BY 'newPassword';
 ```
 创建用户
 ```
-mysql> create user eric@'%' identified by 'Dxf281974.';
+mysql> create user eric@'%' identified by 'your password';
 ```
 由于机密方式不同导致连接不上的问题处理
 ```
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'Dxf281974.' PASSWORD EXPIRE NEVER;
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Dxf281974.';
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'your password' PASSWORD EXPIRE NEVER;
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your password';
 mysql> flush privileges;
 ```
 授权，默认创建的用户权限是usage,就是无权限，只能登录而已，（all：所有权限，这里有select,update等等权限，可以去搜一下；后面的*.*：指定数据库.指定表，这里是所有；to后面就是你刚才创建的用户）
 ```
 mysql> grant all on *.* to 'eric'@'%';
 ```
+需要注意的一点是，8.0以后的MySql版本里密码验证是很严格的，必须要有大小写字母和特殊字符，上面的your password替换时要注意下。
