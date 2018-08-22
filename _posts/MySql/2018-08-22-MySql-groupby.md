@@ -54,4 +54,22 @@ group by 类别
 having sum(数量) > 18
 ```
 上面的SQL语句执行时会正确筛选出接过来，如果吧having替换成where则会报错
-### Compute 和 Compute By
+### Compute
+```sql
+select *
+from A
+where 数量>8
+compute max(数量),min(数量),avg(数量)
+```
+执行效果如下  
+![Compute](/assets/images/MySql/mysql_group_by_6.png)
+### Compute By
+```sql
+select *
+from A
+where 数量>8
+order by 类别
+compute max(数量),min(数量),avg(数量) by 类别
+```
+执行效果如下  
+![Compute](/assets/images/MySql/mysql_group_by_7.png)
