@@ -1,5 +1,5 @@
 # Dependencies
-markdown:         Rouge
+markdown:         kramdown
 kramdown:
   input:                     GFM
   auto_ids:                  true
@@ -37,5 +37,3 @@ version:            3.4.1
 sidebar_home_link:  true
 github:
   repo:             https://github.com/ericdxf/ericdxf.github.io
-
-theme: jekyll-theme-cayman

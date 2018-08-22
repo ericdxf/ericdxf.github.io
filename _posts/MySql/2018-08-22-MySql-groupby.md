@@ -36,15 +36,7 @@ group by all 类别, 摘要
 SQL中多指定“摘要”字段，其原因在于“多列分组”中包含了“摘要字段”，其执行结果如下表  
 ![Group By All](/assets/images/MySql/mysql_group_by_4.png)
 ### Group By与聚合函数
-|函数|作用|支持性|
-| ------------- |:-------------:| -----:|
-|sum(列名)|求和|
-|max(列名)|最大值|
-|min(列名)|最小值|
-|avg(列名)|平均值|
-|first(列名)|第一条记录|仅Access支持|
-|last(列名)|最后一条记录|仅Access支持|
-|count(*/列名)|最后一条记录|仅Access支持|
+![Group By All](/assets/images/MySql/mysql_group_by_8.jpg)
 ### Having与Where的区别
 * where 子句的作用是在对查询结果进行分组前，将不符合where条件的行去掉，即在分组之前过滤数据，where条件中不能包含聚组函数，使用where条件过滤出特定的行。
 * having 子句的作用是筛选满足条件的组，即在分组之后过滤数据，条件中经常包含聚组函数，使用having 条件过滤出特定的组，也可以使用多个分组标准进行分组。
