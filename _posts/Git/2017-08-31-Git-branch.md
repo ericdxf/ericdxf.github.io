@@ -10,6 +10,22 @@ category: Git
 PS C:\workspace\AtomSpace\MarkDowns> git checkout -b dev
 Switched to a new branch 'dev'
 ```
+需要注意的是，上述这种方式创建的分支是从当前分支迁出一个新的本地分支，提交之后推送的话会提示需要设置远程分支
+```
+D:\workspace\WebWorkspace\Lover (test -> origin)
+λ git push
+fatal: The current branch test has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin test
+```
+此时按照上面提示的添加--set-upstream origin `分支名`就可以了。  
+如果想从远程直接迁出分支到本地的话，可以使用如下命令`git checkout -b 本地分支名 远程分支名(可通过git branch-a查看)`
+```
+[root@VM_94_149_centos Lover]# git checkout -b branch_du remotes/origin/branch_du
+Branch branch_du set up to track remote branch branch_du from origin.
+Switched to a new branch 'branch_du'
+```
 `git checkout`命令加上`-b`参数表示创建并切换，相当于以下两条命令：
 
 `git branch dev`
