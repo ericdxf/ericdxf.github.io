@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Eric的博客</title>
+  
+  <subtitle>My personal blog</subtitle>
+  <link href="https://ericdxf.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://ericdxf.github.io/"/>
+  <updated>2022-04-22T08:51:28.715Z</updated>
+  <id>https://ericdxf.github.io/</id>
+  
+  <author>
+    <name>Eric Du</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Test1</title>
+    <link href="https://ericdxf.github.io/2022/04/22/Test1/"/>
+    <id>https://ericdxf.github.io/2022/04/22/Test1/</id>
+    <published>2022-04-22T08:41:09.000Z</published>
+    <updated>2022-04-22T08:51:28.715Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/image-20220422164135522.png" alt="image-20220422164135522"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://gitee.com/dxf136/blog-image/raw/master/img/image-20220422164135522.png&quot; a</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Test</title>
+    <link href="https://ericdxf.github.io/2022/04/22/Test/"/>
+    <id>https://ericdxf.github.io/2022/04/22/Test/</id>
+    <published>2022-04-22T07:55:38.000Z</published>
+    <updated>2022-04-22T07:57:14.241Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="OAuth权限接入手册"><a href="#OAuth权限接入手册" class="headerlink" title="OAuth权限接入手册"></a>OAuth权限接入手册</h2><h3 id="1-应用接入申请"><a href="#1-应用接入申请" class="headerlink" title="1.应用接入申请"></a>1.应用接入申请</h3><ul><li>在移动管理平台申请应用接入，获得client_id和client_secret，这两个值是后续进行应用接口调用的关键内容 ，接入应用需要保存好，作为后续登录的唯一认证id。如下图，依次点击<code>工作台-&gt;工作台管理-&gt;新建</code>进行应用创建:</li></ul><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/image-20210512164535768.png" alt="image-20210512164535768"></p><ul><li><p>新建应用时需要填入相应的应用信息，包括应用名称、图标、平台类型、技术选型、应用首页、回调地址等信息，其中应用首页和回调地址由第三方应用提供。</p><blockquote><p>应用首页：web应用的首页地址。</p><p>回调地址：第三方应用提供的回调页面地址，授权码会通过该回调地址返回给三方应用。</p></blockquote></li></ul><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/image-20210513155032977.png" alt="image-20210513153936801"></p><ul><li>应用新建成功后会将应用信息提示给创建者，该信息需要第三方应用保存好，后面获取登录用户信息时会用到。</li></ul><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/image-20210513154516900.png" alt="image-20210513154516900"></p><h3 id="2-应用权限获取接口"><a href="#2-应用权限获取接口" class="headerlink" title="2.应用权限获取接口"></a>2.应用权限获取接口</h3><h4 id="1-查询指定项目属性"><a href="#1-查询指定项目属性" class="headerlink" title="1. 查询指定项目属性"></a><strong>1. 查询指定项目属性</strong></h4><h6 id="接口功能"><a href="#接口功能" class="headerlink" title="接口功能"></a>接口功能</h6><blockquote><p>获取制定项目的分类信息</p></blockquote><h6 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h6><blockquote><p><a href="www.api.com/index.php">http://ip:port/oauth/authorize</a></p></blockquote><h6 id="支持格式"><a href="#支持格式" class="headerlink" title="支持格式"></a>支持格式</h6><blockquote><p>JSON</p></blockquote><h6 id="HTTP请求方式"><a href="#HTTP请求方式" class="headerlink" title="HTTP请求方式"></a>HTTP请求方式</h6><blockquote><p>GET</p></blockquote><h6 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h6><table><thead><tr><th align="left">参数</th><th align="left">必选</th><th align="left">类型</th><th>说明</th></tr></thead><tbody><tr><td align="left">name</td><td align="left">ture</td><td align="left">string</td><td>请求的项目名</td></tr><tr><td align="left">type</td><td align="left">true</td><td align="left">int</td><td>请求项目的类型。1：类型一；2：类型二 。</td></tr></tbody></table><h6 id="返回字段"><a href="#返回字段" class="headerlink" title="返回字段"></a>返回字段</h6><table><thead><tr><th align="left">返回字段</th><th align="left">字段类型</th><th align="left">说明</th></tr></thead><tbody><tr><td align="left">status</td><td align="left">int</td><td align="left">返回结果状态。0：正常；1：错误。</td></tr><tr><td align="left">company</td><td align="left">string</td><td align="left">所属公司名</td></tr><tr><td align="left">category</td><td align="left">string</td><td align="left">所属类型</td></tr></tbody></table><h6 id="接口示例"><a href="#接口示例" class="headerlink" title="接口示例"></a>接口示例</h6><blockquote><p>地址：<a href="http://www.api.com/index.php?name=%22%E5%8F%AF%E5%8F%A3%E5%8F%AF%E4%B9%90%22&type=1">http://www.api.com/index.php?name="可口可乐"&type=1</a></p></blockquote><pre><code class="javascript">&#123;    &quot;statue&quot;: 0,    &quot;company&quot;: &quot;可口可乐&quot;,    &quot;category&quot;: &quot;饮料&quot;,&#125;</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;OAuth权限接入手册&quot;&gt;&lt;a href=&quot;#OAuth权限接入手册&quot; class=&quot;headerlink&quot; title=&quot;OAuth权限接入手册&quot;&gt;&lt;/a&gt;OAuth权限接入手册&lt;/h2&gt;&lt;h3 id=&quot;1-应用接入申请&quot;&gt;&lt;a href=&quot;#1-应用接入申请&quot;</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://ericdxf.github.io/2022/04/22/hello-world/"/>
+    <id>https://ericdxf.github.io/2022/04/22/hello-world/</id>
+    <published>2022-04-22T07:52:49.516Z</published>
+    <updated>2022-04-22T07:52:49.516Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
