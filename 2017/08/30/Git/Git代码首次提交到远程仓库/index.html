@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eric的博客 || Git代码首次提交到远程仓库</title>
+    <meta name="author" content="Eric Du">
+    <meta name="description" content="记录、分享、交流 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/head_image.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Eric的博客" type="application/atom+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Eric的博客</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/like/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/like/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://en.korilin.com">
+            <span>
+                <a-icon type="compass" theme="filled" />
+            </span>
+            <span>英文博客</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Eric的博客</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/like/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/like/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+            <a target="_blank" rel="noopener" href="https://en.korilin.com">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="compass" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">英文博客</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>Git代码首次提交到远程仓库 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2017/8/30
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/Git">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                Git
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/Git基础" style=color:#ff7d73>
+                    Git基础
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <p>很多人接触Git后的第一步操作就是提交本地的代码到远程仓库，包括之前是使用SVN等其他版本控制工具的用户。我们这里就来详细介绍一下如何把本地的代码关联到远成仓库。</p>
+<p>首先，要有一个远程仓库，其实按照Git的分布式原理，任何一台电脑都可以作为一个远程仓库。但在实际的使用中，往往需要这个远程仓库保持全天24小时不停地运行，不然不能保证多人协作下的实时性。但是每个项目都单独搭建这么一台仓库也是费时费力的，好在前辈们已经早已想到了这个问题，GitHub就是这样一个大型的代码仓库，全世界无数的代码都托管在上面，类似的还有GitLab、码云等。当然托管上去后，你的代码就可以被所有人查看了。可以通过付费的方式设置为私有的，这个就要量力而行了。</p>
+<ol>
+<li>好了，貌似有些跑偏了，现在就先在GitHub上新建一个远程仓库：</li>
+</ol>
+<p><img src="/assets/images/git_new_repository.png" alt="test"><br>之后填写仓库的信息：<br><img src="/assets/images/git_new_repository_1.png" alt="test"><br>仓库创建好了之后就可以把仓库的地址拷出来备用了：<br><img src="/assets/images/git_new_repository_path.png" alt="test"></p>
+<ol start="2">
+<li>然后就是打开你的项目所在目录，要把本地的代码提交到远程仓库有两种方法，第一种是先把远程仓库克隆到本地，再把代码拷进去，然后提交代码。但是这种方法不推荐，更推荐的方法是先在本地代码所在路径建立一个本地仓库,Git支持把远程仓库和一个已有的本地仓库关联。我们详细介绍一下这个方式：<br>首先进入项目的根目录，执行命令<code>git init</code>,生成本地仓库：<pre><code>PS E:\respositoryTest&gt; git init
+Initialized empty Git repository in E:/respositoryTest/.git/
+</code></pre>
+</li>
+<li>然后把需要提交的代码关联到本地仓库中，当然前提是要先提交正确的<code>ignore</code>文件，这个文件后期也可以修改，但是会麻烦一些，在另一篇文章中有详细的介绍。执行命令<code>git add .</code>:<pre><code>PS E:\respositoryTest&gt; git add .
+</code></pre>
+</li>
+<li>接下来就是关联本地仓库到远程仓库，执行命令<code>git remote add origin &lt;url&gt;</code>，其中的url就是上面再GitHub中获取到的远程仓库地址：<pre><code>PS E:\respositoryTest&gt; git remote add origin https://github.com/ericdxf/test1.git
+</code></pre>
+</li>
+<li>接下来要先把远程仓库中的代码同步一下，虽然是个空仓库，但也有一些<code>README.md</code> <code>ignore</code>文件等，不同步的话等下的提交会报错的：<br>&#96;&#96;&#96;<br>PS E:\respositoryTest&gt; git pull origin master –allow-unrelated-histories<br>remote: Counting objects: 3, done.<br>remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0<br>Unpacking objects: 100% (3&#x2F;3), done.<br>From <a target="_blank" rel="noopener" href="https://github.com/ericdxf/test1">https://github.com/ericdxf/test1</a></li>
+</ol>
+<ul>
+<li>branch            master     -&gt; FETCH_HEAD</li>
+<li>[new branch]      master     -&gt; origin&#x2F;master<br>&#96;&#96;&#96;<br>可以看到更新下来了三个文件，其实更新代码只要<code>git pull origin master</code>就好了，但是首次更新的话需要添加<code> --allow-unrelated-histories</code>后缀，不加的话会报错<code>fatal: refusing to merge unrelated histories</code>,这个问题是在Git 2.9.0之后的版本才出现的，以前的版本不加也可以正常工作，具体原因应该是为了增强安全性而加的处理吧。</li>
+</ul>
+<ol start="6">
+<li>接下来是把代码提交到本地仓库中，调用<code>git commit -m 提交信息</code>，提交信息就是你的这次改动的内容；一定要认真填写，不然版本多了之后想再查询之前的提交信息时，就会很麻烦。<pre><code>PS E:\respositoryTest&gt; git commit -m &quot;first commit&quot;
+[master 7e2adca] first commit
+ 1 file changed, 4 insertions(+)
+ create mode 100644 try.txt
+</code></pre>
+</li>
+<li>最后一步就是把本地仓库的代码提交到远程仓库中，<code>git push origin master</code>,<code>master</code>是分支的名字，没有分支的话，默认的就是这个名为<code>master</code>的主干了。<pre><code>PS E:\respositoryTest&gt; git push origin master
+Counting objects: 3, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 333 bytes | 333.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/ericdxf/test1.git
+f715821..7e2adca  master -&gt; master
+</code></pre>
+<img src="/images/git_new_repository_success.png" alt="end"></li>
+</ol>
+<p>好了，到这里，代码就关联到了GitHub中。 ^_^</p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2022 Eric的博客
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @Eric Du
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'en',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+</body>
+
+</html>
