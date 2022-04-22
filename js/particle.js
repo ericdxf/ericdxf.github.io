@@ -1,8 +1,11 @@
 var barLocal = document.documentElement.scrollTop
+var home_card = document.getElementById("home-card")
+home_card.style = "display:none"
 window.addEventListener('scroll', function (e) {
     var newLocal = document.documentElement.scrollTop
     var menu = document.getElementById("menu")
     var home_posts_wrap = document.getElementById("home-posts-wrap")
+    var home_card = document.getElementById("home-card")
     var footer = document.getElementById("footer")
     if (barLocal < newLocal) {
         menu.className = "hidden-menu"
@@ -10,15 +13,16 @@ window.addEventListener('scroll', function (e) {
         menu.className = "show-menu"
     }
     if (home_posts_wrap) {
-
         if (newLocal <= window.innerHeight - 100)
             menu.className += " menu-color"
         if (newLocal <= 400) {
             home_posts_wrap.style = "top:-" + newLocal / 5 + "px"
             footer.style = "top:" + (150 - newLocal / 5) + "px"
+            home_card.style = "display:show"
         } else {
             home_posts_wrap.style = "top:-80px"
             footer.style = "top:70px"
+            home_card.style = "display:show"
         }
     }
     barLocal = newLocal

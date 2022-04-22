@@ -1,6 +1,7 @@
 #home-card {
   position: relative;
   width: 300px;
+  display: show;
   top: 100px;
 }
 #home-card .card-style {
