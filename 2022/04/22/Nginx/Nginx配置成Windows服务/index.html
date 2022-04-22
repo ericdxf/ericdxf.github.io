@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eric的博客 || sshkey内容配置</title>
+    <title>Eric的博客 || 将Nginx注册为windows系统服务</title>
     <meta name="author" content="Eric Du">
     <meta name="description" content="记录、分享、交流 ">
     <meta name="keywords" content=" ">
@@ -170,23 +170,23 @@
 <link rel="stylesheet" href="/css/post-body.css">
 <div class="article">
     <div>
-        <h1>sshkey内容配置 </h1>
+        <h1>将Nginx注册为windows系统服务 </h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <a-icon type="calendar" theme="filled" />
             </span>
-            2019/3/22
+            2022/4/22
         </span>
 
         
         <span class="category">
-            <a href="/categories/Git">
+            <a href="/categories/Nginx">
                 <span class="icon">
                     <a-icon type="book" theme="filled" />
                 </span>
-                Git
+                Nginx
             </a>
         </span>
         
@@ -200,8 +200,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/Git基础" style=color:#00a596>
-                    Git基础
+                <a href="/tags/优化" style=color:#ff7d73>
+                    优化
                 </a>
             </span>
             
@@ -210,10 +210,40 @@
     </div>
 
     <div class="content" v-pre>
-        <blockquote>
-<p>ssh-keygen -t rsa -C <a href="mailto:&#x64;&#117;&#120;&#x66;&#64;&#x71;&#100;&#99;&#x61;&#x72;&#101;&#115;&#x2e;&#99;&#110;">&#x64;&#117;&#120;&#x66;&#64;&#x71;&#100;&#99;&#x61;&#x72;&#101;&#115;&#x2e;&#99;&#110;</a> -b 1024<br>在git bash中使用上面的命令生成rsa公私钥，部分软件类似winscp要求使用ppk类型的私钥，需要使用puttygen工具进行转换即可</p>
-</blockquote>
-
+        <h3 id="将Nginx注册为windows系统服务"><a href="#将Nginx注册为windows系统服务" class="headerlink" title="将Nginx注册为windows系统服务"></a>将Nginx注册为windows系统服务</h3><ul>
+<li>在项目主页内找到winsw的下载页面（我用的是最新2.0.2版本，你可以下载最新的）</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/2.0.2/">http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/2.0.2/</a></p>
+<p>下载的文件：winsw-2.9.0-bin.exe</p>
+<ul>
+<li>nginx项目页面下载nginx windows版本</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://nginx.org/">http://nginx.org</a></p>
+<p>把nginx压缩包解压放到指定目录，例如我放的是d盘根目录。特别强调路径不要带空格的，否则会启动失败。</p>
+<p>nginx安装目录是：<code>E:\myProgram\nginx-1.14.0</code></p>
+<ul>
+<li><p>将winsw-2.9.0-bin.exe复制到nginx目录：E:\myProgram\nginx-1.14.0，并将其改成nginx-service.exe </p>
+</li>
+<li><p>新建一个xml文件nginx-service.xml，名称一定要与上面的.exe上的文件名一致的哦。文件内容如下：</p>
+</li>
+</ul>
+<pre><code>&lt;service&gt;
+  &lt;id&gt;nginx&lt;/id&gt;
+  &lt;name&gt;nginx&lt;/name&gt;
+  &lt;description&gt;nginx&lt;/description&gt;
+  &lt;env name=&quot;path&quot; value=&quot;E:\myProgram\nginx-1.14.0&quot;/&gt;
+  &lt;executable&gt;E:/myProgram/nginx-1.14.0/nginx.exe&lt;/executable&gt;
+  &lt;arguments&gt;-p E:/myProgram/nginx-1.14.0&lt;/arguments&gt;
+  &lt;logpath&gt;E:/myProgram/nginx-1.14.0/logs/&lt;/logpath&gt;
+  &lt;logmode&gt;roll&lt;/logmode&gt;
+&lt;/service&gt;
+</code></pre>
+<ul>
+<li>运行Windows cmd命令，进入nginx目录：运行nginx-service.exe install将其注册为windws系统服务。当配置错误（就是系统服务中有了但是启动不了）或者是要卸载它的时候运行：nginx-service.exe uninstall</li>
+</ul>
+<p>​		再运行Windows cmd命令，输入services.msc,就可以在系统服务中看到nginx服务，右击启动就可以了，访问<a href="http://localhost:8088出现nginx页面，安装成功。">http://localhost:8088出现nginx页面，安装成功。</a> 因为我这台电脑80端口被占用了，然后就使用了8088端口</p>
+<p>​		如果出现错误信息，可在nginx的日志文件logs查看。刚开始在测试时一直启动服务失败，原因是按照网络上的（旧版）配置文件启动不成功，希望可以少让大家走一些弯路，当时我心里的那个苦啊，没有找到正确的话，捣鼓的让你欲哭无泪。旧版的配置文件如下（注意与4中对比）：</p>
+<h3 id><a href="#" class="headerlink" title></a></h3>
     </div>
 
     

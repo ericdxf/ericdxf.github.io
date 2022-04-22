@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<html lang="en ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eric的博客 || Nginx常用命令</title>
+    <meta name="author" content="Eric Du">
+    <meta name="description" content="记录、分享、交流 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/head_image.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Eric的博客" type="application/atom+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Eric的博客</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/like/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/like/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://en.korilin.com">
+            <span>
+                <a-icon type="compass" theme="filled" />
+            </span>
+            <span>英文博客</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Eric的博客</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/like/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/like/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+            <a target="_blank" rel="noopener" href="https://en.korilin.com">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="compass" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">英文博客</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>Nginx常用命令 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/22
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/Nginx">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                Nginx
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/优化" style=color:#00a596>
+                    优化
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h1 id="Nginx常用命令"><a href="#Nginx常用命令" class="headerlink" title="Nginx常用命令"></a>Nginx常用命令</h1><h3 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h3><pre><code>nginx -c /etc/nginx/conf/nginx.conf
+</code></pre>
+<h3 id="关闭命令"><a href="#关闭命令" class="headerlink" title="关闭命令"></a>关闭命令</h3><pre><code>ps -ef|grep nginx
+kill -QUIT 2072
+</code></pre>
+<h3 id="配置文件检测"><a href="#配置文件检测" class="headerlink" title="配置文件检测"></a>配置文件检测</h3><pre><code>nginx -t
+</code></pre>
+<h3 id="重新加载配置文件"><a href="#重新加载配置文件" class="headerlink" title="重新加载配置文件"></a>重新加载配置文件</h3><pre><code>nginx -s reload
+</code></pre>
+<h3 id="nginx配置location-x3D-x2F-uri-x2F-…-用法"><a href="#nginx配置location-x3D-x2F-uri-x2F-…-用法" class="headerlink" title="nginx配置location [&#x3D;||*|^~] &#x2F;uri&#x2F; { … }用法"></a>nginx配置location [&#x3D;|<del>|</del>*|^~] &#x2F;uri&#x2F; { … }用法</h3><ul>
+<li><p>&#x3D; 严格匹配。如果这个查询匹配，那么将停止搜索并立即处理此请求。</p>
+</li>
+<li><p>~ 为区分大小写匹配(可用正则表达式)</p>
+</li>
+<li><p>!~为区分大小写不匹配</p>
+</li>
+<li><p>~* 为不区分大小写匹配(可用正则表达式)</p>
+</li>
+<li><p>!~*为不区分大小写不匹配</p>
+</li>
+<li><p>^~ 如果把这个前缀用于一个常规字符串,那么告诉nginx 如果路径匹配那么不测试正则表达式。</p>
+<h6 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h6></li>
+</ul>
+<p>location &#x3D; &#x2F; {</p>
+<p># 只匹配 &#x2F; 查询。</p>
+<p>}</p>
+<p>location &#x2F; {</p>
+<p># 匹配任何查询，因为所有请求都以 &#x2F; 开头。但是正则表达式规则和长的块规则将被优先和查询匹配。</p>
+<p>}</p>
+<p>location ^~ &#x2F;p_w_picpaths&#x2F; {</p>
+<p># 匹配任何以 &#x2F;p_w_picpaths&#x2F; 开头的任何查询并且停止搜索。任何正则表达式将不会被测试。</p>
+<p>}</p>
+<p>location ~*.(gif|jpg|jpeg)$ {</p>
+<p># 匹配任何以 gif、jpg 或 jpeg 结尾的请求。</p>
+<p>}</p>
+<p>location ~*.(gif|jpg|swf)$ {</p>
+<p>valid_referers none blocked start.igrow.cn sta.igrow.cn;</p>
+<p>if ($invalid_referer) {</p>
+<p>#防盗链</p>
+<p>rewrite ^&#x2F; http:&#x2F;&#x2F;$host&#x2F;logo.png;</p>
+<p>}</p>
+<p>}</p>
+<h3 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h3><p>在nginx中配置proxy_pass代理转发时，如果在proxy_pass后面的url加&#x2F;，表示绝对根路径；如果没有&#x2F;，表示相对路径，把匹配的路径部分也给代理走。</p>
+<p>假设下面四种情况分别用 <a target="_blank" rel="noopener" href="http://192.168.1.1/proxy/test.html">http://192.168.1.1/proxy/test.html</a> 进行访问。</p>
+<h5 id="第一种："><a href="#第一种：" class="headerlink" title="第一种："></a>第一种：</h5><p>location &#x2F;proxy&#x2F; {<br>    proxy_pass <a target="_blank" rel="noopener" href="http://127.0.0.1/">http://127.0.0.1/</a>;<br>}<br>代理到URL：<a target="_blank" rel="noopener" href="http://127.0.0.1/test.html">http://127.0.0.1/test.html</a></p>
+<h5 id="第二种（相对于第一种，最后少一个-x2F-）"><a href="#第二种（相对于第一种，最后少一个-x2F-）" class="headerlink" title="第二种（相对于第一种，最后少一个 &#x2F; ）"></a>第二种（相对于第一种，最后少一个 &#x2F; ）</h5><p>location &#x2F;proxy&#x2F; {<br>    proxy_pass <a target="_blank" rel="noopener" href="http://127.0.0.1/">http://127.0.0.1</a>;<br>}<br>代理到URL：<a target="_blank" rel="noopener" href="http://127.0.0.1/proxy/test.html">http://127.0.0.1/proxy/test.html</a></p>
+<h5 id="第三种："><a href="#第三种：" class="headerlink" title="第三种："></a>第三种：</h5><p>location &#x2F;proxy&#x2F; {<br>    proxy_pass <a target="_blank" rel="noopener" href="http://127.0.0.1/aaa/">http://127.0.0.1/aaa/</a>;<br>}<br>代理到URL：<a target="_blank" rel="noopener" href="http://127.0.0.1/aaa/test.html">http://127.0.0.1/aaa/test.html</a></p>
+<h5 id="第四种（相对于第三种，最后少一个-x2F-）"><a href="#第四种（相对于第三种，最后少一个-x2F-）" class="headerlink" title="第四种（相对于第三种，最后少一个 &#x2F; ）"></a>第四种（相对于第三种，最后少一个 &#x2F; ）</h5><p>location &#x2F;proxy&#x2F; {<br>    proxy_pass <a target="_blank" rel="noopener" href="http://127.0.0.1/aaa">http://127.0.0.1/aaa</a>;<br>}<br>代理到URL：<a target="_blank" rel="noopener" href="http://127.0.0.1/aaatest.html">http://127.0.0.1/aaatest.html</a></p>
+<h3 id="rewrite-最后一项flag参数："><a href="#rewrite-最后一项flag参数：" class="headerlink" title="rewrite 最后一项flag参数："></a>rewrite 最后一项flag参数：</h3><ul>
+<li>last</li>
+</ul>
+<ol>
+<li>结束当前的请求处理，用替换后的URI重新匹配location；</li>
+<li>可理解为重写（rewrite）后，发起了一个新请求，进入server模块，匹配location；</li>
+<li>如果重新匹配循环的次数超过10次，nginx会返回500错误；</li>
+<li>返回302 http状态码 ；</li>
+<li>浏览器地址栏显示重地向后的url</li>
+</ol>
+<ul>
+<li>break</li>
+</ul>
+<ol>
+<li>结束当前的请求处理，使用当前资源，不在执行location里余下的语句；</li>
+<li>返回302 http状态码 ；</li>
+<li>浏览器地址栏显示重地向后的url</li>
+</ol>
+<ul>
+<li>redirect</li>
+</ul>
+<ol>
+<li>临时跳转，返回302 http状态码；</li>
+<li>浏览器地址栏显示重地向后的url</li>
+</ol>
+<ul>
+<li>permanent</li>
+</ul>
+<ol>
+<li>永久跳转，返回301 http状态码；</li>
+<li>浏览器地址栏显示重定向后的url</li>
+</ol>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><ul>
+<li><p>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-service/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-service/travel/lostFound/list</a></p>
+</li>
+<li><p>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:9999/travel-service/travel/lostFound/list">http://192.16.1.144:9999/travel-service/travel/lostFound/list</a></p>
+<p>  location ^~ &#x2F;api&#x2F;lostFound-service {<br>  proxy_pass <a target="_blank" rel="noopener" href="http://192.16.1.144:9999/travel-service">http://192.16.1.144:9999/travel-service</a>;<br>  proxy_redirect off;<br>  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;<br>  proxy_read_timeout 180s;<br>  #proxy_set_header Host $proxy_host;<br>  }</p>
+</li>
+<li><p>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-servic1/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-servic1/travel/lostFound/list</a></p>
+</li>
+<li><p>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:8767/travel/lostFound/list">http://192.16.1.144:8767/travel/lostFound/list</a></p>
+</li>
+</ul>
+<pre><code>location ^~ /api/lostFound-servic1/ &#123;
+    proxy_pass http://192.16.1.144:8767/;
+    proxy_redirect off;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_read_timeout 180s;
+    #proxy_set_header Host $proxy_host;
+&#125;
+</code></pre>
+<ul>
+<li>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-servic2/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-servic2/travel/lostFound/list</a></li>
+<li>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:8767/api/lostFound-servic2/travel/lostFound/list">http://192.16.1.144:8767/api/lostFound-servic2/travel/lostFound/list</a> (可以发现这种方式只修改location匹配字段前面的信息)</li>
+</ul>
+<pre><code>location ^~ /api/lostFound-servic2/ &#123;
+    proxy_pass http://192.16.1.144:8767;
+    proxy_redirect off;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_read_timeout 180s;
+    #proxy_set_header Host $proxy_host;
+&#125;
+</code></pre>
+<ul>
+<li>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-servic3/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-servic3/travel/lostFound/list</a></li>
+<li>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:8767/travel/lostFound/list">http://192.16.1.144:8767/travel/lostFound/list</a></li>
+</ul>
+<pre><code>location ^~ /api/lostFound-servic3 &#123;
+    rewrite /api/lostFound-servic3/(.*) /$1 break;
+    proxy_pass http://192.16.1.144:8767;
+    proxy_redirect off;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_read_timeout 180s;
+    #proxy_set_header Host $proxy_host;
+&#125;
+</code></pre>
+<ul>
+<li>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-servic4/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-servic4/travel/lostFound/list</a></li>
+<li>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:9999/travel-service/travel/lostFound/list">http://192.16.1.144:9999/travel-service/travel/lostFound/list</a></li>
+</ul>
+<pre><code>location ^~ /api/lostFound-servic4/ &#123;
+    proxy_pass http://192.16.1.144:9999/travel-service/;
+    proxy_redirect off;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_read_timeout 180s;
+    #proxy_set_header Host $proxy_host;
+&#125;
+</code></pre>
+<ul>
+<li>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-servic5/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-servic5/travel/lostFound/list</a></li>
+<li>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:9999/travel-service/travel/lostFound/list">http://192.16.1.144:9999/travel-service/travel/lostFound/list</a></li>
+<li>类比上一条可以发现：location和proxy_pass结尾都写<code>/</code>等价于都不写</li>
+</ul>
+<pre><code>location ^~ /api/lostFound-servic5 &#123;
+    proxy_pass http://192.16.1.144:9999/travel-service;
+    proxy_redirect off;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_read_timeout 180s;
+    #proxy_set_header Host $proxy_host;
+&#125;
+</code></pre>
+<ul>
+<li>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-servic6/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-servic6/travel/lostFound/list</a></li>
+<li>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:9999/travel-service/travel/lostFound/list">http://192.16.1.144:9999/travel-service/travel/lostFound/list</a></li>
+</ul>
+<pre><code>location ^~ /api/lostFound-servic6 &#123;
+    rewrite /api/lostFound-servic6/(.*) /travel-service/$1 break;
+    proxy_pass http://192.16.1.144:9999;
+    proxy_redirect off;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_read_timeout 180s;
+    #proxy_set_header Host $proxy_host;
+&#125;
+</code></pre>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2022 Eric的博客
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @Eric Du
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'en',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+</body>
+
+</html>

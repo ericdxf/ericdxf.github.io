@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eric的博客 || sshkey内容配置</title>
+    <title>Eric的博客 || Nginx</title>
     <meta name="author" content="Eric Du">
     <meta name="description" content="记录、分享、交流 ">
     <meta name="keywords" content=" ">
@@ -167,62 +167,225 @@
 
                 <div id="main">
                      
-<link rel="stylesheet" href="/css/post-body.css">
-<div class="article">
-    <div>
-        <h1>sshkey内容配置 </h1>
-    </div>
-    <div class="info">
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2019/3/22
-        </span>
-
+<div class="categories-tags">
+    
+    <div class="all-s">
         
-        <span class="category">
-            <a href="/categories/Git">
+        
+        <span>
+            <a href="/categories/MySql/" style=background:#ffa2c4>
                 <span class="icon">
-                    <a-icon type="book" theme="filled" />
-                </span>
+                    <a-icon type="book" theme="filled" /></span>
+                MySql
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/categories/Android/" style=background:#ffa2c4>
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                Android
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/categories/Git/" style=background:#ff7d73>
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
                 Git
             </a>
         </span>
         
-
         
-
-        <span class="tags">
-            <span class="icon">
-                <a-icon type="tags" theme="filled" />
-            </span>
-            
-            <span class="tag">
-                
-                <a href="/tags/Git基础" style=color:#00a596>
-                    Git基础
-                </a>
-            </span>
-            
+        
+        <span>
+            <a href="/categories/notes/" style=background:#00a596>
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                notes
+            </a>
         </span>
         
+        
+        
+        <span>
+            <a href="/categories/Nginx/" style='background:linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)'>
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                Nginx
+            </a>
+        </span>
+        
+        
     </div>
+    <div id="archives">
+        
+        <a-timeline>
+            <a-timeline-item timestamp="2022/4/22" placement="top" color="#a5c2f5">
+                <a-card hoverable>
+                    <div class="item-time">2022/4/22</div>
+                    <a href="/2022/04/22/Nginx/Nginx使用记录/">
+                        <h3>Nginx常用命令</h3>
+                    </a>
+                    <div class="info">
+                        
+                        <span class="category">
+                            <a href="/categories/Nginx">
+                                <span class="icon">
+                                    <a-icon type="book" theme="filled" />
+                                </span>
+                                Nginx
+                            </a>
+                        </span>
+                        
 
-    <div class="content" v-pre>
-        <blockquote>
-<p>ssh-keygen -t rsa -C <a href="mailto:&#x64;&#117;&#120;&#x66;&#64;&#x71;&#100;&#99;&#x61;&#x72;&#101;&#115;&#x2e;&#99;&#110;">&#x64;&#117;&#120;&#x66;&#64;&#x71;&#100;&#99;&#x61;&#x72;&#101;&#115;&#x2e;&#99;&#110;</a> -b 1024<br>在git bash中使用上面的命令生成rsa公私钥，部分软件类似winscp要求使用ppk类型的私钥，需要使用puttygen工具进行转换即可</p>
-</blockquote>
+                        
+                        <span class="tags">
+                            <span class="icon">
+                                <a-icon type="tags" />
+                            </span>
+                            
+                            <span class="tag">
+                                
+                                <a href="/tags/优化" style=color:#ff7d73>
+                                    优化
+                                </a>
+                            </span>
+                            
+                        </span>
+                        
+                    </div>
+                </a-card>
+            </a-timeline-item>
+        </a-timeline>
+        
+        <a-timeline>
+            <a-timeline-item timestamp="2022/4/22" placement="top" color="#a5c2f5">
+                <a-card hoverable>
+                    <div class="item-time">2022/4/22</div>
+                    <a href="/2022/04/22/Nginx/Nginx安装/">
+                        <h3>Nginx部署</h3>
+                    </a>
+                    <div class="info">
+                        
+                        <span class="category">
+                            <a href="/categories/Nginx">
+                                <span class="icon">
+                                    <a-icon type="book" theme="filled" />
+                                </span>
+                                Nginx
+                            </a>
+                        </span>
+                        
 
+                        
+                        <span class="tags">
+                            <span class="icon">
+                                <a-icon type="tags" />
+                            </span>
+                            
+                            <span class="tag">
+                                
+                                <a href="/tags/部署" style=color:#00bcd4>
+                                    部署
+                                </a>
+                            </span>
+                            
+                        </span>
+                        
+                    </div>
+                </a-card>
+            </a-timeline-item>
+        </a-timeline>
+        
+        <a-timeline>
+            <a-timeline-item timestamp="2022/4/22" placement="top" color="#a5c2f5">
+                <a-card hoverable>
+                    <div class="item-time">2022/4/22</div>
+                    <a href="/2022/04/22/Nginx/Nginx配置成Windows服务/">
+                        <h3>将Nginx注册为windows系统服务</h3>
+                    </a>
+                    <div class="info">
+                        
+                        <span class="category">
+                            <a href="/categories/Nginx">
+                                <span class="icon">
+                                    <a-icon type="book" theme="filled" />
+                                </span>
+                                Nginx
+                            </a>
+                        </span>
+                        
+
+                        
+                        <span class="tags">
+                            <span class="icon">
+                                <a-icon type="tags" />
+                            </span>
+                            
+                            <span class="tag">
+                                
+                                <a href="/tags/优化" style=color:#ffa2c4>
+                                    优化
+                                </a>
+                            </span>
+                            
+                        </span>
+                        
+                    </div>
+                </a-card>
+            </a-timeline-item>
+        </a-timeline>
+        
+        <a-timeline>
+            <a-timeline-item timestamp="2022/4/22" placement="top" color="#a5c2f5">
+                <a-card hoverable>
+                    <div class="item-time">2022/4/22</div>
+                    <a href="/2022/04/22/Nginx/Nginx缓存/">
+                        <h3>Nginx缓存</h3>
+                    </a>
+                    <div class="info">
+                        
+                        <span class="category">
+                            <a href="/categories/Nginx">
+                                <span class="icon">
+                                    <a-icon type="book" theme="filled" />
+                                </span>
+                                Nginx
+                            </a>
+                        </span>
+                        
+
+                        
+                        <span class="tags">
+                            <span class="icon">
+                                <a-icon type="tags" />
+                            </span>
+                            
+                            <span class="tag">
+                                
+                                <a href="/tags/优化" style=color:#ff7d73>
+                                    优化
+                                </a>
+                            </span>
+                            
+                        </span>
+                        
+                    </div>
+                </a-card>
+            </a-timeline-item>
+        </a-timeline>
+        
     </div>
-
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-    <div id="comment">
-        <div id="gitalk-container">
-        </div>
-    </div>
-    
+    <script>
+        new Vue({
+            el: '#archives'
+        })
+    </script>
 </div>
                      
 <footer id="footer">
@@ -286,21 +449,6 @@
             }
         }
     })
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script>
-    const gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        repo: 'hexo-theme-particle',      // The repository of store comments,
-        owner: 'korilin',
-        admin: ['korilin'],
-        language: 'en',
-        id: location.pathname,      // Ensure uniqueness and length less than 50
-        distractionFreeMode: true  // Facebook-like distraction free mode
-    })
-    gitalk.render('gitalk-container')
 </script>
 
 </body>

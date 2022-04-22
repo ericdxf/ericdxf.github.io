@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eric的博客 || sshkey内容配置</title>
+    <title>Eric的博客 || Nginx部署</title>
     <meta name="author" content="Eric Du">
     <meta name="description" content="记录、分享、交流 ">
     <meta name="keywords" content=" ">
@@ -170,23 +170,23 @@
 <link rel="stylesheet" href="/css/post-body.css">
 <div class="article">
     <div>
-        <h1>sshkey内容配置 </h1>
+        <h1>Nginx部署 </h1>
     </div>
     <div class="info">
         <span class="date">
             <span class="icon">
                 <a-icon type="calendar" theme="filled" />
             </span>
-            2019/3/22
+            2022/4/22
         </span>
 
         
         <span class="category">
-            <a href="/categories/Git">
+            <a href="/categories/Nginx">
                 <span class="icon">
                     <a-icon type="book" theme="filled" />
                 </span>
-                Git
+                Nginx
             </a>
         </span>
         
@@ -200,8 +200,8 @@
             
             <span class="tag">
                 
-                <a href="/tags/Git基础" style=color:#00a596>
-                    Git基础
+                <a href="/tags/部署" style=color:#ff7d73>
+                    部署
                 </a>
             </span>
             
@@ -210,9 +210,36 @@
     </div>
 
     <div class="content" v-pre>
-        <blockquote>
-<p>ssh-keygen -t rsa -C <a href="mailto:&#x64;&#117;&#120;&#x66;&#64;&#x71;&#100;&#99;&#x61;&#x72;&#101;&#115;&#x2e;&#99;&#110;">&#x64;&#117;&#120;&#x66;&#64;&#x71;&#100;&#99;&#x61;&#x72;&#101;&#115;&#x2e;&#99;&#110;</a> -b 1024<br>在git bash中使用上面的命令生成rsa公私钥，部分软件类似winscp要求使用ppk类型的私钥，需要使用puttygen工具进行转换即可</p>
-</blockquote>
+        <h3 id="Nginx部署"><a href="#Nginx部署" class="headerlink" title="Nginx部署"></a>Nginx部署</h3><h5 id="1-安装依赖包"><a href="#1-安装依赖包" class="headerlink" title="1.安装依赖包"></a>1.安装依赖包</h5><pre><code>//一键安装上面四个依赖
+yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel
+</code></pre>
+<h5 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="2.下载并解压安装包"></a>2.下载并解压安装包</h5><pre><code>//创建一个文件夹
+cd /usr/local
+mkdir nginx
+cd nginx
+//下载tar包
+wget http://nginx.org/download/nginx-1.18.0.tar.gz
+tar -xvf nginx-1.18.0.tar.gz
+</code></pre>
+<h5 id="3-安装nginx"><a href="#3-安装nginx" class="headerlink" title="3.安装nginx"></a>3.安装nginx</h5><pre><code>//进入nginx目录
+cd /usr/local/nginx
+//进入目录
+cd nginx-1.18.0
+//执行命令
+./configure
+//执行make命令
+make
+//执行make install命令
+make install
+</code></pre>
+<h5 id="4-配置nginx-conf"><a href="#4-配置nginx-conf" class="headerlink" title="4.配置nginx.conf"></a>4.配置nginx.conf</h5><pre><code>// 打开配置文件
+vim /usr/local/nginx/conf/nginx.conf
+</code></pre>
+<h5 id="5-启动命令"><a href="#5-启动命令" class="headerlink" title="5.启动命令"></a>5.启动命令</h5><pre><code>/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
+</code></pre>
+<h5 id="6-添加到环境变量"><a href="#6-添加到环境变量" class="headerlink" title="6.添加到环境变量"></a>6.添加到环境变量</h5><pre><code>ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/
+</code></pre>
+<p>&#x2F;usr&#x2F;local&#x2F;bin&#x2F;就是环境变量目录</p>
 
     </div>
 
