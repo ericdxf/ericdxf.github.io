@@ -199,6 +199,864 @@
 
 <div class="post">
 
+    <a href="/2022/05/16/资料/服务器/方舟服务器搭建/">
+        <h2>
+            方舟服务器搭建
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+        <span class="category">
+            <a href="/categories/服务器">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                服务器
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/5/16
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h3 id="Linux-CentOS-开服、mod安装"><a href="#Linux-CentOS-开服、mod安装" class="headerlink" title="Linux(CentOS) 开服、mod安装"></a>Linux(CentOS) 开服、mod安装</h3><p>环境</p>
+<p>阿里云服务器，CentOS 7.7 64位， 2核CPU，4G内存，4G交换空间</p>
+<h2 id="开服准备"><a href="#开服准备" class="headerlink" title="开服准备"></a>开服准备</h2><h3 id="创建用户并设置密码"><a href="#创建用户并设置密码" class="headerlink" title="创建用户并设置密码"></a>创建用户并设置密码</h3><pre><code class="undefined">adduser arkserver
+passwd arkserver
+</code></pre>
+<h3 id="开放以下端口"><a href="#开放以下端口" class="headerlink" title="开放以下端口"></a>开放以下端口</h3><pre><code class="undefined">7777/udp
+27015/udp
+</code></pre>
+<p>PS：云服务器一般是在安全组规则中设置放行</p>
+<h3 id="修改文件描述符限制"><a href="#修改文件描述符限制" class="headerlink" title="修改文件描述符限制"></a>修改文件描述符限制</h3><pre><code class="undefined">echo &quot;fs.file-max=100000&quot; &gt;&gt; /etc/sysctl.conf
+sysctl -p /etc/sysctl.conf
+echo &quot;* soft nofile 1000000&quot; &gt;&gt; /etc/security/limits.conf
+echo &quot;* hard nofile 1000000&quot; &gt;&gt; /etc/security/limits.conf
+</code></pre>
+<h3 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h3><pre><code class="undefined">su - arkserver
+</code></pre>
+<h3 id="下载并运行一键安装脚本"><a href="#下载并运行一键安装脚本" class="headerlink" title="下载并运行一键安装脚本"></a>下载并运行一键安装脚本</h3><pre><code class="undefined">wget -O linuxgsm.sh https://linuxgsm.sh &amp;&amp; chmod +x linuxgsm.sh &amp;&amp; bash linuxgsm.sh arkserver
+</code></pre>
+<p>给arkserver用户赋目录访问权限</p>
+<pre><code>chown -R arkserver:arkserver /opt/asm/
+</code></pre>
+<p>PS：如果访问<code>raw.githubusercontent.com</code>经常出错，可修改hosts文件（<code>/etc/hosts</code>），添加以下内容（root用户）</p>
+<pre><code class="undefined">199.232.4.133 raw.githubusercontent.com
+</code></pre>
+<p>如果报SSL 连接失败，则关闭防火墙即可</p>
+<pre><code># 关掉防火墙并开机不自启
+[root@localhost ~]# systemctl stop firewalld
+[root@localhost ~]# systemctl disable firewalld
+</code></pre>
+<h3 id="运行安装文件"><a href="#运行安装文件" class="headerlink" title="运行安装文件"></a>运行安装文件</h3><pre><code class="undefined">./arkserver install
+</code></pre>
+<p>一路回车即可</p>
+<h2 id="开服相关"><a href="#开服相关" class="headerlink" title="开服相关"></a>开服相关</h2><h3 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h3><p>可通过编辑<code>Game.ini</code>和<code>GameUserSettings.ini</code>文件（位于<code>/home/arkserver/serverfiles/ShooterGame/Saved/Config/LinuxServer</code>）修改服务器配置 笔者使用的是PC端<code>...\steamapps\common\ARK\ShooterGame\Saved\Config\WindowsNoEditor</code>文件夹下的这两个文件，并在<code>GameUserSettings.ini</code>文件<code>[ServerSettings]</code>下添加：</p>
+<pre><code class="undefined">ServerPassword=123456
+ServerAdminPassword=654321
+</code></pre>
+<p>分别对应加入服务器密码和管理员密码 更多配置参数可查看<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv4964408/#">官方wiki: Server Configuration</a></p>
+<h3 id="更换地图"><a href="#更换地图" class="headerlink" title="更换地图"></a>更换地图</h3><p><code>lgsm/config-lgsm/arkserver/arkserver.cfg</code>文件添加一行：</p>
+<pre><code class="undefined">defaultmap=&quot;MAP_NAME_HERE&quot;
+</code></pre>
+<p><code>MAP_NAME_HERE</code>替换成地图名 地图名：</p>
+<pre><code class="undefined">TheIsland
+TheCenter
+Ragnarok
+ScorchedEarth_P
+Aberration_P
+Extinction
+Valguero_P
+</code></pre>
+<h3 id="设置人数"><a href="#设置人数" class="headerlink" title="设置人数"></a>设置人数</h3><p><code>lgsm/config-lgsm/arkserver/arkserver.cfg</code>文件添加一行：</p>
+<pre><code class="undefined">maxplayers=10
+</code></pre>
+<h3 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h3><pre><code class="undefined">./arkserver start
+</code></pre>
+<p>PS：启动服务器需要时间，耐心等待。</p>
+<h3 id="停止服务器"><a href="#停止服务器" class="headerlink" title="停止服务器"></a>停止服务器</h3><pre><code class="undefined">./arkserver stop
+</code></pre>
+<h3 id="更新服务器版本"><a href="#更新服务器版本" class="headerlink" title="更新服务器版本"></a>更新服务器版本</h3><pre><code class="undefined">./arkserver update
+</code></pre>
+<h2 id="加入服务器"><a href="#加入服务器" class="headerlink" title="加入服务器"></a>加入服务器</h2><p>打开steam主窗口，左上角<code>视图</code>-<code>服务器</code>，在收藏中使用地址或ip添加服务器后，右键连接即可。 之后可直接在游戏内收藏夹中连接。</p>
+<h2 id="mod安装"><a href="#mod安装" class="headerlink" title="mod安装"></a>mod安装</h2><p>编辑<code>GameUserSettings.ini</code>文件，<code>[ServerSettings]</code>下，<code>ActiveMods</code>字段：</p>
+<pre><code class="undefined">ActiveMods=[workshopID],[workshopID],[workshopID],[workshopID]
+</code></pre>
+<p>编辑<code>Game.ini</code>文件，<code>[ServerSettings]</code>下，增加<code>ModInstaller</code>属性：</p>
+<pre><code class="undefined">[ModInstaller]
+ModIDS=[workshopID]
+ModIDS=[workshopID]
+ModIDS=[workshopID]
+ModIDS=[workshopID]
+</code></pre>
+<p>最后执行：</p>
+<pre><code class="undefined">./arkserver restart -automanagedmods
+</code></pre>
+<p>PS：mod安装也需要时间，耐心等待</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.xhyeax.com/2020/03/03/ark-server-linux/https://www.bilibili.com/read/cv4964408/#">https://blog.xhyeax.com/2020/03/03/ark-server-linux/https://www.bilibili.com/read/cv4964408/#</a>)</p>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/娱乐" style=color:#03a9f4>
+                娱乐
+            </a>
+        </span>
+        
+    </div>
+
+    <a href="/2022/05/16/资料/服务器/方舟服务器搭建/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/05/16/Git/Git命令/">
+        <h2>
+            Git忽略规则
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+        <span class="category">
+            <a href="/categories/Git">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                Git
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/5/16
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h2 id="git提交时间修改"><a href="#git提交时间修改" class="headerlink" title="git提交时间修改"></a>git提交时间修改</h2><h3 id="操作步骤："><a href="#操作步骤：" class="headerlink" title="操作步骤："></a>操作步骤：</h3><ul>
+<li>下载修改提交时间插件<code>git-redate</code></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://github.com/PotatoLabs/git-redate">https://github.com/PotatoLabs/git-redate</a></p>
+<ul>
+<li>解压文件夹，把git-redate文件置于git安装目录的\mingw64\libexec\git-core文件夹下</li>
+<li>去到对应git项目的根目录下，执行如下命令：</li>
+</ul>
+<pre><code>git redate -c 6
+</code></pre>
+<p>数字6指的是查看最新的6条提交记录</p>
+<ul>
+<li>出现如下界面：</li>
+</ul>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/20210115174827502.png" alt="在这里插入图片描述"></p>
+<ul>
+<li><p>输入“1”按回车，进入vi视图界面。在这里可以看到git提交记录的相关信息包括时间</p>
+</li>
+<li><p>此时熟悉linux操作的同学应该知道怎么操作修改，不熟悉vi工具的同学可自行google学习基本操作命令。</p>
+</li>
+</ul>
+<p>简要操作：</p>
+<ol>
+<li><p>按“i”键，进入修改模式。</p>
+</li>
+<li><p>找到对应记录的时间进行修改。</p>
+</li>
+<li><p>修改完毕，按“ESC”键退出修改模式。</p>
+</li>
+<li><p>按“:”键，输入wq保存修改。</p>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/20210115175557762.png" alt="在这里插入图片描述"></p>
+</li>
+</ol>
+<ul>
+<li><p>保存后，等待一会儿。出现如下提示，更新时间成功</p>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/20210115175835886.png" alt="在这里插入图片描述"></p>
+</li>
+</ul>
+<p>这里笔者这里会出现提示“line 50: ~&#x2F;.redate-settings: No such file or directory”，可直接忽略不影响结果。</p>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ul>
+<li>执行脚本前，请先确保所有修改内容已commit。否则会更新失败，出现如下提示：</li>
+</ul>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/20210115180300103.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>此方法只能修改提交记录的时间，不能修改提交的注释</li>
+</ul>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/Git基础" style=color:#00bcd4>
+                Git基础
+            </a>
+        </span>
+        
+    </div>
+
+    <a href="/2022/05/16/Git/Git命令/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/05/16/资料/常用SQL记录/">
+        <h2>
+            常用SQL记录
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+        <span class="category">
+            <a href="/categories/SQL">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                SQL
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/5/16
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h2 id="常用SQL记录"><a href="#常用SQL记录" class="headerlink" title="常用SQL记录"></a>常用SQL记录</h2><h4 id="按密码出现次数排序，并查询出现次数"><a href="#按密码出现次数排序，并查询出现次数" class="headerlink" title="按密码出现次数排序，并查询出现次数"></a>按密码出现次数排序，并查询出现次数</h4><pre><code>SELECT password,
+    count( 1 ) AS number 
+FROM
+    sys_account_info 
+GROUP BY
+    password 
+ORDER BY
+    count( 1 ) DESC
+</code></pre>
+<h4 id="查询数据库所有外键及启用情况"><a href="#查询数据库所有外键及启用情况" class="headerlink" title="查询数据库所有外键及启用情况"></a>查询数据库所有外键及启用情况</h4><pre><code>select name,is_disabled from sys.foreign_keys
+</code></pre>
+<h4 id="启用或禁用所有数据库外键"><a href="#启用或禁用所有数据库外键" class="headerlink" title="启用或禁用所有数据库外键"></a>启用或禁用所有数据库外键</h4><pre><code>-- 禁用某个数据库的所有表的外键约束
+EXEC sp_MSforeachtable @command1=&#39;alter table ? NOCHECK constraint all;&#39;
+-- 启用某个数据库的所有表的外键约束
+EXEC sp_MSforeachtable @command1=&#39;alter table ? CHECK constraint all;&#39;
+</code></pre>
+<h4 id="查询某个表的所有外键"><a href="#查询某个表的所有外键" class="headerlink" title="查询某个表的所有外键"></a>查询某个表的所有外键</h4><pre><code>SELECT
+    fk.name,
+    fk.object_id,
+    OBJECT_NAME( fk.parent_object_id ) AS referenceTableName 
+FROM
+    sys.foreign_keys AS fk
+    JOIN sys.objects AS o ON fk.referenced_object_id= o.object_id 
+WHERE
+    o.name= &#39;apss_light_application&#39;
+</code></pre>
+<h4 id="replace函数"><a href="#replace函数" class="headerlink" title="replace函数"></a>replace函数</h4><pre><code>-- 更新apss_light_application，替换entry_address字段中的192.16.1.144和192.16.1.151为10.235.68.12
+UPDATE [dbo].[apss_light_application] 
+SET entry_address = REPLACE( entry_address, &#39;192.16.1.144&#39;, &#39;10.235.68.12&#39; );
+
+UPDATE [dbo].[apss_light_application] 
+SET entry_address = REPLACE( entry_address, &#39;192.16.1.151&#39;, &#39;10.235.68.12&#39; );
+
+-- 修改text 或 ntext类型数据
+UPDATE [dbo].[apss_material_management_module] 
+SET substance = REPLACE( cast(substance as varchar(max)), &#39;http://10.235.68.11:6001&#39;, &#39;https://wap.hzairport.com/simple-file-service&#39; )
+WHERE substance LIKE &#39;%10.235.68.%&#39;;
+</code></pre>
+<h4 id="设置id插入允许"><a href="#设置id插入允许" class="headerlink" title="设置id插入允许"></a>设置id插入允许</h4><pre><code>set identity_insert dbo.apss_material_management_module on
+set identity_insert dbo.apss_material_management_module off
+</code></pre>
+<h4 id="修改列长度"><a href="#修改列长度" class="headerlink" title="修改列长度"></a>修改列长度</h4><pre><code>-- 修改列 auth_code 长度为255
+alter table [dbo].[membership_auth_record] alter column auth_code varchar(255)
+</code></pre>
+<h4 id="替换列内容"><a href="#替换列内容" class="headerlink" title="替换列内容"></a>替换列内容</h4><pre><code>alter table [dbo].[apss_material_management_module] add substance_n ntext;
+UPDATE [dbo].[apss_material_management_module] SET substance_n = substance;
+alter table [dbo].[apss_material_management_module] DROP COLUMN substance;
+-- 替换回来
+exec sp_rename &#39;[dbo].[apss_material_management_module].substance_n&#39;,&#39;substance&#39;,&#39;COLUMN&#39;
+</code></pre>
+<h4 id="MYSQL中group-concat长度限制！默认1024"><a href="#MYSQL中group-concat长度限制！默认1024" class="headerlink" title="MYSQL中group_concat长度限制！默认1024"></a>MYSQL中group_concat长度限制！默认1024</h4><pre><code>1).在MySQL配置文件中加上
+    group_concat_max_len = 102400 #你要的最大长度
+2).可以简单一点，执行语句,可以设置作用范围
+    SET GLOBAL group_concat_max_len=102400;
+    SET SESSION group_concat_max_len=102400;
+</code></pre>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        
+    </div>
+
+    <a href="/2022/05/16/资料/常用SQL记录/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/05/16/资料/Dos/git自动提交/">
+        <h2>
+            Git自动提交代码
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+        <span class="category">
+            <a href="/categories/Dos">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                Dos
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/5/16
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h3 id="Git自动提交代码"><a href="#Git自动提交代码" class="headerlink" title="Git自动提交代码"></a>Git自动提交代码</h3><pre><code>@echo off
+@title bat execute git auto commit
+F:
+cd F:/project/mdbook
+git add .
+git commit -m &quot;Auto commit.&quot;
+git push
+</code></pre>
+<p>如果不想看到黑窗口弹出，则在<code>@echo off</code>下一行添加如下代码即可</p>
+<pre><code>if &quot;%1&quot;==&quot;h&quot; goto begin
+start mshta vbscript:createobject(&quot;wscript.shell&quot;).run(&quot;&quot;&quot;%~nx0&quot;&quot; h&quot;,0)(window.close)&amp;&amp;exit
+:begin
+</code></pre>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/脚本" style=color:#ff7d73>
+                脚本
+            </a>
+        </span>
+        
+    </div>
+
+    <a href="/2022/05/16/资料/Dos/git自动提交/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/05/16/资料/中间件/MongoDB/MongoDB导出导入/">
+        <h2>
+            MongoDB常用命令
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+        <span class="category">
+            <a href="/categories/MongoDB">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                MongoDB
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/5/16
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h3 id="启动Mongodb"><a href="#启动Mongodb" class="headerlink" title="启动Mongodb"></a>启动Mongodb</h3><pre><code>./mongod -f /opt/mongodb/mongod.conf -fork
+</code></pre>
+<h3 id="停止Mongodb"><a href="#停止Mongodb" class="headerlink" title="停止Mongodb"></a>停止Mongodb</h3><pre><code>use admin;
+switched to db admin
+db.shutdownServer();
+server should be down...
+</code></pre>
+<h3 id="设置管理员账号"><a href="#设置管理员账号" class="headerlink" title="设置管理员账号"></a>设置管理员账号</h3><pre><code>use admin  
+db.createUser(&#123;
+  user: &#39;root&#39;,  // 用户名
+  pwd: &#39;qdcares805&#39;,  // 密码
+  roles:[&#123;
+    role: &#39;root&#39;,  // 角色
+    db: &#39;admin&#39;  // 数据库
+  &#125;]
+&#125;)
+</code></pre>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><pre><code>db.sfss.find(&#123;&quot;_id&quot;:ObjectId(&quot;60efeabf8036fc062411c4e7&quot;)&#125;)
+db.fs.files.find(&#123;&quot;_id&quot;:ObjectId(&quot;60efeabf8036fc062411c4e7&quot;)&#125;)
+db.fs.chunks.find(&#123;&quot;files_id&quot;:ObjectId(&quot;60efeabf8036fc062411c4e7&quot;)&#125;)
+</code></pre>
+<h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><pre><code>./mongoexport -u root -p qdcares805 -q &#39;&#123;&quot;_id&quot;:&#123; &quot;$oid&quot; : &quot;60efeabf8036fc062411c4e7&quot; &#125;&#125;&#39; --authenticationDatabase admin -d qdcares -c sfss -o /home/mongod/mongo/database/export/sfss.json
+</code></pre>
+<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><pre><code>mongoimport.exe -u root -p qdcares805 --authenticationDatabase admin -d qdcares -c fs.files --type=json --file ../export/fs_files.json
+
+mongoimport.exe -u root -p qdcares805 --authenticationDatabase admin -d qdcares -c fs.chunks --type=json --file ../export/fs_chunks.json
+
+mongoimport.exe -u root -p qdcares805 --authenticationDatabase admin -d qdcares -c sfss --type=json --file ../export/sfss.json
+</code></pre>
+<h3 id="图标资源导出路径记录"><a href="#图标资源导出路径记录" class="headerlink" title="图标资源导出路径记录"></a>图标资源导出路径记录</h3><pre><code>F:\project\mongo\icon
+</code></pre>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><pre><code>// 图标文件
+./mongoexport -u root -p qdcares805 -q &#39;&#123;&quot;$or&quot;:[&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f17d8036fc05f049804b&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f1868036fc05f049804d&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f2978036fc05f049804f&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f29c8036fc05f0498051&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f17d8036fc05f049804b&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f1868036fc05f049804d&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcb228036fc05f049802d&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcb2a8036fc05f049802f&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f32b8036fc05f0498053&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f32f8036fc05f0498055&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3b48036fc05f049805b&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3b88036fc05f049805d&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3738036fc05f0498057&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3778036fc05f0498059&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcac28036fc05f0498021&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcac68036fc05f0498023&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;]&#125;&#39; --authenticationDatabase admin -d qdcares -c sfss -o /home/mongod/mongo/database/export/sfss.json
+
+
+
+./mongoexport -u root -p qdcares805 -q &#39;&#123;&quot;$or&quot;:[&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f17d8036fc05f049804b&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f1868036fc05f049804d&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f2978036fc05f049804f&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f29c8036fc05f0498051&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f17d8036fc05f049804b&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f1868036fc05f049804d&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcb228036fc05f049802d&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcb2a8036fc05f049802f&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f32b8036fc05f0498053&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f32f8036fc05f0498055&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3b48036fc05f049805b&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3b88036fc05f049805d&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3738036fc05f0498057&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3778036fc05f0498059&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcac28036fc05f0498021&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcac68036fc05f0498023&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,
+&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;]&#125;&#39; --authenticationDatabase admin -d qdcares -c fs.chunks -o /home/mongod/mongo/database/export/fs_chunks.json
+
+
+
+// 全部
+./mongoexport -u root -p qdcares805 -q &#39;&#123;&quot;$or&quot;:[&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f17d8036fc05f049804b&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f1868036fc05f049804d&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f2978036fc05f049804f&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f29c8036fc05f0498051&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f17d8036fc05f049804b&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f1868036fc05f049804d&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcb228036fc05f049802d&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcb2a8036fc05f049802f&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f32b8036fc05f0498053&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f32f8036fc05f0498055&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3b48036fc05f049805b&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3b88036fc05f049805d&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3738036fc05f0498057&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3778036fc05f0498059&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcac28036fc05f0498021&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcac68036fc05f0498023&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60fa22a08036fc0fc04d1f60&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f0eb098036fc062411c517&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f912f98036fc0fc04d1c9b&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109eef48036fc05f049803f&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;610b3f3a8036fc05f0498074&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7864f8036fc1c30913dbd&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f68c028036fc131c569198&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;610b41288036fc05f0498079&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7864f8036fc1c30913dbd&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60fa22fc8036fc0fc04d1f6c&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;610a5e408036fc05f049806f&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f785e58036fc1c30913db1&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f666da8036fc232cb5f2bb&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109eef48036fc05f049803f&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeb708036fc062411c4ef&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f785e58036fc1c30913db1&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f635ca8036fc22b0f481f1&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f635ca8036fc22b0f481f1&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f635ca8036fc22b0f481f1&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efc8268036fc062411c4b8&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f635ca8036fc22b0f481f1&quot;&#125;&#125;,
+&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;]&#125;&#39; --authenticationDatabase admin -d qdcares -c sfss -o /home/mongod/mongo/database/export/sfss.json
+</code></pre>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/中间件" style=color:#00a596>
+                中间件
+            </a>
+        </span>
+        
+    </div>
+
+    <a href="/2022/05/16/资料/中间件/MongoDB/MongoDB导出导入/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/05/16/资料/中间件/MongoDB/MongoDB集群部署/">
+        <h2>
+            MongoDB集群部署
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+        <span class="category">
+            <a href="/categories/MongoDB">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                MongoDB
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/5/16
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <p>参考链接</p>
+<p><a target="_blank" rel="noopener" href="https://www.1024sou.com/article/809940.html">https://www.1024sou.com/article/809940.html</a></p>
+<pre><code>storage:
+  dbPath: F:\MongoDB\Server\4.2\data
+  journal:
+    enabled: true
+
+# where to write logging data.
+systemLog:
+  destination: file
+  logAppend: true
+  path:  F:\MongoDB\Server\4.2\log\mongo.log
+
+net:
+  port: 27017
+  # 允许所有IP地址进行访问
+  bindIp: 0.0.0.0
+
+#processManagement:
+
+security:
+  authorization: enabled
+  # 用于副本集模式各节点互相认证用
+  keyFile: C:\Program Files\MongoDB\Server\4.2\bin\keyFile\mongodb.key
+
+#operationProfiling:
+
+replication:
+  # 副本名称
+  replSetName: qdcares
+
+#sharding:
+
+## Enterprise-Only Options:
+
+#auditLog:
+
+#snmp:
+</code></pre>
+<p>查看当前副本集状态</p>
+<pre><code>rs.status()
+</code></pre>
+<pre><code># 创建登录账号
+db.createUser(
+  &#123;
+    user: &quot;root&quot;,
+    pwd: &quot;mongo@2021&quot;,
+    roles: [ &#123; role: &quot;root&quot;, db: &quot;admin&quot; &#125; ]
+  &#125;
+)  
+
+# 创建登录账号
+db.createUser(
+  &#123;
+    user: &quot;mongo&quot;,
+    pwd: &quot;mongo@2021&quot;,
+    roles: [ &#123; role: &quot;readWrite&quot;, db: &quot;qdcares&quot; &#125; ]
+  &#125;
+)  
+
+# 用户登录
+db.auth(&quot;mongo&quot;,&quot;mongo@2021&quot;)
+# 用户登录
+db.auth(&quot;root&quot;,&quot;mongo@2021&quot;)
+</code></pre>
+<p>生成keyFile命令，Linux系统生成很方便，Windows没有尝试</p>
+<pre><code>sudo openssl rand -base64 741 &gt;&gt; /opt/mongodb.key
+</code></pre>
+<p>添加节点</p>
+<p>生产环境添加节点时，建议将priority及votes设为0，即不会选为主（priority默认1），也没有投票特性（votes默认1，有投票权）</p>
+<ul>
+<li><p>priority：能否选为主节点</p>
+</li>
+<li><p>votes：是否有投票权</p>
+</li>
+</ul>
+<pre><code>test12:PRIMARY&gt; rs.add( &#123; host: &quot;10.235.196.17:27017&quot;, priority: 0, votes: 0 &#125; )
+</code></pre>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/中间件" style=color:#ffa2c4>
+                中间件
+            </a>
+        </span>
+        
+    </div>
+
+    <a href="/2022/05/16/资料/中间件/MongoDB/MongoDB集群部署/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/05/16/资料/中间件/Redis/Redis部署手册/">
+        <h2>
+            Redis集群部署
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+        <span class="category">
+            <a href="/categories/Redis">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                Redis
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/5/16
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>下载地址： <a target="_blank" rel="noopener" href="https://github.com/MicrosoftArchive/redis/releases">https://github.com/MicrosoftArchive/redis/releases</a></p>
+<p>安装包已提供，如需下载则根据系统下载的版本：以（64位为例）</p>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201051.png" alt="202201051"></p>
+<p>下载后一般解压到根目录下：如（E:\Redis-x64-3.2.100）</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>打开cmd命令窗口，使用命令进行安装和注册redis到window服务</p>
+<p>安装命令：redis-server.exe –service-install redis.windows.conf –loglevel verbose</p>
+<p>启动服务命令：redis-server.exe –service-start</p>
+<p>关闭服务命令：redis-server.exe –service-stop</p>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201052.png" alt="202201052">最后返回的successfully表示安装成功。</p>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201053.png" alt="202201053"></p>
+<p>也可以通过任务管理器中查看后台中是否有redis-service来判断是否启动成功。</p>
+<h3 id="客户端使用redis"><a href="#客户端使用redis" class="headerlink" title="客户端使用redis"></a>客户端使用redis</h3><p>我们重新打开一个cmd ,作为一个客户端调用redis服务，如下图所示，调用命令是：redis-cli.exe -h [本机ip] -p 6379，如下图显示地址和端口，说明调用成功</p>
+<p>然后我们使用set 和get 命令进行测试一下，set uname “abc”,然后使用get uname可以获取到对应set的值，说明调用成功</p>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201054.png" alt="202201054"></p>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201055.png" alt="202201055"></p>
+<h3 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h3><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201056.png" alt="202201056"></p>
+<p>上图中的root可以改为自己设置的密码</p>
+<p>还可以通过将字符串设置为空来清空密码：<br>CONFIG SET requirepass “”</p>
+<h3 id="问题记录：Creating-Server-TCP-listening-socket-127-0-0-1-6379-bind-No-error"><a href="#问题记录：Creating-Server-TCP-listening-socket-127-0-0-1-6379-bind-No-error" class="headerlink" title="问题记录：Creating Server TCP listening socket 127.0.0.1:6379: bind: No error"></a>问题记录：Creating Server TCP listening socket 127.0.0.1:6379: bind: No error</h3><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201057.png" alt="202201057"></p>
+<p>解决办法：</p>
+<pre><code>E:\Redis-x64-3.2.100&gt;redis-cli.exe
+127.0.0.1:6379&gt; shutdown
+(error) NOAUTH Authentication required.
+127.0.0.1:6379&gt; auth root　## 登录
+OK
+127.0.0.1:6379&gt; shutdown
+not connected&gt; exit
+
+E:\Redis-x64-3.2.100&gt;redis-server.exe redis.windows.conf
+</code></pre>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201058.png" alt="202201058"></p>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/中间件" style=color:#ff7d73>
+                中间件
+            </a>
+        </span>
+        
+    </div>
+
+    <a href="/2022/05/16/资料/中间件/Redis/Redis部署手册/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
     <a href="/2022/05/16/资料/arthas手册/">
         <h2>
             Arthas手册
@@ -264,9 +1122,9 @@
 
 <div class="post">
 
-    <a href="/2022/04/24/资料/博客搭建/">
+    <a href="/2022/05/16/资料/Linux命令整理/">
         <h2>
-            Hexo博客搭建
+            Linux常用命令整理
         </h2>
     </a>
 
@@ -274,10 +1132,10 @@
 
         
         <span class="category">
-            <a href="/categories/博客相关">
+            <a href="/categories/工具">
                 <span class="icon">
                     <a-icon type="book" theme="filled" /></span>
-                博客相关
+                工具
             </a>
         </span>
         
@@ -286,7 +1144,7 @@
             <span class="icon">
                 <a-icon type="calendar" theme="filled" />
             </span>
-            2022/4/24
+            2022/5/16
         </span>
 
     </div>
@@ -295,20 +1153,244 @@
         <div class="content" v-pre>
             
             
-            <p>博客路径</p>
-<p>E:Blog</p>
-<p>Hexo博客搭建教程</p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/745eacc56227">https://www.jianshu.com/p/745eacc56227</a></p>
-<p>博客主题参考地址</p>
-<p><a target="_blank" rel="noopener" href="https://korilin.github.io/hexo-theme-particle-demo/full/public/">https://korilin.github.io/hexo-theme-particle-demo/full/public/</a></p>
-<p>部署命令</p>
-<pre><code class="bash">hexo g
+            <p>作为开发者，这些常用命令不得不会，掌握这些命令，工作上会事半功倍，提供工作效率。</p>
+<h2 id="一-文件和目录"><a href="#一-文件和目录" class="headerlink" title="一. 文件和目录"></a><strong>一. 文件和目录</strong></h2><p>cd命令，用于切换当前目录，它的参数是要切换到的目录的路径，可以是绝对路径，也可以是相对路径。</p>
+<pre><code>cd /home 进入 &#39;/ home&#39; 目录
+cd .. 返回上一级目录
+cd ../.. 返回上两级目录
+cd               进入个人的主目录
+cd ~user1 进入个人的主目录
+cd - 返回上次所在的目录
 </code></pre>
-<p>发布本地命令</p>
-<pre><code class="bash">hexo s
+<p>pwd命令，显示工作路径</p>
+<pre><code>[root@mailvip ~]# pwd
+/root
 </code></pre>
-<p>发布GitHub命令</p>
-<pre><code class="bash">hexo d
+<p>ls命令，查看文件与目录的命令，list之意</p>
+<pre><code>ls 查看目录中的文件
+ls -l 显示文件和目录的详细资料
+ls -a 列出全部文件，包含隐藏文件
+ls -R 连同子目录的内容一起列出（递归列出），等于该目录下的所有文件都会显示出来
+ls [0-9] 显示包含数字的文件名和目录名
+</code></pre>
+<p>cp命令，用于复制文件，copy之意，它还可以把多个文件一次性地复制到一个目录下</p>
+<pre><code>-a ：将文件的特性一起复制
+-p ：连同文件的属性一起复制，而非使用默认方式，与-a相似，常用于备份
+-i ：若目标文件已经存在时，在覆盖时会先询问操作的进行
+-r ：递归持续复制，用于目录的复制行为 //经常使用递归复制
+-u ：目标文件与源文件有差异时才会复制
+</code></pre>
+<p>mv命令，用于移动文件、目录或更名，move之意</p>
+<pre><code>-f ：force强制的意思，如果目标文件已经存在，不会询问而直接覆盖
+-i ：若目标文件已经存在，就会询问是否覆盖
+-u ：若目标文件已经存在，且比目标文件新，才会更新
+</code></pre>
+<p>rm命令，用于删除文件或目录，remove之意</p>
+<pre><code>-f ：就是force的意思，忽略不存在的文件，不会出现警告消息
+-i ：互动模式，在删除前会询问用户是否操作
+-r ：递归删除，最常用于目录删除，它是一个非常危险的参数
+-rf : 删除文件夹
+</code></pre>
+<h2 id="二、查看文件内容"><a href="#二、查看文件内容" class="headerlink" title="二、查看文件内容"></a><strong>二、查看文件内容</strong></h2><p>cat命令，用于查看文本文件的内容，后接要查看的文件名，通常可用管道与more和less一起使用</p>
+<pre><code>cat file1 从第一个字节开始正向查看文件的内容
+tac file1 从最后一行开始反向查看一个文件的内容
+cat -n file1 标示文件的行数
+more file1 查看一个长文件的内容
+
+head -n 2 file1 查看一个文件的前两行
+tail -n 2 file1 查看一个文件的最后两行
+tail -n +1000 file1 从1000行开始显示，显示1000行以后的
+cat filename | head -n 3000 | tail -n +1000  显示1000行到3000行
+cat filename | tail -n +3000 | head -n 1000  从第3000行开始，显示1000(即显示3000~3999行)
+</code></pre>
+<p><strong>三.文件搜索</strong></p>
+<p>find命令，用来查找系统的</p>
+<pre><code>find / -name file1 从 &#39;/&#39; 开始进入根文件系统搜索文件和目录
+find / -user user1 搜索属于用户 &#39;user1&#39; 的文件和目录
+find /usr/bin -type f -atime +100 搜索在过去100天内未被使用过的执行文件
+find /usr/bin -type f -mtime -10 搜索在10天内被创建或者修改过的文件
+whereis halt 显示一个二进制文件、源码或man的位置
+which halt 显示一个二进制文件或可执行文件的完整路径
+</code></pre>
+<p>删除大于50M的文件：</p>
+<pre><code>find /var/mail/ -size +50M -exec rm &#123;&#125; ＼;
+</code></pre>
+<h3 id="四-文件的权限-使用-“-”-设置权限，使用-“-“-用于取消"><a href="#四-文件的权限-使用-“-”-设置权限，使用-“-“-用于取消" class="headerlink" title="四.文件的权限 - 使用 “+” 设置权限，使用 “-“ 用于取消"></a>四.文件的权限 - 使用 “+” 设置权限，使用 “-“ 用于取消</h3><p>chmod命令，改变文件&#x2F;文件夹权限</p>
+<pre><code>ls -lh 显示权限
+chmod ugo+rwx directory1 设置目录的所有人(u)、群组(g)以及其他人(o)以读（r，4 ）、写(w，2)和执行(x，1)的权限
+chmod go-rwx directory1  删除群组(g)与其他人(o)对目录的读写执行权限
+</code></pre>
+<p>chown命令，改变文件的所有者</p>
+<pre><code>chown user1 file1 改变一个文件的所有人属性
+chown -R user1 directory1 改变一个目录的所有人属性并同时改变改目录下所有文件的属性
+chown user1:group1 file1 改变一个文件的所有人和群组属性
+</code></pre>
+<p>chgrp命令，改变文件所属用户组</p>
+<pre><code>chgrp group1 file1 改变文件的群组
+</code></pre>
+<h3 id="五-文本处理"><a href="#五-文本处理" class="headerlink" title="五.文本处理"></a><strong>五.文本处理</strong></h3><p>grep命令，分析一行的信息，若当中有我们所需要的信息，就将该行显示出来，该命令通常与管道命令一起使用，用于对一些命令的输出进行筛选加工等等</p>
+<pre><code>grep Aug /var/log/messages  在文件 &#39;/var/log/messages&#39;中查找关键词&quot;Aug&quot; 
+
+grep ^Aug /var/log/messages 在文件 &#39;/var/log/messages&#39;中查找以&quot;Aug&quot;开始的词汇
+grep [0-9] /var/log/messages 选择 &#39;/var/log/messages&#39; 文件中所有包含数字的行
+
+grep Aug -R /var/log/* 在目录 &#39;/var/log&#39; 及随后的目录中搜索字符串&quot;Aug&quot; 
+
+sed &#39;s/stringa1/stringa2/g&#39; example.txt 将example.txt文件中的 &quot;string1&quot; 替换成 &quot;string2&quot; 
+
+sed &#39;/^$/d&#39; example.txt 从example.txt文件中删除所有空白行
+</code></pre>
+<p>paste命令</p>
+<pre><code>paste file1 file2 合并两个文件或两栏的内容
+paste -d &#39;+&#39; file1 file2 合并两个文件或两栏的内容，中间用&quot;+&quot;区分
+</code></pre>
+<p>sort命令</p>
+<pre><code>sort file1 file2 排序两个文件的内容
+sort file1 file2 | uniq 取出两个文件的并集(重复的行只保留一份)
+sort file1 file2 | uniq -u 删除交集，留下其他的行
+sort file1 file2 | uniq -d 取出两个文件的交集(只留下同时存在于两个文件中的文件)
+</code></pre>
+<p>comm命令</p>
+<pre><code>comm -1 file1 file2 比较两个文件的内容只删除 &#39;file1&#39; 所包含的内容
+comm -2 file1 file2 比较两个文件的内容只删除 &#39;file2&#39; 所包含的内容
+comm -3 file1 file2 比较两个文件的内容只删除两个文件共有的部分
+</code></pre>
+<h3 id="六、打包和压缩文件"><a href="#六、打包和压缩文件" class="headerlink" title="六、打包和压缩文件"></a>六、打包和压缩文件</h3><p>tar命令，对文件进行打包，默认情况并不会压缩，如果指定了相应的参数，它还会调用相应的压缩程序（如gzip和bzip等）进行压缩和解压</p>
+<pre><code>-c ：新建打包文件
+-t ：查看打包文件的内容含有哪些文件名
+-x ：解打包或解压缩的功能，可以搭配-C（大写）指定解压的目录，注意-c,-t,-x不能同时出现在同一条命令中
+-j ：通过bzip2的支持进行压缩/解压缩
+-z ：通过gzip的支持进行压缩/解压缩
+-v ：在压缩/解压缩过程中，将正在处理的文件名显示出来
+-f filename ：filename为要处理的文件
+-C dir ：指定压缩/解压缩的目录dir
+</code></pre>
+<p>压缩：tar -jcv -f filename.tar.bz2 要被处理的文件或目录名称 查询：tar -jtv -f filename.tar.bz2 解压：tar -jxv -f filename.tar.bz2 -C 欲解压缩的目录</p>
+<pre><code>bunzip2 file1.bz2 解压一个叫做 &#39;file1.bz2&#39;的文件
+bzip2 file1 压缩一个叫做 &#39;file1&#39; 的文件
+gunzip file1.gz 解压一个叫做 &#39;file1.gz&#39;的文件
+gzip file1 压缩一个叫做 &#39;file1&#39;的文件
+gzip -9 file1 最大程度压缩
+rar a file1.rar test_file 创建一个叫做 &#39;file1.rar&#39; 的包
+rar a file1.rar file1 file2 dir1 同时压缩 &#39;file1&#39;, &#39;file2&#39; 以及目录 &#39;dir1&#39; 
+rar x file1.rar 解压rar包
+
+zip file1.zip file1 创建一个zip格式的压缩包
+unzip file1.zip 解压一个zip格式压缩包
+zip -r file1.zip file1 file2 dir1 将几个文件和目录同时压缩成一个zip格式的压缩包
+</code></pre>
+<h3 id="七-系统和关机（关机、重启和登出）"><a href="#七-系统和关机（关机、重启和登出）" class="headerlink" title="七.系统和关机（关机、重启和登出）"></a><strong>七.系统和关机（关机、重启和登出）</strong></h3><pre><code>shutdown -h now 关闭系统(1)
+init 0 关闭系统(2)
+telinit 0 关闭系统(3)
+shutdown -h hours:minutes &amp; 按预定时间关闭系统
+shutdown -c 取消按预定时间关闭系统
+shutdown -r now 重启(1)
+reboot 重启(2)
+logout 注销
+time 测算一个命令（即程序）的执行时间
+</code></pre>
+<h3 id="八、进程相关的命令"><a href="#八、进程相关的命令" class="headerlink" title="八、进程相关的命令"></a><strong>八、进程相关的命令</strong></h3><p>jps命令，显示当前系统的java进程情况，及其id号</p>
+<p>jps(Java Virtual Machine Process Status Tool)是JDK 1.5提供的一个显示当前所有java进程pid的命令，简单实用，非常适合在linux&#x2F;unix平台上简单察看当前java进程的一些简单情况。</p>
+<p>ps命令，用于将某个时间点的进程运行情况选取下来并输出，process之意</p>
+<pre><code>-A ：所有的进程均显示出来
+-a ：不与terminal有关的所有进程
+-u ：有效用户的相关进程
+-x ：一般与a参数一起使用，可列出较完整的信息
+-l ：较长，较详细地将PID的信息列出
+
+ps aux # 查看系统所有的进程数据
+ps ax # 查看不与terminal有关的所有进程
+ps -lA # 查看系统所有的进程数据
+ps axjf # 查看连同一部分进程树状态
+</code></pre>
+<p>kill命令,用于向某个工作（%jobnumber）或者是某个PID（数字）传送一个信号，它通常与ps和jobs命令一起使用</p>
+<p>命令格式 : kill[命令参数][进程id]</p>
+<p>命令参数:</p>
+<pre><code>-l 信号，若果不加信号的编号参数，则使用“-l”参数会列出全部的信号名称
+-a 当处理当前进程时，不限制命令名和进程号的对应关系
+-p 指定kill 命令只打印相关进程的进程号，而不发送任何信号
+-s 指定发送信号
+-u 指定用户
+</code></pre>
+<p>实例1：列出所有信号名称 命令：kill -l 输出：</p>
+<pre><code class="Linux">[root@localhost test6]# kill -l
+ 1) SIGHUP 2) SIGINT 3) SIGQUIT 4) SIGILL
+ 5) SIGTRAP 6) SIGABRT 7) SIGBUS 8) SIGFPE
+ 9) SIGKILL 10) SIGUSR1 11) SIGSEGV 12) SIGUSR2
+13) SIGPIPE 14) SIGALRM 15) SIGTERM 16) SIGSTKFLT
+17) SIGCHLD 18) SIGCONT 19) SIGSTOP 20) SIGTSTP
+21) SIGTTIN 22) SIGTTOU 23) SIGURG 24) SIGXCPU
+25) SIGXFSZ 26) SIGVTALRM 27) SIGPROF 28) SIGWINCH
+29) SIGIO 30) SIGPWR 31) SIGSYS 34) SIGRTMIN
+35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3  38) SIGRTMIN+4
+39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8
+43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12
+47) SIGRTMIN+13 48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14
+51) SIGRTMAX-13 52) SIGRTMAX-12 53) SIGRTMAX-11 54) SIGRTMAX-10
+55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7  58) SIGRTMAX-6
+59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
+63) SIGRTMAX-1  64) SIGRTMAX
+</code></pre>
+<p>说明：</p>
+<p>只有第9种信号(SIGKILL)才可以无条件终止进程，其他信号进程都有权利忽略。  下面是常用的信号：</p>
+<pre><code>HUP 1 终端断线
+INT 2 中断（同 Ctrl + C）
+QUIT 3 退出（同 Ctrl + \）
+TERM 15 终止
+KILL    9    强制终止
+CONT 18    继续（与STOP相反， fg/bg命令）
+STOP    19    暂停（同 Ctrl + Z）
+</code></pre>
+<p>实例2：得到指定信号的数值</p>
+<pre><code>[root@localhost test6]# kill -l KILL
+[root@localhost test6]# kill -l SIGKILL
+[root@localhost test6]# kill -l TERM
+[root@localhost test6]# kill -l SIGTERM
+[root@localhost test6]#
+</code></pre>
+<p>实例3：先用ps查找进程，然后用kill杀掉</p>
+<pre><code>命令：kill 3268
+[root@localhost test6]# ps -ef|grep vim 
+root 3268  2884  0 16:21 pts/1    00:00:00 vim install.log
+root 3370  2822  0 16:21 pts/0    00:00:00 grep vim
+[root@localhost test6]# kill 3268
+</code></pre>
+<p>实例4：彻底杀死进程</p>
+<pre><code>命令：kill –9 3268 // -9 强制杀掉进程
+</code></pre>
+<p>killall命令，向一个命令启动的进程发送一个信号，用于杀死指定名字的进程</p>
+<p>命令格式 : killall[命令参数][进程名]</p>
+<pre><code>命令参数：
+-Z 只杀死拥有scontext 的进程
+-e 要求匹配进程名称
+-I 忽略小写
+-g 杀死进程组而不是进程
+-i 交互模式，杀死进程前先询问用户
+-l 列出所有的已知信号名称
+-q 不输出警告信息
+-s 发送指定的信号
+-v 报告信号是否成功发送
+-w 等待进程死亡
+--help 显示帮助信息
+--version 显示版本显示
+</code></pre>
+<p>示例</p>
+<pre><code>1：杀死所有同名进程
+    killall nginx
+    killall -9 bash
+
+2.向进程发送指定信号
+    killall -TERM ngixn 或者 killall -KILL nginx
+</code></pre>
+<p>top命令，是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。</p>
+<p>如何杀死进程：</p>
+<pre><code>（1）图形化界面的方式
+（2）kill -9 pid （-9表示强制关闭）
+（3）killall -9 程序的名字
+（4）pkill 程序的名字
+</code></pre>
+<p>查看进程端口号：</p>
+<pre><code>netstat -tunlp|grep 端口号
 </code></pre>
 
             
@@ -317,30 +1399,19 @@
 
     <div class="post-tags">
         
-        <span class="icon">
-            <a-icon type="tags" theme="filled" />
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/基础" style=color:#03a9f4>
-                基础
-            </a>
-        </span>
         
     </div>
 
-    <a href="/2022/04/24/资料/博客搭建/ " class="go-post">
+    <a href="/2022/05/16/资料/Linux命令整理/ " class="go-post">
         阅读全文
     </a>
 </div>
 
 <div class="post">
 
-    <a href="/2022/04/22/Nginx/Nginx使用记录/">
+    <a href="/2022/05/16/资料/Session/">
         <h2>
-            Nginx常用命令
+            浏览器Session手动配置
         </h2>
     </a>
 
@@ -348,10 +1419,10 @@
 
         
         <span class="category">
-            <a href="/categories/Nginx">
+            <a href="/categories/工具">
                 <span class="icon">
                     <a-icon type="book" theme="filled" /></span>
-                Nginx
+                工具
             </a>
         </span>
         
@@ -360,7 +1431,7 @@
             <span class="icon">
                 <a-icon type="calendar" theme="filled" />
             </span>
-            2022/4/22
+            2022/5/16
         </span>
 
     </div>
@@ -369,167 +1440,20 @@
         <div class="content" v-pre>
             
             
-            <h1 id="Nginx常用命令"><a href="#Nginx常用命令" class="headerlink" title="Nginx常用命令"></a>Nginx常用命令</h1><h3 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h3><pre><code>nginx -c /etc/nginx/conf/nginx.conf
+            <h3 id="Session手动配置"><a href="#Session手动配置" class="headerlink" title="Session手动配置"></a>Session手动配置</h3><p>F12控制台输入下方代码</p>
+<pre><code>localStorage.setItem(&#39;SESSION&#39;,&#39;NDE2NDNmMzEtOTE4YS00ODZmLWI0MmQtMzcwZDkyYWZmYWQ3&#39;)
 </code></pre>
-<h3 id="关闭命令"><a href="#关闭命令" class="headerlink" title="关闭命令"></a>关闭命令</h3><pre><code>ps -ef|grep nginx
-kill -QUIT 2072
-</code></pre>
-<h3 id="配置文件检测"><a href="#配置文件检测" class="headerlink" title="配置文件检测"></a>配置文件检测</h3><pre><code>nginx -t
-</code></pre>
-<h3 id="重新加载配置文件"><a href="#重新加载配置文件" class="headerlink" title="重新加载配置文件"></a>重新加载配置文件</h3><pre><code>nginx -s reload
-</code></pre>
-<h3 id="nginx配置location-x3D-x2F-uri-x2F-…-用法"><a href="#nginx配置location-x3D-x2F-uri-x2F-…-用法" class="headerlink" title="nginx配置location [&#x3D;||*|^~] &#x2F;uri&#x2F; { … }用法"></a>nginx配置location [&#x3D;|<del>|</del>*|^~] &#x2F;uri&#x2F; { … }用法</h3><ul>
-<li><p>&#x3D; 严格匹配。如果这个查询匹配，那么将停止搜索并立即处理此请求。</p>
-</li>
-<li><p>~ 为区分大小写匹配(可用正则表达式)</p>
-</li>
-<li><p>!~为区分大小写不匹配</p>
-</li>
-<li><p>~* 为不区分大小写匹配(可用正则表达式)</p>
-</li>
-<li><p>!~*为不区分大小写不匹配</p>
-</li>
-<li><p>^~ 如果把这个前缀用于一个常规字符串,那么告诉nginx 如果路径匹配那么不测试正则表达式。</p>
-<h6 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h6></li>
-</ul>
-<p>location &#x3D; &#x2F; {</p>
-<p># 只匹配 &#x2F; 查询。</p>
-<p>}</p>
-<p>location &#x2F; {</p>
-<p># 匹配任何查询，因为所有请求都以 &#x2F; 开头。但是正则表达式规则和长的块规则将被优先和查询匹配。</p>
-<p>}</p>
-<p>location ^~ &#x2F;p_w_picpaths&#x2F; {</p>
-<p># 匹配任何以 &#x2F;p_w_picpaths&#x2F; 开头的任何查询并且停止搜索。任何正则表达式将不会被测试。</p>
-<p>}</p>
-<p>location ~*.(gif|jpg|jpeg)$ {</p>
-<p># 匹配任何以 gif、jpg 或 jpeg 结尾的请求。</p>
-<p>}</p>
-<p>location ~*.(gif|jpg|swf)$ {</p>
-<p>valid_referers none blocked start.igrow.cn sta.igrow.cn;</p>
-<p>if ($invalid_referer) {</p>
-<p>#防盗链</p>
-<p>rewrite ^&#x2F; http:&#x2F;&#x2F;$host&#x2F;logo.png;</p>
-<p>}</p>
-<p>}</p>
-<h3 id="proxy-pass"><a href="#proxy-pass" class="headerlink" title="proxy_pass"></a>proxy_pass</h3><p>在nginx中配置proxy_pass代理转发时，如果在proxy_pass后面的url加&#x2F;，表示绝对根路径；如果没有&#x2F;，表示相对路径，把匹配的路径部分也给代理走。</p>
-<p>假设下面四种情况分别用 <a target="_blank" rel="noopener" href="http://192.168.1.1/proxy/test.html">http://192.168.1.1/proxy/test.html</a> 进行访问。</p>
-<h5 id="第一种："><a href="#第一种：" class="headerlink" title="第一种："></a>第一种：</h5><p>location &#x2F;proxy&#x2F; {<br>    proxy_pass <a target="_blank" rel="noopener" href="http://127.0.0.1/">http://127.0.0.1/</a>;<br>}<br>代理到URL：<a target="_blank" rel="noopener" href="http://127.0.0.1/test.html">http://127.0.0.1/test.html</a></p>
-<h5 id="第二种（相对于第一种，最后少一个-x2F-）"><a href="#第二种（相对于第一种，最后少一个-x2F-）" class="headerlink" title="第二种（相对于第一种，最后少一个 &#x2F; ）"></a>第二种（相对于第一种，最后少一个 &#x2F; ）</h5><p>location &#x2F;proxy&#x2F; {<br>    proxy_pass <a target="_blank" rel="noopener" href="http://127.0.0.1/">http://127.0.0.1</a>;<br>}<br>代理到URL：<a target="_blank" rel="noopener" href="http://127.0.0.1/proxy/test.html">http://127.0.0.1/proxy/test.html</a></p>
-<h5 id="第三种："><a href="#第三种：" class="headerlink" title="第三种："></a>第三种：</h5><p>location &#x2F;proxy&#x2F; {<br>    proxy_pass <a target="_blank" rel="noopener" href="http://127.0.0.1/aaa/">http://127.0.0.1/aaa/</a>;<br>}<br>代理到URL：<a target="_blank" rel="noopener" href="http://127.0.0.1/aaa/test.html">http://127.0.0.1/aaa/test.html</a></p>
-<h5 id="第四种（相对于第三种，最后少一个-x2F-）"><a href="#第四种（相对于第三种，最后少一个-x2F-）" class="headerlink" title="第四种（相对于第三种，最后少一个 &#x2F; ）"></a>第四种（相对于第三种，最后少一个 &#x2F; ）</h5><p>location &#x2F;proxy&#x2F; {<br>    proxy_pass <a target="_blank" rel="noopener" href="http://127.0.0.1/aaa">http://127.0.0.1/aaa</a>;<br>}<br>代理到URL：<a target="_blank" rel="noopener" href="http://127.0.0.1/aaatest.html">http://127.0.0.1/aaatest.html</a></p>
-<h3 id="rewrite-最后一项flag参数："><a href="#rewrite-最后一项flag参数：" class="headerlink" title="rewrite 最后一项flag参数："></a>rewrite 最后一项flag参数：</h3><ul>
-<li>last</li>
-</ul>
-<ol>
-<li>结束当前的请求处理，用替换后的URI重新匹配location；</li>
-<li>可理解为重写（rewrite）后，发起了一个新请求，进入server模块，匹配location；</li>
-<li>如果重新匹配循环的次数超过10次，nginx会返回500错误；</li>
-<li>返回302 http状态码 ；</li>
-<li>浏览器地址栏显示重地向后的url</li>
-</ol>
-<ul>
-<li>break</li>
-</ul>
-<ol>
-<li>结束当前的请求处理，使用当前资源，不在执行location里余下的语句；</li>
-<li>返回302 http状态码 ；</li>
-<li>浏览器地址栏显示重地向后的url</li>
-</ol>
-<ul>
-<li>redirect</li>
-</ul>
-<ol>
-<li>临时跳转，返回302 http状态码；</li>
-<li>浏览器地址栏显示重地向后的url</li>
-</ol>
-<ul>
-<li>permanent</li>
-</ul>
-<ol>
-<li>永久跳转，返回301 http状态码；</li>
-<li>浏览器地址栏显示重定向后的url</li>
-</ol>
-<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><ul>
-<li><p>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-service/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-service/travel/lostFound/list</a></p>
-</li>
-<li><p>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:9999/travel-service/travel/lostFound/list">http://192.16.1.144:9999/travel-service/travel/lostFound/list</a></p>
-<p>  location ^~ &#x2F;api&#x2F;lostFound-service {<br>  proxy_pass <a target="_blank" rel="noopener" href="http://192.16.1.144:9999/travel-service">http://192.16.1.144:9999/travel-service</a>;<br>  proxy_redirect off;<br>  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;<br>  proxy_read_timeout 180s;<br>  #proxy_set_header Host $proxy_host;<br>  }</p>
-</li>
-<li><p>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-servic1/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-servic1/travel/lostFound/list</a></p>
-</li>
-<li><p>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:8767/travel/lostFound/list">http://192.16.1.144:8767/travel/lostFound/list</a></p>
-</li>
-</ul>
-<pre><code>location ^~ /api/lostFound-servic1/ &#123;
-    proxy_pass http://192.16.1.144:8767/;
-    proxy_redirect off;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_read_timeout 180s;
-    #proxy_set_header Host $proxy_host;
-&#125;
-</code></pre>
-<ul>
-<li>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-servic2/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-servic2/travel/lostFound/list</a></li>
-<li>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:8767/api/lostFound-servic2/travel/lostFound/list">http://192.16.1.144:8767/api/lostFound-servic2/travel/lostFound/list</a> (可以发现这种方式只修改location匹配字段前面的信息)</li>
-</ul>
-<pre><code>location ^~ /api/lostFound-servic2/ &#123;
-    proxy_pass http://192.16.1.144:8767;
-    proxy_redirect off;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_read_timeout 180s;
-    #proxy_set_header Host $proxy_host;
-&#125;
-</code></pre>
-<ul>
-<li>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-servic3/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-servic3/travel/lostFound/list</a></li>
-<li>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:8767/travel/lostFound/list">http://192.16.1.144:8767/travel/lostFound/list</a></li>
-</ul>
-<pre><code>location ^~ /api/lostFound-servic3 &#123;
-    rewrite /api/lostFound-servic3/(.*) /$1 break;
-    proxy_pass http://192.16.1.144:8767;
-    proxy_redirect off;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_read_timeout 180s;
-    #proxy_set_header Host $proxy_host;
-&#125;
-</code></pre>
-<ul>
-<li>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-servic4/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-servic4/travel/lostFound/list</a></li>
-<li>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:9999/travel-service/travel/lostFound/list">http://192.16.1.144:9999/travel-service/travel/lostFound/list</a></li>
-</ul>
-<pre><code>location ^~ /api/lostFound-servic4/ &#123;
-    proxy_pass http://192.16.1.144:9999/travel-service/;
-    proxy_redirect off;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_read_timeout 180s;
-    #proxy_set_header Host $proxy_host;
-&#125;
-</code></pre>
-<ul>
-<li>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-servic5/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-servic5/travel/lostFound/list</a></li>
-<li>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:9999/travel-service/travel/lostFound/list">http://192.16.1.144:9999/travel-service/travel/lostFound/list</a></li>
-<li>类比上一条可以发现：location和proxy_pass结尾都写<code>/</code>等价于都不写</li>
-</ul>
-<pre><code>location ^~ /api/lostFound-servic5 &#123;
-    proxy_pass http://192.16.1.144:9999/travel-service;
-    proxy_redirect off;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_read_timeout 180s;
-    #proxy_set_header Host $proxy_host;
-&#125;
-</code></pre>
-<ul>
-<li>访问Url：   <a target="_blank" rel="noopener" href="http://192.16.1.144:5556/api/lostFound-servic6/travel/lostFound/list">http://192.16.1.144:5556/api/lostFound-servic6/travel/lostFound/list</a></li>
-<li>反向代理结果：<a target="_blank" rel="noopener" href="http://192.16.1.144:9999/travel-service/travel/lostFound/list">http://192.16.1.144:9999/travel-service/travel/lostFound/list</a></li>
-</ul>
-<pre><code>location ^~ /api/lostFound-servic6 &#123;
-    rewrite /api/lostFound-servic6/(.*) /travel-service/$1 break;
-    proxy_pass http://192.16.1.144:9999;
-    proxy_redirect off;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_read_timeout 180s;
-    #proxy_set_header Host $proxy_host;
-&#125;
+<pre><code>localStorage.setItem(&#39;name&#39;,&#39;Bob&#39;)
+console.log(localStorage.getItem(&#39;name&#39;))
+localStorage.removeitem(&#39;Bob&#39;)
+ 
+sessionStorage.setItem(&#39;name&#39;,&#39;Bob&#39;)
+console.log(sessionStorage.getItem(&#39;name&#39;))
+sessionStorage.removeitem(&#39;Bob&#39;)
+ 
+document.cookie=&#39;name = kyle&#39;
+ 
+document.cookie=&#39;name = kyle expires=&#39; + new Date(&#39;2020&#39;, 0,1).toUTCString
 </code></pre>
 
             
@@ -538,697 +1462,10 @@ kill -QUIT 2072
 
     <div class="post-tags">
         
-        <span class="icon">
-            <a-icon type="tags" theme="filled" />
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/优化" style=color:#00a596>
-                优化
-            </a>
-        </span>
         
     </div>
 
-    <a href="/2022/04/22/Nginx/Nginx使用记录/ " class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-
-    <a href="/2022/04/22/Nginx/Nginx缓存/">
-        <h2>
-            Nginx缓存
-        </h2>
-    </a>
-
-    <div class="category-and-date">
-
-        
-        <span class="category">
-            <a href="/categories/Nginx">
-                <span class="icon">
-                    <a-icon type="book" theme="filled" /></span>
-                Nginx
-            </a>
-        </span>
-        
-
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2022/4/22
-        </span>
-
-    </div>
-
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            <h3 id="Nginx缓存"><a href="#Nginx缓存" class="headerlink" title="Nginx缓存"></a>Nginx缓存</h3><h4 id="proxy-cache-path"><a href="#proxy-cache-path" class="headerlink" title="proxy_cache_path"></a>proxy_cache_path</h4><p><strong>语法</strong>：</p>
-<pre><code>proxy_cache_path path [levels=levels] keys_zone=name:size [inactive=time] [max_size=size] [loader_files=number] [loader_sleep=time] [loader_threshold=time];
-默认值:    —
-上下文:    http
-</code></pre>
-<p><strong>示例</strong>：</p>
-<pre><code>proxy_cache_path /cache levels=1:2 keys_zone=cache:10m max_size=10g inactive=60m use_temp_path=off;
-</code></pre>
-<ul>
-<li><code>path</code> 指定缓存文件目录，和 proxy_temp_path 最好设置在同一文件分区下，缓存内容是先写在 temp_path，临时文件和缓存可以放在不同的文件系统，将导致文件在这两个文件系统中进行拷贝，而不是廉价的重命名操作。因此，针对任何路径，都建议将缓存和proxy_temp_path指令设置的临时文件目录放在同一文件系统。</li>
-<li><code>level</code> 定义了缓存的层次结构，每层可以用1（最多16中选择，0-f）或2（最多256种选择，00-ff）表示，中间用 [冒号] 分隔。“levels&#x3D;1:2”表示开启1、2层级(第2层级理论有16*256个目录)。</li>
-</ul>
-<pre><code class="haskell">proxy_cache_path /data/nginx/cache;  # 所有缓存只有一个目录
-/data/nginx/cache/d7b6e5978e3f042f52e875005925e51b 
-
-proxy_cache_path /data/nginx/cache levels=1:2;  # 第二层级有16*256=4096个目录
-/data/nginx/cache/b/51/d7b6e5978e3f042f52e875005925e51b 
-
-proxy_cache_path /data/nginx/cache levels=1:1:1; #第三层级有16*16*16个目录
-/data/nginx/cache/b/1/5/d7b6e5978e3f042f52e87500592 
-
-proxy_cache_path /data/nginx/cache levels=2; # 第一层级有256个目录
-/data/nginx/cache/1b/d7b6e5978e3f042f52e875005925e51b 
-</code></pre>
-<ul>
-<li><code>keys_zone</code> 指定一个共享内存空间zone，所有活动的键和缓存数据相关的信息都被存放在共享内存中，这样nginx可以快速判断一个request是否命中或者未命中缓存，1m可以存储8000个key，10m可以存储80000个key；</li>
-<li><code>inactive</code> inactive&#x3D;30m 表示 30 分钟没有被访问的文件会被 cache manager 删除，inactive的默认值是10分钟。 需要注意的是，inactive和expired配置项的含义是不同的，expired只是缓存过期，但不会被删除，inactive是删除指定时间内未被访问的缓存文件</li>
-<li><code>max_size</code> cache存储的最大尺寸，如果不指定，会用掉所有磁盘空间，当尺寸超过，将会基于LRU算法移除数据，以减少占用大小。nginx启动时，会创建一个“Cache manager”进程，通过“purge”方式移除数据。</li>
-<li><code>loader_files</code> “cache loader”进程遍历文件时，每次加载的文件个数。默认为100.</li>
-<li><code>loader_threshold</code> 每次遍历消耗时间上限。默认为200毫秒。</li>
-<li><code>loader_sleep</code> 一次遍历之后，停顿的时间间隔，默认为50毫秒。</li>
-</ul>
-<h4 id="proxy-cache"><a href="#proxy-cache" class="headerlink" title="proxy_cache"></a>proxy_cache</h4><p><strong>语法</strong>：</p>
-<pre><code class="css">proxy_cache zone | off;
-默认值:    proxy_cache off;
-上下文:    http, server, location
-</code></pre>
-<p>指定用于页面缓存的共享内存。同一块共享内存可以在多个地方使用。off参数可以屏蔽从上层配置继承的缓存功能。zone名称由<code>proxy_cache_path</code>指令定义。</p>
-<h4 id="proxy-cache-key"><a href="#proxy-cache-key" class="headerlink" title="proxy_cache_key"></a>proxy_cache_key</h4><p><strong>语法</strong>：</p>
-<pre><code class="puppet">proxy_cache_key string;
-默认值:    
-proxy_cache_key $scheme$proxy_host$request_uri;
-上下文:    http, server, location
-</code></pre>
-<p>定义如何生成缓存的键，比如</p>
-<pre><code class="kotlin">proxy_cache_key &quot;$host$request_uri $cookie_user&quot;;
-</code></pre>
-<p>这条指令的默认值类似于下面字符串</p>
-<pre><code class="puppet">proxy_cache_key $scheme$proxy_host$uri$is_args$args;
-</code></pre>
-<p>缓存文件并不是越多越好，所以 cache_key 的设计非常关键。代理或 URL 跳转常常会添加的无用请求参数，这就会出现不同的 cache_key 保存了多份相同的缓存内容，这对缓存效果影响很大。通过 ngx_lua 可以对 URL 参数进行过滤，保证 cache_key 唯一。</p>
-<h4 id="proxy-cache-valid"><a href="#proxy-cache-valid" class="headerlink" title="proxy_cache_valid"></a>proxy_cache_valid</h4><p><strong>语法</strong>：</p>
-<pre><code class="css">proxy_cache_valid [code ...] time;
-默认值:    —
-上下文:    http, server, location
-</code></pre>
-<p>为不同的响应状态码设置不同的缓存时间。比如，下面指令</p>
-<pre><code class="undefined">proxy_cache_valid 200 302 10m;
-proxy_cache_valid 404      1m;
-</code></pre>
-<p>设置状态码为200和302的响应的缓存时间为10分钟，状态码为404的响应的缓存时间为1分钟。</p>
-<p>如果仅仅指定了time，</p>
-<pre><code class="undefined">proxy_cache_valid 5m;
-</code></pre>
-<p>那么只有状态码为200、300和302的响应会被缓存。</p>
-<p>如果使用了any参数，那么就可以缓存任何响应：</p>
-<pre><code class="r">proxy_cache_valid 200 302 10m;
-proxy_cache_valid 301      1h;
-proxy_cache_valid any      1m;
-</code></pre>
-<p>缓存参数也可以直接在响应头中设定。这种方式的优先级高于使用这条指令设置缓存时间。</p>
-<blockquote>
-<p>“X-Accel-Expires”响应头可以以秒为单位设置响应的缓存时间，如果值为0，表示禁止缓存响应，如果值以@开始，表示自1970年1月1日以来的秒数，响应一直会被缓存到这个绝对时间点。</p>
-<p>如果不含“X-Accel-Expires”响应头，缓存参数仍可能被“Expires”或者“Cache-Control”响应头设置。</p>
-<p>如果响应头含有“Set-Cookie”，响应将不能被缓存。 这些头的处理过程可以使用指令proxy_ignore_headers忽略。</p>
-</blockquote>
-<h4 id="proxy-ignore-headers"><a href="#proxy-ignore-headers" class="headerlink" title="proxy_ignore_headers"></a>proxy_ignore_headers</h4><p><strong>语法</strong>：</p>
-<pre><code class="css">proxy_ignore_headers field ...;
-默认值:    —
-上下文:    http, server, location
-</code></pre>
-<p>指定来自后端server的响应中的某些header不会被处理，如下几个fields可以被ignore：“X-Accel-Redirect”、“X-Accel-Expires”、“X-Accel-Limit-Rate”、“X-Accel-Buffering”、“X-Accel-Charset”、“Expires”、“Cache-Control”、“Set-Cookie”、“Vary”。“不被处理”就是nginx不会尝试解析这些header并应用它们，比如nginx处理来自后端server的“Expires”，将会影响它本地的文件cache的机制</p>
-<p>如果不被取消，这些头部的处理可能产生下面结果：</p>
-<blockquote>
-<p>“X-Accel-Expires”，“Expires”，“Cache-Control”，和“Set-Cookie” 设置响应缓存的参数；</p>
-<p>“X-Accel-Redirect”执行到指定URI的内部跳转；</p>
-<p>“X-Accel-Limit-Rate”设置响应到客户端的传输速率限制；</p>
-<p>“X-Accel-Buffering”启动或者关闭响应缓冲；</p>
-<p>“X-Accel-Charset”设置响应所需的字符集。</p>
-</blockquote>
-<h4 id="proxy-hide-header"><a href="#proxy-hide-header" class="headerlink" title="proxy_hide_header"></a>proxy_hide_header</h4><p><strong>语法</strong>：</p>
-<pre><code class="css">proxy_hide_header field;
-默认值:    —
-上下文:    http, server, location
-</code></pre>
-<p>nginx默认不会将“Date”、“Server”、“X-Pad”，和“X-Accel-…”响应头发送给客户端。proxy_hide_header指令则可以设置额外的响应头，这些响应头也不会发送给客户端。相反的，如果希望允许传递某些响应头给客户端，可以使用proxy_pass_header指令。</p>
-<h4 id="proxy-pass-header"><a href="#proxy-pass-header" class="headerlink" title="proxy_pass_header"></a>proxy_pass_header</h4><p><strong>语法</strong>：</p>
-<pre><code class="css">proxy_pass_header field;
-默认值:    —
-上下文:    http, server, location
-</code></pre>
-<p>允许传送被屏蔽的后端服务器响应头到客户端。</p>
-<h4 id="proxy-cache-min-uses"><a href="#proxy-cache-min-uses" class="headerlink" title="proxy_cache_min_uses"></a>proxy_cache_min_uses</h4><pre><code class="css">proxy_cache_min_uses number;
-默认值:    proxy_cache_min_uses 1;
-上下文:    http, server, location
-</code></pre>
-<p>设置响应被缓存的最小请求次数。默认为1，当客户端发送相同请求达到规定次数后，nginx才对响应数据进行缓存；指定请求至少被发送了多少次以上时才缓存，可以防止低频请求被缓存</p>
-<h4 id="proxy-cache-use-stale"><a href="#proxy-cache-use-stale" class="headerlink" title="proxy_cache_use_stale"></a>proxy_cache_use_stale</h4><p><strong>语法</strong>：</p>
-<pre><code class="vbnet">proxy_cache_use_stale error | timeout | invalid_header | updating | http_500 | http_502 | http_503 | http_504 | http_404 | off ...;
-默认值:    proxy_cache_use_stale off;
-上下文:    http, server, location
-</code></pre>
-<p>如果后端服务器出现状况，nginx是可以使用过期的响应缓存的。这条指令就是定义何种条件下允许开启此机制。这条指令的参数与proxy_next_upstream指令的参数相同。</p>
-<p>此外，updating参数允许nginx在正在更新缓存的情况下使用过期的缓存作为响应。这样做可以使更新缓存数据时，访问源服务器的次数最少。</p>
-<p>在植入新的缓存条目时，如果想使访问源服务器的次数最少，可以使用proxy_cache_lock指令。</p>
-<h4 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30795127/article/details/97385091#proxy_cache_valid">https://blog.csdn.net/weixin_30795127/article/details/97385091#proxy_cache_valid</a></p>
-
-            
-        </div>
-    </div>
-
-    <div class="post-tags">
-        
-        <span class="icon">
-            <a-icon type="tags" theme="filled" />
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/优化" style=color:#03a9f4>
-                优化
-            </a>
-        </span>
-        
-    </div>
-
-    <a href="/2022/04/22/Nginx/Nginx缓存/ " class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-
-    <a href="/2022/04/22/Nginx/Nginx安装/">
-        <h2>
-            Nginx部署
-        </h2>
-    </a>
-
-    <div class="category-and-date">
-
-        
-        <span class="category">
-            <a href="/categories/Nginx">
-                <span class="icon">
-                    <a-icon type="book" theme="filled" /></span>
-                Nginx
-            </a>
-        </span>
-        
-
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2022/4/22
-        </span>
-
-    </div>
-
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            <h3 id="Nginx部署"><a href="#Nginx部署" class="headerlink" title="Nginx部署"></a>Nginx部署</h3><h5 id="1-安装依赖包"><a href="#1-安装依赖包" class="headerlink" title="1.安装依赖包"></a>1.安装依赖包</h5><pre><code>//一键安装上面四个依赖
-yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel
-</code></pre>
-<h5 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="2.下载并解压安装包"></a>2.下载并解压安装包</h5><pre><code>//创建一个文件夹
-cd /usr/local
-mkdir nginx
-cd nginx
-//下载tar包
-wget http://nginx.org/download/nginx-1.18.0.tar.gz
-tar -xvf nginx-1.18.0.tar.gz
-</code></pre>
-<h5 id="3-安装nginx"><a href="#3-安装nginx" class="headerlink" title="3.安装nginx"></a>3.安装nginx</h5><pre><code>//进入nginx目录
-cd /usr/local/nginx
-//进入目录
-cd nginx-1.18.0
-//执行命令
-./configure
-//执行make命令
-make
-//执行make install命令
-make install
-</code></pre>
-<h5 id="4-配置nginx-conf"><a href="#4-配置nginx-conf" class="headerlink" title="4.配置nginx.conf"></a>4.配置nginx.conf</h5><pre><code>// 打开配置文件
-vim /usr/local/nginx/conf/nginx.conf
-</code></pre>
-<h5 id="5-启动命令"><a href="#5-启动命令" class="headerlink" title="5.启动命令"></a>5.启动命令</h5><pre><code>/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
-</code></pre>
-<h5 id="6-添加到环境变量"><a href="#6-添加到环境变量" class="headerlink" title="6.添加到环境变量"></a>6.添加到环境变量</h5><pre><code>ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/
-</code></pre>
-<p>&#x2F;usr&#x2F;local&#x2F;bin&#x2F;就是环境变量目录</p>
-
-            
-        </div>
-    </div>
-
-    <div class="post-tags">
-        
-        <span class="icon">
-            <a-icon type="tags" theme="filled" />
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/部署" style=color:#00a596>
-                部署
-            </a>
-        </span>
-        
-    </div>
-
-    <a href="/2022/04/22/Nginx/Nginx安装/ " class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-
-    <a href="/2022/04/22/Nginx/Nginx配置成Windows服务/">
-        <h2>
-            将Nginx注册为windows系统服务
-        </h2>
-    </a>
-
-    <div class="category-and-date">
-
-        
-        <span class="category">
-            <a href="/categories/Nginx">
-                <span class="icon">
-                    <a-icon type="book" theme="filled" /></span>
-                Nginx
-            </a>
-        </span>
-        
-
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2022/4/22
-        </span>
-
-    </div>
-
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            <h3 id="将Nginx注册为windows系统服务"><a href="#将Nginx注册为windows系统服务" class="headerlink" title="将Nginx注册为windows系统服务"></a>将Nginx注册为windows系统服务</h3><ul>
-<li>在项目主页内找到winsw的下载页面（我用的是最新2.0.2版本，你可以下载最新的）</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/2.0.2/">http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/2.0.2/</a></p>
-<p>下载的文件：winsw-2.9.0-bin.exe</p>
-<ul>
-<li>nginx项目页面下载nginx windows版本</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="http://nginx.org/">http://nginx.org</a></p>
-<p>把nginx压缩包解压放到指定目录，例如我放的是d盘根目录。特别强调路径不要带空格的，否则会启动失败。</p>
-<p>nginx安装目录是：<code>E:\myProgram\nginx-1.14.0</code></p>
-<ul>
-<li><p>将winsw-2.9.0-bin.exe复制到nginx目录：E:\myProgram\nginx-1.14.0，并将其改成nginx-service.exe </p>
-</li>
-<li><p>新建一个xml文件nginx-service.xml，名称一定要与上面的.exe上的文件名一致的哦。文件内容如下：</p>
-</li>
-</ul>
-<pre><code>&lt;service&gt;
-  &lt;id&gt;nginx&lt;/id&gt;
-  &lt;name&gt;nginx&lt;/name&gt;
-  &lt;description&gt;nginx&lt;/description&gt;
-  &lt;env name=&quot;path&quot; value=&quot;E:\myProgram\nginx-1.14.0&quot;/&gt;
-  &lt;executable&gt;E:/myProgram/nginx-1.14.0/nginx.exe&lt;/executable&gt;
-  &lt;arguments&gt;-p E:/myProgram/nginx-1.14.0&lt;/arguments&gt;
-  &lt;logpath&gt;E:/myProgram/nginx-1.14.0/logs/&lt;/logpath&gt;
-  &lt;logmode&gt;roll&lt;/logmode&gt;
-&lt;/service&gt;
-</code></pre>
-<ul>
-<li>运行Windows cmd命令，进入nginx目录：运行nginx-service.exe install将其注册为windws系统服务。当配置错误（就是系统服务中有了但是启动不了）或者是要卸载它的时候运行：nginx-service.exe uninstall</li>
-</ul>
-<p>​		再运行Windows cmd命令，输入services.msc,就可以在系统服务中看到nginx服务，右击启动就可以了，访问<a href="http://localhost:8088出现nginx页面，安装成功。">http://localhost:8088出现nginx页面，安装成功。</a> 因为我这台电脑80端口被占用了，然后就使用了8088端口</p>
-<p>​		如果出现错误信息，可在nginx的日志文件logs查看。刚开始在测试时一直启动服务失败，原因是按照网络上的（旧版）配置文件启动不成功，希望可以少让大家走一些弯路，当时我心里的那个苦啊，没有找到正确的话，捣鼓的让你欲哭无泪。旧版的配置文件如下（注意与4中对比）：</p>
-<h3 id><a href="#" class="headerlink" title></a></h3>
-            
-        </div>
-    </div>
-
-    <div class="post-tags">
-        
-        <span class="icon">
-            <a-icon type="tags" theme="filled" />
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/优化" style=color:#00a596>
-                优化
-            </a>
-        </span>
-        
-    </div>
-
-    <a href="/2022/04/22/Nginx/Nginx配置成Windows服务/ " class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-
-    <a href="/2019/03/22/Git/sshkey内容配置/">
-        <h2>
-            sshkey内容配置
-        </h2>
-    </a>
-
-    <div class="category-and-date">
-
-        
-        <span class="category">
-            <a href="/categories/Git">
-                <span class="icon">
-                    <a-icon type="book" theme="filled" /></span>
-                Git
-            </a>
-        </span>
-        
-
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2019/3/22
-        </span>
-
-    </div>
-
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            <blockquote>
-<p>ssh-keygen -t rsa -C <a href="mailto:&#x64;&#117;&#x78;&#102;&#64;&#x71;&#x64;&#99;&#x61;&#x72;&#x65;&#x73;&#46;&#x63;&#x6e;">&#x64;&#117;&#x78;&#102;&#64;&#x71;&#x64;&#99;&#x61;&#x72;&#x65;&#x73;&#46;&#x63;&#x6e;</a> -b 1024<br>在git bash中使用上面的命令生成rsa公私钥，部分软件类似winscp要求使用ppk类型的私钥，需要使用puttygen工具进行转换即可</p>
-</blockquote>
-
-            
-        </div>
-    </div>
-
-    <div class="post-tags">
-        
-        <span class="icon">
-            <a-icon type="tags" theme="filled" />
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/Git基础" style=color:#ffa2c4>
-                Git基础
-            </a>
-        </span>
-        
-    </div>
-
-    <a href="/2019/03/22/Git/sshkey内容配置/ " class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-
-    <a href="/2018/09/03/MySql/MySql常见错误整理/">
-        <h2>
-            MySql常见错误整理
-        </h2>
-    </a>
-
-    <div class="category-and-date">
-
-        
-        <span class="category">
-            <a href="/categories/MySql">
-                <span class="icon">
-                    <a-icon type="book" theme="filled" /></span>
-                MySql
-            </a>
-        </span>
-        
-
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2018/9/3
-        </span>
-
-    </div>
-
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            <p>mysql数据库时间和本地时间相差13个小时，原因是mysql默认使用的是CST市区，这个是美国中部时间，和北京时间刚好相差13个小时<br>修改方法就是在<code>/etc/my.cnf</code>文件中添加一行代码即可。</p>
-<pre><code>default-time-zone = &#39;+08:00&#39; 
-</code></pre>
-<p>添加完成记得重启下mysql服务</p>
-<pre><code>[root@VM_94_149_centos home]# service mysqld restart
-</code></pre>
-
-            
-        </div>
-    </div>
-
-    <div class="post-tags">
-        
-        <span class="icon">
-            <a-icon type="tags" theme="filled" />
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/MySql" style=color:#ff7d73>
-                MySql
-            </a>
-        </span>
-        
-    </div>
-
-    <a href="/2018/09/03/MySql/MySql常见错误整理/ " class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-
-    <a href="/2018/08/22/MySql/GROUPBY小记/">
-        <h2>
-            GROUP BY小记
-        </h2>
-    </a>
-
-    <div class="category-and-date">
-
-        
-        <span class="category">
-            <a href="/categories/MySql">
-                <span class="icon">
-                    <a-icon type="book" theme="filled" /></span>
-                MySql
-            </a>
-        </span>
-        
-
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2018/8/22
-        </span>
-
-    </div>
-
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
-<li>“Group By”从字面意义上理解就是根据“By”指定的规则对数据进行分组，所谓的分组就是将一个“数据集”划分成若干个“小区域”，然后针对若干个“小区域”进行数据处理。</li>
-<li>下面的表是原始数据，接下来的例子都是基于这张表演示的。<br><img src="/assets/images/MySql/mysql_group_by_1.png" alt="原始表"></li>
-</ul>
-<hr>
-<h3 id="简单Group-By"><a href="#简单Group-By" class="headerlink" title="简单Group By"></a>简单Group By</h3><pre><code class="sql">select 类别, sum(数量) as 数量之和  
-from A  
-group by 类别  
-</code></pre>
-<p>返回结果如下表，实际上就是分类汇总。<br><img src="/assets/images/MySql/mysql_group_by_2.png" alt="简单GROUP BY"></p>
-<h3 id="Group-By-和-Order-By"><a href="#Group-By-和-Order-By" class="headerlink" title="Group By 和 Order By"></a>Group By 和 Order By</h3><pre><code class="sql">select 类别, sum(数量) AS 数量之和
-from A
-group by 类别
-order by sum(数量) desc
-</code></pre>
-<p>返回结果如下表<br><img src="/assets/images/MySql/mysql_group_by_3.png" alt="添加 Order By"></p>
-<h3 id="Group-By-All"><a href="#Group-By-All" class="headerlink" title="Group By All"></a>Group By All</h3><pre><code class="sql">select 类别, 摘要, sum(数量) as 数量之和
-from A
-group by all 类别, 摘要
-</code></pre>
-<p>这种方式可以多指定一个列，多个列都相同才会被分到同一组。<br>SQL中多指定“摘要”字段，其原因在于“多列分组”中包含了“摘要字段”，其执行结果如下表<br><img src="/assets/images/MySql/mysql_group_by_4.png" alt="Group By All"></p>
-<h3 id="Group-By与聚合函数"><a href="#Group-By与聚合函数" class="headerlink" title="Group By与聚合函数"></a>Group By与聚合函数</h3><p><img src="/assets/images/MySql/mysql_group_by_8.jpg" alt="Group By All"></p>
-<h3 id="Having与Where的区别"><a href="#Having与Where的区别" class="headerlink" title="Having与Where的区别"></a>Having与Where的区别</h3><ul>
-<li>where 子句的作用是在对查询结果进行分组前，将不符合where条件的行去掉，即在分组之前过滤数据，where条件中不能包含聚组函数，使用where条件过滤出特定的行。</li>
-<li>having 子句的作用是筛选满足条件的组，即在分组之后过滤数据，条件中经常包含聚组函数，使用having 条件过滤出特定的组，也可以使用多个分组标准进行分组。<pre><code class="sql">select 类别, sum(数量) as 数量之和 from A
-group by 类别
-having sum(数量) &gt; 18
-</code></pre>
-上面的SQL语句执行时会正确筛选出接过来，如果吧having替换成where则会报错<h3 id="Compute"><a href="#Compute" class="headerlink" title="Compute"></a>Compute</h3><pre><code class="sql">select *
-from A
-where 数量&gt;8
-compute max(数量),min(数量),avg(数量)
-</code></pre>
-执行效果如下<br><img src="/assets/images/MySql/mysql_group_by_6.png" alt="Compute"><h3 id="Compute-By"><a href="#Compute-By" class="headerlink" title="Compute By"></a>Compute By</h3><pre><code class="sql">select *
-from A
-where 数量&gt;8
-order by 类别
-compute max(数量),min(数量),avg(数量) by 类别
-</code></pre>
-执行效果如下<br><img src="/assets/images/MySql/mysql_group_by_7.png" alt="Compute"></li>
-</ul>
-
-            
-        </div>
-    </div>
-
-    <div class="post-tags">
-        
-        <span class="icon">
-            <a-icon type="tags" theme="filled" />
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/MySql" style=color:#00a596>
-                MySql
-            </a>
-        </span>
-        
-    </div>
-
-    <a href="/2018/08/22/MySql/GROUPBY小记/ " class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-
-    <a href="/2018/08/17/MySql/MySql初始化及用户创建/">
-        <h2>
-            MySql初始化及用户创建
-        </h2>
-    </a>
-
-    <div class="category-and-date">
-
-        
-        <span class="category">
-            <a href="/categories/MySql">
-                <span class="icon">
-                    <a-icon type="book" theme="filled" /></span>
-                MySql
-            </a>
-        </span>
-        
-
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2018/8/17
-        </span>
-
-    </div>
-
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            <p>CentOS安装MySql8.0之后，部分配置和之前的5.7有比较大的差异，在这里整理一下<br>使用的安装方式是rpm安装</p>
-<pre><code>#wget http://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm  
-rpm -ivh mysql80-community-release-el7-1.noarch.rpm  
-</code></pre>
-<p>然后执行安装命令</p>
-<pre><code>yum -y install mysql mysql-server mysql-devel  
-</code></pre>
-<p>再次执行安装命令可查看安装情况，会给出提示，表示安装成功</p>
-<pre><code>[root@VM_94_149_centos www]# yum -y install mysql mysql-server mysql-devel
-Loaded plugins: fastestmirror, langpacks
-Loading mirror speeds from cached hostfile
-Package mysql-community-client-8.0.12-1.el7.x86_64 already installed and latest version
-Package mysql-community-server-8.0.12-1.el7.x86_64 already installed and latest version
-Package mysql-community-devel-8.0.12-1.el7.x86_64 already installed and latest version
-Nothing to do
-</code></pre>
-<p>其他一些相关指令记录如下<br>查看默认密码</p>
-<pre><code>mysql&gt; grep &quot;A temporary password&quot; /var/log/mysqld.log
-</code></pre>
-<p>修改默认密码</p>
-<pre><code>mysql&gt; ALTER USER USER() IDENTIFIED BY &#39;newPassword&#39;;
-</code></pre>
-<p>创建用户</p>
-<pre><code>mysql&gt; create user eric@&#39;%&#39; identified by &#39;your password&#39;;
-</code></pre>
-<p>由于机密方式不同导致连接不上的问题处理</p>
-<pre><code>mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;your password&#39; PASSWORD EXPIRE NEVER;
-mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;your password&#39;;
-mysql&gt; flush privileges;
-</code></pre>
-<p>授权，默认创建的用户权限是usage,就是无权限，只能登录而已，（all：所有权限，这里有select,update等等权限，可以去搜一下；后面的*.*：指定数据库.指定表，这里是所有；to后面就是你刚才创建的用户）</p>
-<pre><code>mysql&gt; grant all on *.* to &#39;eric&#39;@&#39;%&#39;;
-</code></pre>
-<p>需要注意的一点是，8.0以后的MySql版本里密码验证是很严格的，必须要有大小写字母和特殊字符，上面的your password替换时要注意下。</p>
-
-            
-        </div>
-    </div>
-
-    <div class="post-tags">
-        
-        <span class="icon">
-            <a-icon type="tags" theme="filled" />
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/MySql" style=color:#00a596>
-                MySql
-            </a>
-        </span>
-        
-    </div>
-
-    <a href="/2018/08/17/MySql/MySql初始化及用户创建/ " class="go-post">
+    <a href="/2022/05/16/资料/Session/ " class="go-post">
         阅读全文
     </a>
 </div>
@@ -1254,6 +1491,12 @@ mysql&gt; flush privileges;
             <a href="/page/2/">
                 <span class="page-num">
                     2
+                </span>
+            </a>
+            
+            <a href="/page/3">
+                <span class="page-num">
+                    3
                 </span>
             </a>
             
@@ -1405,4 +1648,4 @@ mysql&gt; flush privileges;
 
 </body>
 
-</html>/html>
+</html>

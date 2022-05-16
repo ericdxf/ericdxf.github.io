@@ -6,7 +6,7 @@
   <link href="https://ericdxf.github.io/atom.xml" rel="self"/>
   
   <link href="https://ericdxf.github.io/"/>
-  <updated>2022-05-16T09:51:04.841Z</updated>
+  <updated>2022-05-16T10:50:10.158Z</updated>
   <id>https://ericdxf.github.io/</id>
   
   <author>
@@ -15,6 +15,175 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>方舟服务器搭建</title>
+    <link href="https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E6%96%B9%E8%88%9F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/"/>
+    <id>https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/%E6%9C%8D%E5%8A%A1%E5%99%A8/%E6%96%B9%E8%88%9F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</id>
+    <published>2022-05-16T11:45:53.000Z</published>
+    <updated>2022-05-16T10:50:10.158Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Linux-CentOS-开服、mod安装"><a href="#Linux-CentOS-开服、mod安装" class="headerlink" title="Linux(CentOS) 开服、mod安装"></a>Linux(CentOS) 开服、mod安装</h3><p>环境</p><p>阿里云服务器，CentOS 7.7 64位， 2核CPU，4G内存，4G交换空间</p><h2 id="开服准备"><a href="#开服准备" class="headerlink" title="开服准备"></a>开服准备</h2><h3 id="创建用户并设置密码"><a href="#创建用户并设置密码" class="headerlink" title="创建用户并设置密码"></a>创建用户并设置密码</h3><pre><code class="undefined">adduser arkserverpasswd arkserver</code></pre><h3 id="开放以下端口"><a href="#开放以下端口" class="headerlink" title="开放以下端口"></a>开放以下端口</h3><pre><code class="undefined">7777/udp27015/udp</code></pre><p>PS：云服务器一般是在安全组规则中设置放行</p><h3 id="修改文件描述符限制"><a href="#修改文件描述符限制" class="headerlink" title="修改文件描述符限制"></a>修改文件描述符限制</h3><pre><code class="undefined">echo &quot;fs.file-max=100000&quot; &gt;&gt; /etc/sysctl.confsysctl -p /etc/sysctl.confecho &quot;* soft nofile 1000000&quot; &gt;&gt; /etc/security/limits.confecho &quot;* hard nofile 1000000&quot; &gt;&gt; /etc/security/limits.conf</code></pre><h3 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h3><pre><code class="undefined">su - arkserver</code></pre><h3 id="下载并运行一键安装脚本"><a href="#下载并运行一键安装脚本" class="headerlink" title="下载并运行一键安装脚本"></a>下载并运行一键安装脚本</h3><pre><code class="undefined">wget -O linuxgsm.sh https://linuxgsm.sh &amp;&amp; chmod +x linuxgsm.sh &amp;&amp; bash linuxgsm.sh arkserver</code></pre><p>给arkserver用户赋目录访问权限</p><pre><code>chown -R arkserver:arkserver /opt/asm/</code></pre><p>PS：如果访问<code>raw.githubusercontent.com</code>经常出错，可修改hosts文件（<code>/etc/hosts</code>），添加以下内容（root用户）</p><pre><code class="undefined">199.232.4.133 raw.githubusercontent.com</code></pre><p>如果报SSL 连接失败，则关闭防火墙即可</p><pre><code># 关掉防火墙并开机不自启[root@localhost ~]# systemctl stop firewalld[root@localhost ~]# systemctl disable firewalld</code></pre><h3 id="运行安装文件"><a href="#运行安装文件" class="headerlink" title="运行安装文件"></a>运行安装文件</h3><pre><code class="undefined">./arkserver install</code></pre><p>一路回车即可</p><h2 id="开服相关"><a href="#开服相关" class="headerlink" title="开服相关"></a>开服相关</h2><h3 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a>编辑配置文件</h3><p>可通过编辑<code>Game.ini</code>和<code>GameUserSettings.ini</code>文件（位于<code>/home/arkserver/serverfiles/ShooterGame/Saved/Config/LinuxServer</code>）修改服务器配置 笔者使用的是PC端<code>...\steamapps\common\ARK\ShooterGame\Saved\Config\WindowsNoEditor</code>文件夹下的这两个文件，并在<code>GameUserSettings.ini</code>文件<code>[ServerSettings]</code>下添加：</p><pre><code class="undefined">ServerPassword=123456ServerAdminPassword=654321</code></pre><p>分别对应加入服务器密码和管理员密码 更多配置参数可查看<a href="https://www.bilibili.com/read/cv4964408/#">官方wiki: Server Configuration</a></p><h3 id="更换地图"><a href="#更换地图" class="headerlink" title="更换地图"></a>更换地图</h3><p><code>lgsm/config-lgsm/arkserver/arkserver.cfg</code>文件添加一行：</p><pre><code class="undefined">defaultmap=&quot;MAP_NAME_HERE&quot;</code></pre><p><code>MAP_NAME_HERE</code>替换成地图名 地图名：</p><pre><code class="undefined">TheIslandTheCenterRagnarokScorchedEarth_PAberration_PExtinctionValguero_P</code></pre><h3 id="设置人数"><a href="#设置人数" class="headerlink" title="设置人数"></a>设置人数</h3><p><code>lgsm/config-lgsm/arkserver/arkserver.cfg</code>文件添加一行：</p><pre><code class="undefined">maxplayers=10</code></pre><h3 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h3><pre><code class="undefined">./arkserver start</code></pre><p>PS：启动服务器需要时间，耐心等待。</p><h3 id="停止服务器"><a href="#停止服务器" class="headerlink" title="停止服务器"></a>停止服务器</h3><pre><code class="undefined">./arkserver stop</code></pre><h3 id="更新服务器版本"><a href="#更新服务器版本" class="headerlink" title="更新服务器版本"></a>更新服务器版本</h3><pre><code class="undefined">./arkserver update</code></pre><h2 id="加入服务器"><a href="#加入服务器" class="headerlink" title="加入服务器"></a>加入服务器</h2><p>打开steam主窗口，左上角<code>视图</code>-<code>服务器</code>，在收藏中使用地址或ip添加服务器后，右键连接即可。 之后可直接在游戏内收藏夹中连接。</p><h2 id="mod安装"><a href="#mod安装" class="headerlink" title="mod安装"></a>mod安装</h2><p>编辑<code>GameUserSettings.ini</code>文件，<code>[ServerSettings]</code>下，<code>ActiveMods</code>字段：</p><pre><code class="undefined">ActiveMods=[workshopID],[workshopID],[workshopID],[workshopID]</code></pre><p>编辑<code>Game.ini</code>文件，<code>[ServerSettings]</code>下，增加<code>ModInstaller</code>属性：</p><pre><code class="undefined">[ModInstaller]ModIDS=[workshopID]ModIDS=[workshopID]ModIDS=[workshopID]ModIDS=[workshopID]</code></pre><p>最后执行：</p><pre><code class="undefined">./arkserver restart -automanagedmods</code></pre><p>PS：mod安装也需要时间，耐心等待</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.xhyeax.com/2020/03/03/ark-server-linux/https://www.bilibili.com/read/cv4964408/#">https://blog.xhyeax.com/2020/03/03/ark-server-linux/https://www.bilibili.com/read/cv4964408/#</a>)</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Linux-CentOS-开服、mod安装&quot;&gt;&lt;a href=&quot;#Linux-CentOS-开服、mod安装&quot; class=&quot;headerlink&quot; title=&quot;Linux(CentOS) 开服、mod安装&quot;&gt;&lt;/a&gt;Linux(CentOS) 开服、mod安装</summary>
+      
+    
+    
+    
+    <category term="服务器" scheme="https://ericdxf.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    
+    <category term="娱乐" scheme="https://ericdxf.github.io/tags/%E5%A8%B1%E4%B9%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git忽略规则</title>
+    <link href="https://ericdxf.github.io/2022/05/16/Git/Git%E5%91%BD%E4%BB%A4/"/>
+    <id>https://ericdxf.github.io/2022/05/16/Git/Git%E5%91%BD%E4%BB%A4/</id>
+    <published>2022-05-16T10:45:53.000Z</published>
+    <updated>2022-05-16T10:16:23.995Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="git提交时间修改"><a href="#git提交时间修改" class="headerlink" title="git提交时间修改"></a>git提交时间修改</h2><h3 id="操作步骤："><a href="#操作步骤：" class="headerlink" title="操作步骤："></a>操作步骤：</h3><ul><li>下载修改提交时间插件<code>git-redate</code></li></ul><p><a href="https://github.com/PotatoLabs/git-redate">https://github.com/PotatoLabs/git-redate</a></p><ul><li>解压文件夹，把git-redate文件置于git安装目录的\mingw64\libexec\git-core文件夹下</li><li>去到对应git项目的根目录下，执行如下命令：</li></ul><pre><code>git redate -c 6</code></pre><p>数字6指的是查看最新的6条提交记录</p><ul><li>出现如下界面：</li></ul><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/20210115174827502.png" alt="在这里插入图片描述"></p><ul><li><p>输入“1”按回车，进入vi视图界面。在这里可以看到git提交记录的相关信息包括时间</p></li><li><p>此时熟悉linux操作的同学应该知道怎么操作修改，不熟悉vi工具的同学可自行google学习基本操作命令。</p></li></ul><p>简要操作：</p><ol><li><p>按“i”键，进入修改模式。</p></li><li><p>找到对应记录的时间进行修改。</p></li><li><p>修改完毕，按“ESC”键退出修改模式。</p></li><li><p>按“:”键，输入wq保存修改。</p><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/20210115175557762.png" alt="在这里插入图片描述"></p></li></ol><ul><li><p>保存后，等待一会儿。出现如下提示，更新时间成功</p><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/20210115175835886.png" alt="在这里插入图片描述"></p></li></ul><p>这里笔者这里会出现提示“line 50: ~&#x2F;.redate-settings: No such file or directory”，可直接忽略不影响结果。</p><h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ul><li>执行脚本前，请先确保所有修改内容已commit。否则会更新失败，出现如下提示：</li></ul><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/20210115180300103.png" alt="在这里插入图片描述"></p><ul><li>此方法只能修改提交记录的时间，不能修改提交的注释</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;git提交时间修改&quot;&gt;&lt;a href=&quot;#git提交时间修改&quot; class=&quot;headerlink&quot; title=&quot;git提交时间修改&quot;&gt;&lt;/a&gt;git提交时间修改&lt;/h2&gt;&lt;h3 id=&quot;操作步骤：&quot;&gt;&lt;a href=&quot;#操作步骤：&quot; class=&quot;header</summary>
+      
+    
+    
+    
+    <category term="Git" scheme="https://ericdxf.github.io/categories/Git/"/>
+    
+    
+    <category term="Git基础" scheme="https://ericdxf.github.io/tags/Git%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常用SQL记录</title>
+    <link href="https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/%E5%B8%B8%E7%94%A8SQL%E8%AE%B0%E5%BD%95/"/>
+    <id>https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/%E5%B8%B8%E7%94%A8SQL%E8%AE%B0%E5%BD%95/</id>
+    <published>2022-05-16T10:45:53.000Z</published>
+    <updated>2022-05-16T10:48:42.876Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="常用SQL记录"><a href="#常用SQL记录" class="headerlink" title="常用SQL记录"></a>常用SQL记录</h2><h4 id="按密码出现次数排序，并查询出现次数"><a href="#按密码出现次数排序，并查询出现次数" class="headerlink" title="按密码出现次数排序，并查询出现次数"></a>按密码出现次数排序，并查询出现次数</h4><pre><code>SELECT password,    count( 1 ) AS number FROM    sys_account_info GROUP BY    password ORDER BY    count( 1 ) DESC</code></pre><h4 id="查询数据库所有外键及启用情况"><a href="#查询数据库所有外键及启用情况" class="headerlink" title="查询数据库所有外键及启用情况"></a>查询数据库所有外键及启用情况</h4><pre><code>select name,is_disabled from sys.foreign_keys</code></pre><h4 id="启用或禁用所有数据库外键"><a href="#启用或禁用所有数据库外键" class="headerlink" title="启用或禁用所有数据库外键"></a>启用或禁用所有数据库外键</h4><pre><code>-- 禁用某个数据库的所有表的外键约束EXEC sp_MSforeachtable @command1=&#39;alter table ? NOCHECK constraint all;&#39;-- 启用某个数据库的所有表的外键约束EXEC sp_MSforeachtable @command1=&#39;alter table ? CHECK constraint all;&#39;</code></pre><h4 id="查询某个表的所有外键"><a href="#查询某个表的所有外键" class="headerlink" title="查询某个表的所有外键"></a>查询某个表的所有外键</h4><pre><code>SELECT    fk.name,    fk.object_id,    OBJECT_NAME( fk.parent_object_id ) AS referenceTableName FROM    sys.foreign_keys AS fk    JOIN sys.objects AS o ON fk.referenced_object_id= o.object_id WHERE    o.name= &#39;apss_light_application&#39;</code></pre><h4 id="replace函数"><a href="#replace函数" class="headerlink" title="replace函数"></a>replace函数</h4><pre><code>-- 更新apss_light_application，替换entry_address字段中的192.16.1.144和192.16.1.151为10.235.68.12UPDATE [dbo].[apss_light_application] SET entry_address = REPLACE( entry_address, &#39;192.16.1.144&#39;, &#39;10.235.68.12&#39; );UPDATE [dbo].[apss_light_application] SET entry_address = REPLACE( entry_address, &#39;192.16.1.151&#39;, &#39;10.235.68.12&#39; );-- 修改text 或 ntext类型数据UPDATE [dbo].[apss_material_management_module] SET substance = REPLACE( cast(substance as varchar(max)), &#39;http://10.235.68.11:6001&#39;, &#39;https://wap.hzairport.com/simple-file-service&#39; )WHERE substance LIKE &#39;%10.235.68.%&#39;;</code></pre><h4 id="设置id插入允许"><a href="#设置id插入允许" class="headerlink" title="设置id插入允许"></a>设置id插入允许</h4><pre><code>set identity_insert dbo.apss_material_management_module onset identity_insert dbo.apss_material_management_module off</code></pre><h4 id="修改列长度"><a href="#修改列长度" class="headerlink" title="修改列长度"></a>修改列长度</h4><pre><code>-- 修改列 auth_code 长度为255alter table [dbo].[membership_auth_record] alter column auth_code varchar(255)</code></pre><h4 id="替换列内容"><a href="#替换列内容" class="headerlink" title="替换列内容"></a>替换列内容</h4><pre><code>alter table [dbo].[apss_material_management_module] add substance_n ntext;UPDATE [dbo].[apss_material_management_module] SET substance_n = substance;alter table [dbo].[apss_material_management_module] DROP COLUMN substance;-- 替换回来exec sp_rename &#39;[dbo].[apss_material_management_module].substance_n&#39;,&#39;substance&#39;,&#39;COLUMN&#39;</code></pre><h4 id="MYSQL中group-concat长度限制！默认1024"><a href="#MYSQL中group-concat长度限制！默认1024" class="headerlink" title="MYSQL中group_concat长度限制！默认1024"></a>MYSQL中group_concat长度限制！默认1024</h4><pre><code>1).在MySQL配置文件中加上    group_concat_max_len = 102400 #你要的最大长度2).可以简单一点，执行语句,可以设置作用范围    SET GLOBAL group_concat_max_len=102400;    SET SESSION group_concat_max_len=102400;</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;常用SQL记录&quot;&gt;&lt;a href=&quot;#常用SQL记录&quot; class=&quot;headerlink&quot; title=&quot;常用SQL记录&quot;&gt;&lt;/a&gt;常用SQL记录&lt;/h2&gt;&lt;h4 id=&quot;按密码出现次数排序，并查询出现次数&quot;&gt;&lt;a href=&quot;#按密码出现次数排序，并查询出现次</summary>
+      
+    
+    
+    
+    <category term="SQL" scheme="https://ericdxf.github.io/categories/SQL/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Git自动提交代码</title>
+    <link href="https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/Dos/git%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4/"/>
+    <id>https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/Dos/git%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4/</id>
+    <published>2022-05-16T10:45:53.000Z</published>
+    <updated>2022-05-16T10:46:35.778Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Git自动提交代码"><a href="#Git自动提交代码" class="headerlink" title="Git自动提交代码"></a>Git自动提交代码</h3><pre><code>@echo off@title bat execute git auto commitF:cd F:/project/mdbookgit add .git commit -m &quot;Auto commit.&quot;git push</code></pre><p>如果不想看到黑窗口弹出，则在<code>@echo off</code>下一行添加如下代码即可</p><pre><code>if &quot;%1&quot;==&quot;h&quot; goto beginstart mshta vbscript:createobject(&quot;wscript.shell&quot;).run(&quot;&quot;&quot;%~nx0&quot;&quot; h&quot;,0)(window.close)&amp;&amp;exit:begin</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Git自动提交代码&quot;&gt;&lt;a href=&quot;#Git自动提交代码&quot; class=&quot;headerlink&quot; title=&quot;Git自动提交代码&quot;&gt;&lt;/a&gt;Git自动提交代码&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;@echo off
+@title bat execute git a</summary>
+      
+    
+    
+    
+    <category term="Dos" scheme="https://ericdxf.github.io/categories/Dos/"/>
+    
+    
+    <category term="脚本" scheme="https://ericdxf.github.io/tags/%E8%84%9A%E6%9C%AC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MongoDB常用命令</title>
+    <link href="https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/%E4%B8%AD%E9%97%B4%E4%BB%B6/MongoDB/MongoDB%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5/"/>
+    <id>https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/%E4%B8%AD%E9%97%B4%E4%BB%B6/MongoDB/MongoDB%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5/</id>
+    <published>2022-05-16T10:45:53.000Z</published>
+    <updated>2022-05-16T10:44:57.635Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="启动Mongodb"><a href="#启动Mongodb" class="headerlink" title="启动Mongodb"></a>启动Mongodb</h3><pre><code>./mongod -f /opt/mongodb/mongod.conf -fork</code></pre><h3 id="停止Mongodb"><a href="#停止Mongodb" class="headerlink" title="停止Mongodb"></a>停止Mongodb</h3><pre><code>use admin;switched to db admindb.shutdownServer();server should be down...</code></pre><h3 id="设置管理员账号"><a href="#设置管理员账号" class="headerlink" title="设置管理员账号"></a>设置管理员账号</h3><pre><code>use admin  db.createUser(&#123;  user: &#39;root&#39;,  // 用户名  pwd: &#39;qdcares805&#39;,  // 密码  roles:[&#123;    role: &#39;root&#39;,  // 角色    db: &#39;admin&#39;  // 数据库  &#125;]&#125;)</code></pre><h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><pre><code>db.sfss.find(&#123;&quot;_id&quot;:ObjectId(&quot;60efeabf8036fc062411c4e7&quot;)&#125;)db.fs.files.find(&#123;&quot;_id&quot;:ObjectId(&quot;60efeabf8036fc062411c4e7&quot;)&#125;)db.fs.chunks.find(&#123;&quot;files_id&quot;:ObjectId(&quot;60efeabf8036fc062411c4e7&quot;)&#125;)</code></pre><h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><pre><code>./mongoexport -u root -p qdcares805 -q &#39;&#123;&quot;_id&quot;:&#123; &quot;$oid&quot; : &quot;60efeabf8036fc062411c4e7&quot; &#125;&#125;&#39; --authenticationDatabase admin -d qdcares -c sfss -o /home/mongod/mongo/database/export/sfss.json</code></pre><h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><pre><code>mongoimport.exe -u root -p qdcares805 --authenticationDatabase admin -d qdcares -c fs.files --type=json --file ../export/fs_files.jsonmongoimport.exe -u root -p qdcares805 --authenticationDatabase admin -d qdcares -c fs.chunks --type=json --file ../export/fs_chunks.jsonmongoimport.exe -u root -p qdcares805 --authenticationDatabase admin -d qdcares -c sfss --type=json --file ../export/sfss.json</code></pre><h3 id="图标资源导出路径记录"><a href="#图标资源导出路径记录" class="headerlink" title="图标资源导出路径记录"></a>图标资源导出路径记录</h3><pre><code>F:\project\mongo\icon</code></pre><h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><pre><code>// 图标文件./mongoexport -u root -p qdcares805 -q &#39;&#123;&quot;$or&quot;:[&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f17d8036fc05f049804b&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f1868036fc05f049804d&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f2978036fc05f049804f&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f29c8036fc05f0498051&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f17d8036fc05f049804b&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f1868036fc05f049804d&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcb228036fc05f049802d&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcb2a8036fc05f049802f&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f32b8036fc05f0498053&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f32f8036fc05f0498055&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3b48036fc05f049805b&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3b88036fc05f049805d&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3738036fc05f0498057&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3778036fc05f0498059&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcac28036fc05f0498021&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcac68036fc05f0498023&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;]&#125;&#39; --authenticationDatabase admin -d qdcares -c sfss -o /home/mongod/mongo/database/export/sfss.json./mongoexport -u root -p qdcares805 -q &#39;&#123;&quot;$or&quot;:[&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f17d8036fc05f049804b&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f1868036fc05f049804d&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f2978036fc05f049804f&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f29c8036fc05f0498051&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f17d8036fc05f049804b&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f1868036fc05f049804d&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcb228036fc05f049802d&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcb2a8036fc05f049802f&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f32b8036fc05f0498053&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f32f8036fc05f0498055&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3b48036fc05f049805b&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3b88036fc05f049805d&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3738036fc05f0498057&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3778036fc05f0498059&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcac28036fc05f0498021&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcac68036fc05f0498023&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,&#123;&quot;files_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;]&#125;&#39; --authenticationDatabase admin -d qdcares -c fs.chunks -o /home/mongod/mongo/database/export/fs_chunks.json// 全部./mongoexport -u root -p qdcares805 -q &#39;&#123;&quot;$or&quot;:[&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f17d8036fc05f049804b&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f1868036fc05f049804d&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f2978036fc05f049804f&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f29c8036fc05f0498051&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f17d8036fc05f049804b&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f1868036fc05f049804d&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcb228036fc05f049802d&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcb2a8036fc05f049802f&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f32b8036fc05f0498053&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f32f8036fc05f0498055&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3b48036fc05f049805b&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3b88036fc05f049805d&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3738036fc05f0498057&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109f3778036fc05f0498059&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d1388036fc0fc04d1a11&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7d13c8036fc0fc04d1a13&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcac28036fc05f0498021&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60ffcac68036fc05f0498023&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeabf8036fc062411c4e7&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60fa22a08036fc0fc04d1f60&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f0eb098036fc062411c517&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f912f98036fc0fc04d1c9b&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109eef48036fc05f049803f&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;610b3f3a8036fc05f0498074&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7864f8036fc1c30913dbd&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f68c028036fc131c569198&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;610b41288036fc05f0498079&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f7864f8036fc1c30913dbd&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60fa22fc8036fc0fc04d1f6c&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;610a5e408036fc05f049806f&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f785e58036fc1c30913db1&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f666da8036fc232cb5f2bb&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;6109eef48036fc05f049803f&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeb708036fc062411c4ef&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f785e58036fc1c30913db1&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f635ca8036fc22b0f481f1&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f635ca8036fc22b0f481f1&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f635ca8036fc22b0f481f1&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efc8268036fc062411c4b8&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60f635ca8036fc22b0f481f1&quot;&#125;&#125;,&#123;&quot;_id&quot;:&#123;&quot;$oid&quot;:&quot;60efeac28036fc062411c4e9&quot;&#125;&#125;]&#125;&#39; --authenticationDatabase admin -d qdcares -c sfss -o /home/mongod/mongo/database/export/sfss.json</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;启动Mongodb&quot;&gt;&lt;a href=&quot;#启动Mongodb&quot; class=&quot;headerlink&quot; title=&quot;启动Mongodb&quot;&gt;&lt;/a&gt;启动Mongodb&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;./mongod -f /opt/mongodb/mongod.co</summary>
+      
+    
+    
+    
+    <category term="MongoDB" scheme="https://ericdxf.github.io/categories/MongoDB/"/>
+    
+    
+    <category term="中间件" scheme="https://ericdxf.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MongoDB集群部署</title>
+    <link href="https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/%E4%B8%AD%E9%97%B4%E4%BB%B6/MongoDB/MongoDB%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/"/>
+    <id>https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/%E4%B8%AD%E9%97%B4%E4%BB%B6/MongoDB/MongoDB%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</id>
+    <published>2022-05-16T10:45:53.000Z</published>
+    <updated>2022-05-16T10:45:09.138Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考链接</p><p><a href="https://www.1024sou.com/article/809940.html">https://www.1024sou.com/article/809940.html</a></p><pre><code>storage:  dbPath: F:\MongoDB\Server\4.2\data  journal:    enabled: true# where to write logging data.systemLog:  destination: file  logAppend: true  path:  F:\MongoDB\Server\4.2\log\mongo.lognet:  port: 27017  # 允许所有IP地址进行访问  bindIp: 0.0.0.0#processManagement:security:  authorization: enabled  # 用于副本集模式各节点互相认证用  keyFile: C:\Program Files\MongoDB\Server\4.2\bin\keyFile\mongodb.key#operationProfiling:replication:  # 副本名称  replSetName: qdcares#sharding:## Enterprise-Only Options:#auditLog:#snmp:</code></pre><p>查看当前副本集状态</p><pre><code>rs.status()</code></pre><pre><code># 创建登录账号db.createUser(  &#123;    user: &quot;root&quot;,    pwd: &quot;mongo@2021&quot;,    roles: [ &#123; role: &quot;root&quot;, db: &quot;admin&quot; &#125; ]  &#125;)  # 创建登录账号db.createUser(  &#123;    user: &quot;mongo&quot;,    pwd: &quot;mongo@2021&quot;,    roles: [ &#123; role: &quot;readWrite&quot;, db: &quot;qdcares&quot; &#125; ]  &#125;)  # 用户登录db.auth(&quot;mongo&quot;,&quot;mongo@2021&quot;)# 用户登录db.auth(&quot;root&quot;,&quot;mongo@2021&quot;)</code></pre><p>生成keyFile命令，Linux系统生成很方便，Windows没有尝试</p><pre><code>sudo openssl rand -base64 741 &gt;&gt; /opt/mongodb.key</code></pre><p>添加节点</p><p>生产环境添加节点时，建议将priority及votes设为0，即不会选为主（priority默认1），也没有投票特性（votes默认1，有投票权）</p><ul><li><p>priority：能否选为主节点</p></li><li><p>votes：是否有投票权</p></li></ul><pre><code>test12:PRIMARY&gt; rs.add( &#123; host: &quot;10.235.196.17:27017&quot;, priority: 0, votes: 0 &#125; )</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;参考链接&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.1024sou.com/article/809940.html&quot;&gt;https://www.1024sou.com/article/809940.html&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;storage:</summary>
+      
+    
+    
+    
+    <category term="MongoDB" scheme="https://ericdxf.github.io/categories/MongoDB/"/>
+    
+    
+    <category term="中间件" scheme="https://ericdxf.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis集群部署</title>
+    <link href="https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis%E9%83%A8%E7%BD%B2%E6%89%8B%E5%86%8C/"/>
+    <id>https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis/Redis%E9%83%A8%E7%BD%B2%E6%89%8B%E5%86%8C/</id>
+    <published>2022-05-16T10:45:53.000Z</published>
+    <updated>2022-05-16T10:45:47.798Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>下载地址： <a href="https://github.com/MicrosoftArchive/redis/releases">https://github.com/MicrosoftArchive/redis/releases</a></p><p>安装包已提供，如需下载则根据系统下载的版本：以（64位为例）</p><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201051.png" alt="202201051"></p><p>下载后一般解压到根目录下：如（E:\Redis-x64-3.2.100）</p><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>打开cmd命令窗口，使用命令进行安装和注册redis到window服务</p><p>安装命令：redis-server.exe –service-install redis.windows.conf –loglevel verbose</p><p>启动服务命令：redis-server.exe –service-start</p><p>关闭服务命令：redis-server.exe –service-stop</p><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201052.png" alt="202201052">最后返回的successfully表示安装成功。</p><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201053.png" alt="202201053"></p><p>也可以通过任务管理器中查看后台中是否有redis-service来判断是否启动成功。</p><h3 id="客户端使用redis"><a href="#客户端使用redis" class="headerlink" title="客户端使用redis"></a>客户端使用redis</h3><p>我们重新打开一个cmd ,作为一个客户端调用redis服务，如下图所示，调用命令是：redis-cli.exe -h [本机ip] -p 6379，如下图显示地址和端口，说明调用成功</p><p>然后我们使用set 和get 命令进行测试一下，set uname “abc”,然后使用get uname可以获取到对应set的值，说明调用成功</p><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201054.png" alt="202201054"></p><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201055.png" alt="202201055"></p><h3 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h3><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201056.png" alt="202201056"></p><p>上图中的root可以改为自己设置的密码</p><p>还可以通过将字符串设置为空来清空密码：<br>CONFIG SET requirepass “”</p><h3 id="问题记录：Creating-Server-TCP-listening-socket-127-0-0-1-6379-bind-No-error"><a href="#问题记录：Creating-Server-TCP-listening-socket-127-0-0-1-6379-bind-No-error" class="headerlink" title="问题记录：Creating Server TCP listening socket 127.0.0.1:6379: bind: No error"></a>问题记录：Creating Server TCP listening socket 127.0.0.1:6379: bind: No error</h3><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201057.png" alt="202201057"></p><p>解决办法：</p><pre><code>E:\Redis-x64-3.2.100&gt;redis-cli.exe127.0.0.1:6379&gt; shutdown(error) NOAUTH Authentication required.127.0.0.1:6379&gt; auth root　## 登录OK127.0.0.1:6379&gt; shutdownnot connected&gt; exitE:\Redis-x64-3.2.100&gt;redis-server.exe redis.windows.conf</code></pre><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201058.png" alt="202201058"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h3&gt;&lt;p&gt;下载地址： &lt;a href=&quot;https://github.com/MicrosoftArchive/redis/releases&quot;&gt;htt</summary>
+      
+    
+    
+    
+    <category term="Redis" scheme="https://ericdxf.github.io/categories/Redis/"/>
+    
+    
+    <category term="中间件" scheme="https://ericdxf.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+  </entry>
   
   <entry>
     <title>Arthas手册</title>
@@ -31,6 +200,52 @@
     <summary type="html">&lt;h3 id=&quot;Windows系统&quot;&gt;&lt;a href=&quot;#Windows系统&quot; class=&quot;headerlink&quot; title=&quot;Windows系统&quot;&gt;&lt;/a&gt;Windows系统&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;jdk路径下打开jvisualvm.exe软件&lt;/p&gt;
 &lt;p&gt;&lt;i</summary>
+      
+    
+    
+    
+    <category term="工具" scheme="https://ericdxf.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Linux常用命令整理</title>
+    <link href="https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/Linux%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/"/>
+    <id>https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/Linux%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/</id>
+    <published>2022-05-16T09:45:53.000Z</published>
+    <updated>2022-05-16T10:50:00.280Z</updated>
+    
+    <content type="html"><![CDATA[<p>作为开发者，这些常用命令不得不会，掌握这些命令，工作上会事半功倍，提供工作效率。</p><h2 id="一-文件和目录"><a href="#一-文件和目录" class="headerlink" title="一. 文件和目录"></a><strong>一. 文件和目录</strong></h2><p>cd命令，用于切换当前目录，它的参数是要切换到的目录的路径，可以是绝对路径，也可以是相对路径。</p><pre><code>cd /home 进入 &#39;/ home&#39; 目录cd .. 返回上一级目录cd ../.. 返回上两级目录cd               进入个人的主目录cd ~user1 进入个人的主目录cd - 返回上次所在的目录</code></pre><p>pwd命令，显示工作路径</p><pre><code>[root@mailvip ~]# pwd/root</code></pre><p>ls命令，查看文件与目录的命令，list之意</p><pre><code>ls 查看目录中的文件ls -l 显示文件和目录的详细资料ls -a 列出全部文件，包含隐藏文件ls -R 连同子目录的内容一起列出（递归列出），等于该目录下的所有文件都会显示出来ls [0-9] 显示包含数字的文件名和目录名</code></pre><p>cp命令，用于复制文件，copy之意，它还可以把多个文件一次性地复制到一个目录下</p><pre><code>-a ：将文件的特性一起复制-p ：连同文件的属性一起复制，而非使用默认方式，与-a相似，常用于备份-i ：若目标文件已经存在时，在覆盖时会先询问操作的进行-r ：递归持续复制，用于目录的复制行为 //经常使用递归复制-u ：目标文件与源文件有差异时才会复制</code></pre><p>mv命令，用于移动文件、目录或更名，move之意</p><pre><code>-f ：force强制的意思，如果目标文件已经存在，不会询问而直接覆盖-i ：若目标文件已经存在，就会询问是否覆盖-u ：若目标文件已经存在，且比目标文件新，才会更新</code></pre><p>rm命令，用于删除文件或目录，remove之意</p><pre><code>-f ：就是force的意思，忽略不存在的文件，不会出现警告消息-i ：互动模式，在删除前会询问用户是否操作-r ：递归删除，最常用于目录删除，它是一个非常危险的参数-rf : 删除文件夹</code></pre><h2 id="二、查看文件内容"><a href="#二、查看文件内容" class="headerlink" title="二、查看文件内容"></a><strong>二、查看文件内容</strong></h2><p>cat命令，用于查看文本文件的内容，后接要查看的文件名，通常可用管道与more和less一起使用</p><pre><code>cat file1 从第一个字节开始正向查看文件的内容tac file1 从最后一行开始反向查看一个文件的内容cat -n file1 标示文件的行数more file1 查看一个长文件的内容head -n 2 file1 查看一个文件的前两行tail -n 2 file1 查看一个文件的最后两行tail -n +1000 file1 从1000行开始显示，显示1000行以后的cat filename | head -n 3000 | tail -n +1000  显示1000行到3000行cat filename | tail -n +3000 | head -n 1000  从第3000行开始，显示1000(即显示3000~3999行)</code></pre><p><strong>三.文件搜索</strong></p><p>find命令，用来查找系统的</p><pre><code>find / -name file1 从 &#39;/&#39; 开始进入根文件系统搜索文件和目录find / -user user1 搜索属于用户 &#39;user1&#39; 的文件和目录find /usr/bin -type f -atime +100 搜索在过去100天内未被使用过的执行文件find /usr/bin -type f -mtime -10 搜索在10天内被创建或者修改过的文件whereis halt 显示一个二进制文件、源码或man的位置which halt 显示一个二进制文件或可执行文件的完整路径</code></pre><p>删除大于50M的文件：</p><pre><code>find /var/mail/ -size +50M -exec rm &#123;&#125; ＼;</code></pre><h3 id="四-文件的权限-使用-“-”-设置权限，使用-“-“-用于取消"><a href="#四-文件的权限-使用-“-”-设置权限，使用-“-“-用于取消" class="headerlink" title="四.文件的权限 - 使用 “+” 设置权限，使用 “-“ 用于取消"></a>四.文件的权限 - 使用 “+” 设置权限，使用 “-“ 用于取消</h3><p>chmod命令，改变文件&#x2F;文件夹权限</p><pre><code>ls -lh 显示权限chmod ugo+rwx directory1 设置目录的所有人(u)、群组(g)以及其他人(o)以读（r，4 ）、写(w，2)和执行(x，1)的权限chmod go-rwx directory1  删除群组(g)与其他人(o)对目录的读写执行权限</code></pre><p>chown命令，改变文件的所有者</p><pre><code>chown user1 file1 改变一个文件的所有人属性chown -R user1 directory1 改变一个目录的所有人属性并同时改变改目录下所有文件的属性chown user1:group1 file1 改变一个文件的所有人和群组属性</code></pre><p>chgrp命令，改变文件所属用户组</p><pre><code>chgrp group1 file1 改变文件的群组</code></pre><h3 id="五-文本处理"><a href="#五-文本处理" class="headerlink" title="五.文本处理"></a><strong>五.文本处理</strong></h3><p>grep命令，分析一行的信息，若当中有我们所需要的信息，就将该行显示出来，该命令通常与管道命令一起使用，用于对一些命令的输出进行筛选加工等等</p><pre><code>grep Aug /var/log/messages  在文件 &#39;/var/log/messages&#39;中查找关键词&quot;Aug&quot; grep ^Aug /var/log/messages 在文件 &#39;/var/log/messages&#39;中查找以&quot;Aug&quot;开始的词汇grep [0-9] /var/log/messages 选择 &#39;/var/log/messages&#39; 文件中所有包含数字的行grep Aug -R /var/log/* 在目录 &#39;/var/log&#39; 及随后的目录中搜索字符串&quot;Aug&quot; sed &#39;s/stringa1/stringa2/g&#39; example.txt 将example.txt文件中的 &quot;string1&quot; 替换成 &quot;string2&quot; sed &#39;/^$/d&#39; example.txt 从example.txt文件中删除所有空白行</code></pre><p>paste命令</p><pre><code>paste file1 file2 合并两个文件或两栏的内容paste -d &#39;+&#39; file1 file2 合并两个文件或两栏的内容，中间用&quot;+&quot;区分</code></pre><p>sort命令</p><pre><code>sort file1 file2 排序两个文件的内容sort file1 file2 | uniq 取出两个文件的并集(重复的行只保留一份)sort file1 file2 | uniq -u 删除交集，留下其他的行sort file1 file2 | uniq -d 取出两个文件的交集(只留下同时存在于两个文件中的文件)</code></pre><p>comm命令</p><pre><code>comm -1 file1 file2 比较两个文件的内容只删除 &#39;file1&#39; 所包含的内容comm -2 file1 file2 比较两个文件的内容只删除 &#39;file2&#39; 所包含的内容comm -3 file1 file2 比较两个文件的内容只删除两个文件共有的部分</code></pre><h3 id="六、打包和压缩文件"><a href="#六、打包和压缩文件" class="headerlink" title="六、打包和压缩文件"></a>六、打包和压缩文件</h3><p>tar命令，对文件进行打包，默认情况并不会压缩，如果指定了相应的参数，它还会调用相应的压缩程序（如gzip和bzip等）进行压缩和解压</p><pre><code>-c ：新建打包文件-t ：查看打包文件的内容含有哪些文件名-x ：解打包或解压缩的功能，可以搭配-C（大写）指定解压的目录，注意-c,-t,-x不能同时出现在同一条命令中-j ：通过bzip2的支持进行压缩/解压缩-z ：通过gzip的支持进行压缩/解压缩-v ：在压缩/解压缩过程中，将正在处理的文件名显示出来-f filename ：filename为要处理的文件-C dir ：指定压缩/解压缩的目录dir</code></pre><p>压缩：tar -jcv -f filename.tar.bz2 要被处理的文件或目录名称 查询：tar -jtv -f filename.tar.bz2 解压：tar -jxv -f filename.tar.bz2 -C 欲解压缩的目录</p><pre><code>bunzip2 file1.bz2 解压一个叫做 &#39;file1.bz2&#39;的文件bzip2 file1 压缩一个叫做 &#39;file1&#39; 的文件gunzip file1.gz 解压一个叫做 &#39;file1.gz&#39;的文件gzip file1 压缩一个叫做 &#39;file1&#39;的文件gzip -9 file1 最大程度压缩rar a file1.rar test_file 创建一个叫做 &#39;file1.rar&#39; 的包rar a file1.rar file1 file2 dir1 同时压缩 &#39;file1&#39;, &#39;file2&#39; 以及目录 &#39;dir1&#39; rar x file1.rar 解压rar包zip file1.zip file1 创建一个zip格式的压缩包unzip file1.zip 解压一个zip格式压缩包zip -r file1.zip file1 file2 dir1 将几个文件和目录同时压缩成一个zip格式的压缩包</code></pre><h3 id="七-系统和关机（关机、重启和登出）"><a href="#七-系统和关机（关机、重启和登出）" class="headerlink" title="七.系统和关机（关机、重启和登出）"></a><strong>七.系统和关机（关机、重启和登出）</strong></h3><pre><code>shutdown -h now 关闭系统(1)init 0 关闭系统(2)telinit 0 关闭系统(3)shutdown -h hours:minutes &amp; 按预定时间关闭系统shutdown -c 取消按预定时间关闭系统shutdown -r now 重启(1)reboot 重启(2)logout 注销time 测算一个命令（即程序）的执行时间</code></pre><h3 id="八、进程相关的命令"><a href="#八、进程相关的命令" class="headerlink" title="八、进程相关的命令"></a><strong>八、进程相关的命令</strong></h3><p>jps命令，显示当前系统的java进程情况，及其id号</p><p>jps(Java Virtual Machine Process Status Tool)是JDK 1.5提供的一个显示当前所有java进程pid的命令，简单实用，非常适合在linux&#x2F;unix平台上简单察看当前java进程的一些简单情况。</p><p>ps命令，用于将某个时间点的进程运行情况选取下来并输出，process之意</p><pre><code>-A ：所有的进程均显示出来-a ：不与terminal有关的所有进程-u ：有效用户的相关进程-x ：一般与a参数一起使用，可列出较完整的信息-l ：较长，较详细地将PID的信息列出ps aux # 查看系统所有的进程数据ps ax # 查看不与terminal有关的所有进程ps -lA # 查看系统所有的进程数据ps axjf # 查看连同一部分进程树状态</code></pre><p>kill命令,用于向某个工作（%jobnumber）或者是某个PID（数字）传送一个信号，它通常与ps和jobs命令一起使用</p><p>命令格式 : kill[命令参数][进程id]</p><p>命令参数:</p><pre><code>-l 信号，若果不加信号的编号参数，则使用“-l”参数会列出全部的信号名称-a 当处理当前进程时，不限制命令名和进程号的对应关系-p 指定kill 命令只打印相关进程的进程号，而不发送任何信号-s 指定发送信号-u 指定用户</code></pre><p>实例1：列出所有信号名称 命令：kill -l 输出：</p><pre><code class="Linux">[root@localhost test6]# kill -l 1) SIGHUP 2) SIGINT 3) SIGQUIT 4) SIGILL 5) SIGTRAP 6) SIGABRT 7) SIGBUS 8) SIGFPE 9) SIGKILL 10) SIGUSR1 11) SIGSEGV 12) SIGUSR213) SIGPIPE 14) SIGALRM 15) SIGTERM 16) SIGSTKFLT17) SIGCHLD 18) SIGCONT 19) SIGSTOP 20) SIGTSTP21) SIGTTIN 22) SIGTTOU 23) SIGURG 24) SIGXCPU25) SIGXFSZ 26) SIGVTALRM 27) SIGPROF 28) SIGWINCH29) SIGIO 30) SIGPWR 31) SIGSYS 34) SIGRTMIN35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3  38) SIGRTMIN+439) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+843) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+1247) SIGRTMIN+13 48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-1451) SIGRTMAX-13 52) SIGRTMAX-12 53) SIGRTMAX-11 54) SIGRTMAX-1055) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7  58) SIGRTMAX-659) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-263) SIGRTMAX-1  64) SIGRTMAX</code></pre><p>说明：</p><p>只有第9种信号(SIGKILL)才可以无条件终止进程，其他信号进程都有权利忽略。  下面是常用的信号：</p><pre><code>HUP 1 终端断线INT 2 中断（同 Ctrl + C）QUIT 3 退出（同 Ctrl + \）TERM 15 终止KILL    9    强制终止CONT 18    继续（与STOP相反， fg/bg命令）STOP    19    暂停（同 Ctrl + Z）</code></pre><p>实例2：得到指定信号的数值</p><pre><code>[root@localhost test6]# kill -l KILL[root@localhost test6]# kill -l SIGKILL[root@localhost test6]# kill -l TERM[root@localhost test6]# kill -l SIGTERM[root@localhost test6]#</code></pre><p>实例3：先用ps查找进程，然后用kill杀掉</p><pre><code>命令：kill 3268[root@localhost test6]# ps -ef|grep vim root 3268  2884  0 16:21 pts/1    00:00:00 vim install.logroot 3370  2822  0 16:21 pts/0    00:00:00 grep vim[root@localhost test6]# kill 3268</code></pre><p>实例4：彻底杀死进程</p><pre><code>命令：kill –9 3268 // -9 强制杀掉进程</code></pre><p>killall命令，向一个命令启动的进程发送一个信号，用于杀死指定名字的进程</p><p>命令格式 : killall[命令参数][进程名]</p><pre><code>命令参数：-Z 只杀死拥有scontext 的进程-e 要求匹配进程名称-I 忽略小写-g 杀死进程组而不是进程-i 交互模式，杀死进程前先询问用户-l 列出所有的已知信号名称-q 不输出警告信息-s 发送指定的信号-v 报告信号是否成功发送-w 等待进程死亡--help 显示帮助信息--version 显示版本显示</code></pre><p>示例</p><pre><code>1：杀死所有同名进程    killall nginx    killall -9 bash2.向进程发送指定信号    killall -TERM ngixn 或者 killall -KILL nginx</code></pre><p>top命令，是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。</p><p>如何杀死进程：</p><pre><code>（1）图形化界面的方式（2）kill -9 pid （-9表示强制关闭）（3）killall -9 程序的名字（4）pkill 程序的名字</code></pre><p>查看进程端口号：</p><pre><code>netstat -tunlp|grep 端口号</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;作为开发者，这些常用命令不得不会，掌握这些命令，工作上会事半功倍，提供工作效率。&lt;/p&gt;
+&lt;h2 id=&quot;一-文件和目录&quot;&gt;&lt;a href=&quot;#一-文件和目录&quot; class=&quot;headerlink&quot; title=&quot;一. 文件和目录&quot;&gt;&lt;/a&gt;&lt;strong&gt;一. 文件和目录</summary>
+      
+    
+    
+    
+    <category term="工具" scheme="https://ericdxf.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>浏览器Session手动配置</title>
+    <link href="https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/Session/"/>
+    <id>https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/Session/</id>
+    <published>2022-05-16T09:45:53.000Z</published>
+    <updated>2022-05-16T10:49:36.539Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Session手动配置"><a href="#Session手动配置" class="headerlink" title="Session手动配置"></a>Session手动配置</h3><p>F12控制台输入下方代码</p><pre><code>localStorage.setItem(&#39;SESSION&#39;,&#39;NDE2NDNmMzEtOTE4YS00ODZmLWI0MmQtMzcwZDkyYWZmYWQ3&#39;)</code></pre><pre><code>localStorage.setItem(&#39;name&#39;,&#39;Bob&#39;)console.log(localStorage.getItem(&#39;name&#39;))localStorage.removeitem(&#39;Bob&#39;) sessionStorage.setItem(&#39;name&#39;,&#39;Bob&#39;)console.log(sessionStorage.getItem(&#39;name&#39;))sessionStorage.removeitem(&#39;Bob&#39;) document.cookie=&#39;name = kyle&#39; document.cookie=&#39;name = kyle expires=&#39; + new Date(&#39;2020&#39;, 0,1).toUTCString</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Session手动配置&quot;&gt;&lt;a href=&quot;#Session手动配置&quot; class=&quot;headerlink&quot; title=&quot;Session手动配置&quot;&gt;&lt;/a&gt;Session手动配置&lt;/h3&gt;&lt;p&gt;F12控制台输入下方代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;localS</summary>
       
     
     
@@ -116,30 +331,6 @@
   </entry>
   
   <entry>
-    <title>Nginx部署</title>
-    <link href="https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E5%AE%89%E8%A3%85/"/>
-    <id>https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E5%AE%89%E8%A3%85/</id>
-    <published>2022-04-22T11:45:53.000Z</published>
-    <updated>2022-04-22T11:38:48.099Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="Nginx部署"><a href="#Nginx部署" class="headerlink" title="Nginx部署"></a>Nginx部署</h3><h5 id="1-安装依赖包"><a href="#1-安装依赖包" class="headerlink" title="1.安装依赖包"></a>1.安装依赖包</h5><pre><code>//一键安装上面四个依赖yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel</code></pre><h5 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="2.下载并解压安装包"></a>2.下载并解压安装包</h5><pre><code>//创建一个文件夹cd /usr/localmkdir nginxcd nginx//下载tar包wget http://nginx.org/download/nginx-1.18.0.tar.gztar -xvf nginx-1.18.0.tar.gz</code></pre><h5 id="3-安装nginx"><a href="#3-安装nginx" class="headerlink" title="3.安装nginx"></a>3.安装nginx</h5><pre><code>//进入nginx目录cd /usr/local/nginx//进入目录cd nginx-1.18.0//执行命令./configure//执行make命令make//执行make install命令make install</code></pre><h5 id="4-配置nginx-conf"><a href="#4-配置nginx-conf" class="headerlink" title="4.配置nginx.conf"></a>4.配置nginx.conf</h5><pre><code>// 打开配置文件vim /usr/local/nginx/conf/nginx.conf</code></pre><h5 id="5-启动命令"><a href="#5-启动命令" class="headerlink" title="5.启动命令"></a>5.启动命令</h5><pre><code>/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</code></pre><h5 id="6-添加到环境变量"><a href="#6-添加到环境变量" class="headerlink" title="6.添加到环境变量"></a>6.添加到环境变量</h5><pre><code>ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/</code></pre><p>&#x2F;usr&#x2F;local&#x2F;bin&#x2F;就是环境变量目录</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;Nginx部署&quot;&gt;&lt;a href=&quot;#Nginx部署&quot; class=&quot;headerlink&quot; title=&quot;Nginx部署&quot;&gt;&lt;/a&gt;Nginx部署&lt;/h3&gt;&lt;h5 id=&quot;1-安装依赖包&quot;&gt;&lt;a href=&quot;#1-安装依赖包&quot; class=&quot;headerlink</summary>
-      
-    
-    
-    
-    <category term="Nginx" scheme="https://ericdxf.github.io/categories/Nginx/"/>
-    
-    
-    <category term="部署" scheme="https://ericdxf.github.io/tags/%E9%83%A8%E7%BD%B2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>将Nginx注册为windows系统服务</title>
     <link href="https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E9%85%8D%E7%BD%AE%E6%88%90Windows%E6%9C%8D%E5%8A%A1/"/>
     <id>https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E9%85%8D%E7%BD%AE%E6%88%90Windows%E6%9C%8D%E5%8A%A1/</id>
@@ -164,19 +355,43 @@
   </entry>
   
   <entry>
+    <title>Nginx部署</title>
+    <link href="https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E5%AE%89%E8%A3%85/"/>
+    <id>https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E5%AE%89%E8%A3%85/</id>
+    <published>2022-04-22T11:45:53.000Z</published>
+    <updated>2022-04-22T11:38:48.099Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Nginx部署"><a href="#Nginx部署" class="headerlink" title="Nginx部署"></a>Nginx部署</h3><h5 id="1-安装依赖包"><a href="#1-安装依赖包" class="headerlink" title="1.安装依赖包"></a>1.安装依赖包</h5><pre><code>//一键安装上面四个依赖yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel</code></pre><h5 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="2.下载并解压安装包"></a>2.下载并解压安装包</h5><pre><code>//创建一个文件夹cd /usr/localmkdir nginxcd nginx//下载tar包wget http://nginx.org/download/nginx-1.18.0.tar.gztar -xvf nginx-1.18.0.tar.gz</code></pre><h5 id="3-安装nginx"><a href="#3-安装nginx" class="headerlink" title="3.安装nginx"></a>3.安装nginx</h5><pre><code>//进入nginx目录cd /usr/local/nginx//进入目录cd nginx-1.18.0//执行命令./configure//执行make命令make//执行make install命令make install</code></pre><h5 id="4-配置nginx-conf"><a href="#4-配置nginx-conf" class="headerlink" title="4.配置nginx.conf"></a>4.配置nginx.conf</h5><pre><code>// 打开配置文件vim /usr/local/nginx/conf/nginx.conf</code></pre><h5 id="5-启动命令"><a href="#5-启动命令" class="headerlink" title="5.启动命令"></a>5.启动命令</h5><pre><code>/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</code></pre><h5 id="6-添加到环境变量"><a href="#6-添加到环境变量" class="headerlink" title="6.添加到环境变量"></a>6.添加到环境变量</h5><pre><code>ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/</code></pre><p>&#x2F;usr&#x2F;local&#x2F;bin&#x2F;就是环境变量目录</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Nginx部署&quot;&gt;&lt;a href=&quot;#Nginx部署&quot; class=&quot;headerlink&quot; title=&quot;Nginx部署&quot;&gt;&lt;/a&gt;Nginx部署&lt;/h3&gt;&lt;h5 id=&quot;1-安装依赖包&quot;&gt;&lt;a href=&quot;#1-安装依赖包&quot; class=&quot;headerlink</summary>
+      
+    
+    
+    
+    <category term="Nginx" scheme="https://ericdxf.github.io/categories/Nginx/"/>
+    
+    
+    <category term="部署" scheme="https://ericdxf.github.io/tags/%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>sshkey内容配置</title>
     <link href="https://ericdxf.github.io/2019/03/22/Git/sshkey%E5%86%85%E5%AE%B9%E9%85%8D%E7%BD%AE/"/>
     <id>https://ericdxf.github.io/2019/03/22/Git/sshkey%E5%86%85%E5%AE%B9%E9%85%8D%E7%BD%AE/</id>
     <published>2019-03-22T09:45:53.000Z</published>
     <updated>2022-04-22T11:00:08.614Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>ssh-keygen -t rsa -C <a href="mailto:&#x64;&#117;&#x78;&#102;&#64;&#x71;&#x64;&#99;&#x61;&#x72;&#x65;&#x73;&#46;&#x63;&#x6e;">&#x64;&#117;&#x78;&#102;&#64;&#x71;&#x64;&#99;&#x61;&#x72;&#x65;&#x73;&#46;&#x63;&#x6e;</a> -b 1024<br>在git bash中使用上面的命令生成rsa公私钥，部分软件类似winscp要求使用ppk类型的私钥，需要使用puttygen工具进行转换即可</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>ssh-keygen -t rsa -C <a href="mailto:&#100;&#x75;&#120;&#102;&#x40;&#113;&#100;&#x63;&#x61;&#114;&#101;&#115;&#x2e;&#x63;&#110;">&#100;&#x75;&#120;&#102;&#x40;&#113;&#100;&#x63;&#x61;&#114;&#101;&#115;&#x2e;&#x63;&#110;</a> -b 1024<br>在git bash中使用上面的命令生成rsa公私钥，部分软件类似winscp要求使用ppk类型的私钥，需要使用puttygen工具进行转换即可</p></blockquote>]]></content>
     
     
       
       
     <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;ssh-keygen -t rsa -C &lt;a href=&quot;mailto:&amp;#x64;&amp;#117;&amp;#x78;&amp;#102;&amp;#64;&amp;#x71;&amp;#x64;&amp;#99;&amp;#x61;&amp;#x72;&amp;#x65;&amp;#x73;&amp;#46;&amp;#x63;&amp;#x6e;</summary>
+&lt;p&gt;ssh-keygen -t rsa -C &lt;a href=&quot;mailto:&amp;#100;&amp;#x75;&amp;#120;&amp;#102;&amp;#x40;&amp;#113;&amp;#100;&amp;#x63;&amp;#x61;&amp;#114;&amp;#101;&amp;#115;&amp;#x2e;&amp;#x63;&amp;#1</summary>
       
     
     
@@ -287,131 +502,4 @@
     
   </entry>
   
-  <entry>
-    <title>随笔</title>
-    <link href="https://ericdxf.github.io/2017/09/30/Git/%E9%9A%8F%E7%AC%94/"/>
-    <id>https://ericdxf.github.io/2017/09/30/Git/%E9%9A%8F%E7%AC%94/</id>
-    <published>2017-09-30T09:45:53.000Z</published>
-    <updated>2022-04-22T10:59:56.523Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>The biggest thing that makes Google’s code so good is simple:code review.</p></blockquote>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;The biggest thing that makes Google’s code so good is simple:code review.&lt;/p&gt;
-&lt;/blockquote&gt;
-</summary>
-      
-    
-    
-    
-    <category term="notes" scheme="https://ericdxf.github.io/categories/notes/"/>
-    
-    
-    <category term="随笔" scheme="https://ericdxf.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git分支操作</title>
-    <link href="https://ericdxf.github.io/2017/08/31/Git/Git%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/"/>
-    <id>https://ericdxf.github.io/2017/08/31/Git/Git%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C/</id>
-    <published>2017-08-31T09:45:53.000Z</published>
-    <updated>2022-05-16T08:27:44.786Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h3><p>首先，我们创建dev分支，然后切换到dev分支：</p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git checkout -b devSwitched to a new branch &#39;dev&#39;</code></pre><p>需要注意的是，上述这种方式创建的分支是从当前分支迁出一个新的本地分支，提交之后推送的话会提示需要设置远程分支</p><pre><code>D:\workspace\WebWorkspace\Lover (test -&gt; origin)λ git pushfatal: The current branch test has no upstream branch.To push the current branch and set the remote as upstream, use    git push --set-upstream origin test</code></pre><p>此时按照上面提示的添加–set-upstream origin <code>分支名</code>就可以了。<br>如果想从远程直接迁出分支到本地的话，可以使用如下命令<code>git checkout -b 本地分支名 远程分支名(可通过git branch-a查看)</code></p><pre><code>[root@VM_94_149_centos Lover]# git checkout -b branch_du remotes/origin/branch_duBranch branch_du set up to track remote branch branch_du from origin.Switched to a new branch &#39;branch_du&#39;</code></pre><p><code>git checkout</code>命令加上<code>-b</code>参数表示创建并切换，相当于以下两条命令：</p><p><code>git branch dev</code><br><code>git checkout dev</code></p><h3 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h3><p><code>git barnch</code>命令是查看分支状态，如下面的调用，显示的是所有的分支，以及当前所在的分支是 dev</p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git branch* dev  master</code></pre><p>想要查看远程分支的话，用<code>git branch -a</code></p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git branch -a* dev  master  remotes/origin/dev  remotes/origin/master</code></pre><h3 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h3><p>dev分支上做的改动，在切换回master之后是看不到的，因为这是在这个分支上进行的改动。那么当我们切换回master后如何把分支上的代码合并过来呢，就是通过调用<code>git merge dev</code>这个命令了。</p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git merge devUpdating eb19384..079e10cFast-forward &quot;Git/Git分支.md&quot; | 18 ++++++++++++++++++ 1 file changed, 18 insertions(+)</code></pre><p>合并了之后，再调用<code>git checkout master</code>切换回master后，就能在主干上看到所有改动了。</p><h3 id="git-branch-d"><a href="#git-branch-d" class="headerlink" title="git branch -d ***"></a>git branch -d ***</h3><p>分支合并了之后就会要删除不用的分支，这就是删除分支的指令了。</p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git branch -d devDeleted branch branch_test (was 079e10c).PS C:\workspace\AtomSpace\MarkDowns&gt; git branch* master</code></pre><p>但是如果分支没有合并的话，直接删除会报错：</p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git branch -d deverror: The branch &#39;dev&#39; is not fully merged.If you are sure you want to delete it, run &#39;git branch -D dev&#39;.</code></pre><p>根据提示也可以看出来，删除没有提交的分支的话需要调用<code>git branch -D dev</code>来强行删除。<br><strong>注意：上面说的所有的分支操作都是在本地仓库进行的，只有在<code>git push</code>之后远程仓库才会有相应变化</strong></p><h3 id="git-push-origin-d-lt-branch-name-gt"><a href="#git-push-origin-d-lt-branch-name-gt" class="headerlink" title="git push origin -d &lt;branch name&gt;"></a>git push origin -d &lt;branch name&gt;</h3><p>那么如何删除远程的分支呢，需要调用这个指令<code>git push origin -d &lt;branch name&gt;</code>，下面是调用示例：</p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git push origin -d devTo https://github.com/ericdxf/Record.git - [deleted]         dev</code></pre><h3 id="git-解决冲突"><a href="#git-解决冲突" class="headerlink" title="git 解决冲突"></a>git 解决冲突</h3><p>合并代码时难免会出现冲突，毕竟是多人协作搞出来的，难免出现大家修改一个文件的问题，这是会提示这个：</p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git merge feature1Auto-merging Git/readme.txtCONFLICT (content): Merge conflict in Git/readme.txtAutomatic merge failed; fix conflicts and then commit the result.</code></pre><p>此时在编辑器中能看到出现冲突的地方，在选择了留下哪部分代码解决了冲突之后，再进行<code>git add</code> <code>git commit</code>提交代码，就解决了这个冲突。</p><h3 id="git-stash"><a href="#git-stash" class="headerlink" title="git stash"></a>git stash</h3><p>软件开发中，bug就像家常便饭一样。有了bug就需要修复，在Git中，由于分支是如此的强大，所以，每个bug都可以通过一个新的临时分支来修复，修复后，合并分支，然后将临时分支删除。</p><p>当你接到一个修复一个代号101的bug的任务时，很自然地，你想创建一个分支issue-101来修复它，但是，等等，当前正在dev上进行的工作还没有提交：</p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git statusOn branch devChanges not staged for commit:  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)        modified:   &quot;readme.md&quot;no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre><p>并不是你不想提交，而是工作只进行到一半，还没法提交，预计完成还需1天时间。但是，必须在两个小时内修复该bug，怎么办？</p><p>幸好，Git还提供了一个stash功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：</p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git stashSaved working directory and index state WIP on dev: 3182e2e 提交解决冲突操作</code></pre><p>此时切换到发布分支上去checkout一个bug101分支，解决了bug之后，代码合并到主干上，然后把bug分支删除。此时应该切换回我们的dev开发分支上继续我们之前的开发：</p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git checkout devSwitched to branch &#39;dev&#39;PS C:\workspace\AtomSpace\MarkDowns&gt; git statusOn branch devnothing to commit, working tree clean</code></pre><p>此时你会发现，之前写的没有提交的部分都不见了，因为被<code>git stash</code>命令储藏起来了，那如何把这些代码取出来呢，有两种方式：</p><ul><li><code>git stash apply</code> + <code>git stash drop</code><br>用git stash apply恢复了代码之后，stash内容并不删除，所以要再调用一次<code>git stash drop</code>命令来删除。</li></ul><p>但有一点要注意，**<code>drop</code>命令只会删除最上面一次stash，并不是清空，应该是利用弹栈的方式，需要注意。**</p><ul><li><code>git stash pop</code><br>这个命令就是上面两个命令的叠加了，取出存储的数据之后同时删除存储库中的数据。</li><li><code>git stash list</code><br>这个命令可以查看当前存储的数量，如下：<pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git stash liststash@&#123;0&#125;: WIP on master: 3182e2e 提交信息1stash@&#123;1&#125;: WIP on dev: 3182e2e 提交信息2</code></pre></li></ul><h3 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a>git remote</h3><p>要查看远程库的信息时，用<code>git remote</code>，远程库的名称默认为<strong>origin</strong></p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git remoteorigin</code></pre><p><code>git remote -v</code>能查看更详细的信息，包括远程仓库的地址：</p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git remote -vorigin  https://github.com/ericdxf/Record.git (fetch)origin  https://github.com/ericdxf/Record.git (push)</code></pre><p><code>git remote add origin &lt;url&gt;</code>这个是添加远程仓库的指令，那想换新的仓库怎么办呢，很简单。首先移除远程仓库：<br><code>git remote rm origin</code>之后再添加新的远程库就好了。</p><h3 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h3><p>命令<code>git tag &lt;name&gt;</code>用于新建一个标签，默认为HEAD，也可以指定一个commit id；<br><code>git tag -a &lt;tagname&gt; -m &quot;blablabla...</code>可以指定标签信息；<br><code>git tag -s &lt;tagname&gt; -m &quot;blablabla...</code>可以用PGP签名标签；<br>命令<code>git tag</code>可以查看所有标签。<br>命令<code>git push origin &lt;tagname&gt;</code>可以推送一个本地标签；<br>命令<code>git push origin --tags</code>可以推送全部未推送过的本地标签；<br>命令<code>git tag -d &lt;tagname&gt;</code>可以删除一个本地标签；<br>命令<code>git push origin :refs/tags/&lt;tagname&gt;</code>可以删除一个远程标签。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;git-checkout&quot;&gt;&lt;a href=&quot;#git-checkout&quot; class=&quot;headerlink&quot; title=&quot;git checkout&quot;&gt;&lt;/a&gt;git checkout&lt;/h3&gt;&lt;p&gt;首先，我们创建dev分支，然后切换到dev分支：&lt;/p&gt;
-&lt;</summary>
-      
-    
-    
-    
-    <category term="Git" scheme="https://ericdxf.github.io/categories/Git/"/>
-    
-    
-    <category term="Git基础" scheme="https://ericdxf.github.io/tags/Git%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git代码首次提交到远程仓库</title>
-    <link href="https://ericdxf.github.io/2017/08/30/Git/Git%E4%BB%A3%E7%A0%81%E9%A6%96%E6%AC%A1%E6%8F%90%E4%BA%A4%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/"/>
-    <id>https://ericdxf.github.io/2017/08/30/Git/Git%E4%BB%A3%E7%A0%81%E9%A6%96%E6%AC%A1%E6%8F%90%E4%BA%A4%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/</id>
-    <published>2017-08-30T09:45:53.000Z</published>
-    <updated>2022-04-22T10:58:39.943Z</updated>
-    
-    <content type="html"><![CDATA[<p>很多人接触Git后的第一步操作就是提交本地的代码到远程仓库，包括之前是使用SVN等其他版本控制工具的用户。我们这里就来详细介绍一下如何把本地的代码关联到远成仓库。</p><p>首先，要有一个远程仓库，其实按照Git的分布式原理，任何一台电脑都可以作为一个远程仓库。但在实际的使用中，往往需要这个远程仓库保持全天24小时不停地运行，不然不能保证多人协作下的实时性。但是每个项目都单独搭建这么一台仓库也是费时费力的，好在前辈们已经早已想到了这个问题，GitHub就是这样一个大型的代码仓库，全世界无数的代码都托管在上面，类似的还有GitLab、码云等。当然托管上去后，你的代码就可以被所有人查看了。可以通过付费的方式设置为私有的，这个就要量力而行了。</p><ol><li>好了，貌似有些跑偏了，现在就先在GitHub上新建一个远程仓库：</li></ol><p><img src="/assets/images/git_new_repository.png" alt="test"><br>之后填写仓库的信息：<br><img src="/assets/images/git_new_repository_1.png" alt="test"><br>仓库创建好了之后就可以把仓库的地址拷出来备用了：<br><img src="/assets/images/git_new_repository_path.png" alt="test"></p><ol start="2"><li>然后就是打开你的项目所在目录，要把本地的代码提交到远程仓库有两种方法，第一种是先把远程仓库克隆到本地，再把代码拷进去，然后提交代码。但是这种方法不推荐，更推荐的方法是先在本地代码所在路径建立一个本地仓库,Git支持把远程仓库和一个已有的本地仓库关联。我们详细介绍一下这个方式：<br>首先进入项目的根目录，执行命令<code>git init</code>,生成本地仓库：<pre><code>PS E:\respositoryTest&gt; git initInitialized empty Git repository in E:/respositoryTest/.git/</code></pre></li><li>然后把需要提交的代码关联到本地仓库中，当然前提是要先提交正确的<code>ignore</code>文件，这个文件后期也可以修改，但是会麻烦一些，在另一篇文章中有详细的介绍。执行命令<code>git add .</code>:<pre><code>PS E:\respositoryTest&gt; git add .</code></pre></li><li>接下来就是关联本地仓库到远程仓库，执行命令<code>git remote add origin &lt;url&gt;</code>，其中的url就是上面再GitHub中获取到的远程仓库地址：<pre><code>PS E:\respositoryTest&gt; git remote add origin https://github.com/ericdxf/test1.git</code></pre></li><li>接下来要先把远程仓库中的代码同步一下，虽然是个空仓库，但也有一些<code>README.md</code> <code>ignore</code>文件等，不同步的话等下的提交会报错的：<br>&#96;&#96;&#96;<br>PS E:\respositoryTest&gt; git pull origin master –allow-unrelated-histories<br>remote: Counting objects: 3, done.<br>remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0<br>Unpacking objects: 100% (3&#x2F;3), done.<br>From <a href="https://github.com/ericdxf/test1">https://github.com/ericdxf/test1</a></li></ol><ul><li>branch            master     -&gt; FETCH_HEAD</li><li>[new branch]      master     -&gt; origin&#x2F;master<br>&#96;&#96;&#96;<br>可以看到更新下来了三个文件，其实更新代码只要<code>git pull origin master</code>就好了，但是首次更新的话需要添加<code> --allow-unrelated-histories</code>后缀，不加的话会报错<code>fatal: refusing to merge unrelated histories</code>,这个问题是在Git 2.9.0之后的版本才出现的，以前的版本不加也可以正常工作，具体原因应该是为了增强安全性而加的处理吧。</li></ul><ol start="6"><li>接下来是把代码提交到本地仓库中，调用<code>git commit -m 提交信息</code>，提交信息就是你的这次改动的内容；一定要认真填写，不然版本多了之后想再查询之前的提交信息时，就会很麻烦。<pre><code>PS E:\respositoryTest&gt; git commit -m &quot;first commit&quot;[master 7e2adca] first commit 1 file changed, 4 insertions(+) create mode 100644 try.txt</code></pre></li><li>最后一步就是把本地仓库的代码提交到远程仓库中，<code>git push origin master</code>,<code>master</code>是分支的名字，没有分支的话，默认的就是这个名为<code>master</code>的主干了。<pre><code>PS E:\respositoryTest&gt; git push origin masterCounting objects: 3, done.Delta compression using up to 8 threads.Compressing objects: 100% (3/3), done.Writing objects: 100% (3/3), 333 bytes | 333.00 KiB/s, done.Total 3 (delta 0), reused 0 (delta 0)To https://github.com/ericdxf/test1.gitf715821..7e2adca  master -&gt; master</code></pre><img src="/images/git_new_repository_success.png" alt="end"></li></ol><p>好了，到这里，代码就关联到了GitHub中。 ^_^</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;很多人接触Git后的第一步操作就是提交本地的代码到远程仓库，包括之前是使用SVN等其他版本控制工具的用户。我们这里就来详细介绍一下如何把本地的代码关联到远成仓库。&lt;/p&gt;
-&lt;p&gt;首先，要有一个远程仓库，其实按照Git的分布式原理，任何一台电脑都可以作为一个远程仓库。但在实际</summary>
-      
-    
-    
-    
-    <category term="Git" scheme="https://ericdxf.github.io/categories/Git/"/>
-    
-    
-    <category term="Git基础" scheme="https://ericdxf.github.io/tags/Git%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git常用操作命令记录</title>
-    <link href="https://ericdxf.github.io/2017/08/30/Git/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/"/>
-    <id>https://ericdxf.github.io/2017/08/30/Git/Git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/</id>
-    <published>2017-08-30T09:45:53.000Z</published>
-    <updated>2022-04-22T10:59:19.226Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="git-init"><a href="#git-init" class="headerlink" title="git init"></a>git init</h3><p>选择一个路径初始化代码版本库，目录下会多一个<code>.git</code>目录，这里面保存的是当前Git存储库保存的信息，用户要严格注意不要手动修改它。</p><h3 id="git-add-xxx-xxx"><a href="#git-add-xxx-xxx" class="headerlink" title="git add xxx.xxx"></a>git add xxx.xxx</h3><p>把xxx.xxx这个文件添加到git仓库，文件名对上就好，不需要索引相对路径。</p><h3 id="git-add"><a href="#git-add" class="headerlink" title="git add ."></a>git add .</h3><p>添加当前git仓库中所有的文件。</p><h3 id="git-commit-m-“提交信息”"><a href="#git-commit-m-“提交信息”" class="headerlink" title="git commit -m “提交信息”"></a>git commit -m “提交信息”</h3><p>提交所有有改动的文件到本地git仓库，包括新增和删除的文件。<br><code>git commit</code>命令，<code>-m</code>后面输入的是本次提交的说明，可以输入任意内容，当然最好是有意义的，这样你就能从历史记录里方便地找到改动记录。</p><p>嫌麻烦不想输入<code>-m &quot;xxx&quot;</code>行不行？确实有办法可以这么干，但是强烈不建议你这么干，因为输入说明对自己对别人阅读都很重要。</p><h3 id="git-status"><a href="#git-status" class="headerlink" title="git status"></a>git status</h3><p><code>git status</code>命令可以让我们时刻掌握仓库当前的状态，下面的命令告诉我们，readme.txt被修改过了，但还没有准备提交的修改。</p><pre><code>$ git status# On branch master# Changes not staged for commit:#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)##    modified:   readme.txt#no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre><p>从这些信息里能清楚地看出哪个文件有过改动，具体的改动信息呢就要通过下面这个指令来查看了。</p><h3 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h3><p>虽然Git告诉我们readme.txt被修改了，但如果能看看具体修改了什么内容，自然是很好的。比如你休假两周从国外回来，第一天上班时，已经记不清上次怎么修改的readme.txt，所以，需要用<code>git diff</code>这个命令看看：</p><pre><code class="git">$ git diff readme.txtdiff --git a/readme.txt b/readme.txtindex 46d49bf..9247db6 100644--- a/readme.txt+++ b/readme.txt@@ -1,2 +1,2 @@-Git is a version control system.+Git is a distributed version control system. Git is free software.</code></pre><p>通过这个命令可以清晰的看到那些文件有了更改，包括新增删除或者修改等情况。<br>这里的<code>HEAD</code>指的是当前分支的上一次提交，而这句话的全部内容就是比较当前分支的状态和存储库中文件的区别。</p><pre><code>git diff HEAD -- readme.txt</code></pre><p>这句话的意思就是只单独比较这一个文件的差异。<strong>HEAD^代表上一次提交，^符号的数量表示前几次提交。</strong> 下面会有详细介绍。</p><h3 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout ***"></a>git checkout ***</h3><p>当你对某个文件做了修改之后，有时难免会发现有些错误不该提交，需要撤销这些更改，就需要使用到这个命令了，还是先执行git status命令：</p><pre><code>Your branch is up-to-date with &#39;origin/master&#39;. Changes not staged for commit:  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)         modified:   &quot;readme.md&quot; no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre><p>从上面的信息我们可以看出我对readme.md这个文件做了修改，也提到了<code>(use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</code>，这句话的意思就是可以通过<code>git checkout -- &lt;file&gt;</code>命令来撤销某个文件的而更改:</p><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git checkout -- Git/ignore相关.md</code></pre><p>执行了这条指令之后，就会发现这个文件已经撤销到了更改之前的状态。需要注意的是，分两种情况：</p><ul><li><p>一种是<code>readme.txt</code>自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；</p></li><li><p>一种是<code>readme.txt</code>已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。</p></li></ul><p>总之，就是让这个文件回到最近一次git commit或git add时的状态。<br>还有一点就是如果不带 <code>--</code> 符号的话就是切换分支的指令了，需要注意一下。</p><h3 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a>git reset</h3><p>首先我们要先明确一下<code>Head</code>的概念：<br><strong>Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。</strong></p><pre><code>$ git reset --hard HEAD^</code></pre><p>所以这句话的意思就是回退到上个版本了。回退和撤销有几种情况一起整理一下：</p><ul><li><p>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令<code>git checkout -- file。</code></p></li><li><p>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令<code>git reset HEAD file</code>，就回到了场景1，第二步按场景1操作。</p></li><li><p>场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。</p></li></ul><h3 id="git-rm"><a href="#git-rm" class="headerlink" title="git rm ."></a>git rm <em><strong>.</strong></em></h3><p>Git中的文件删除包括两种情况，一种是本地删除文件，然后提交修改到远程仓库，包括用户在资源管理器中进行删除；另一种是直接调用<code>git rm</code>命令进行删除。</p><ul><li>第一种情况：</li></ul><ol><li>在工作空间中新建一个<code>Others</code>文件夹，在其中新建一个test.txt文件，然后执行<code>git add Others/text.txt</code>添加到缓冲区，再<code>commit</code> <code>push</code>到远成仓库。</li><li>本地删除该文件，比如在文件资源管理器中右键删除等，我这里是命令行删除的。  </li><li>可以看出Git给出了提示，我可以通过<code>git add .</code>命令把文件删除操作提交到暂存区，之后推送到远程仓库。或者通过<code>git checkout Others/test.txt</code>命令来从暂存区还原这次删除。</li><li>通过提示我们可以看出，本地删除的话只是把工作区间中的文件给删除了，暂存区和本地仓库，远程仓库中的文件都没有改变。</li></ol><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; rm Others/test.txtPS C:\workspace\AtomSpace\MarkDowns&gt; git statusOn branch masterYour branch is up-to-date with &#39;origin/master&#39;.Changes not staged for commit:  (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)        deleted:    Others/test.txtno changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre><ul><li>第二种情况<br>通过调用<code>git rm Others/test.txt</code>命令来删除的话会删除本地文件，同时也会删除暂存区中的对应文件。我们直接看调用的情况，删除之后再调用一次<code>git status</code>命令来查看一下状态：</li></ul><pre><code>PS C:\workspace\AtomSpace\MarkDowns&gt; git rm Others/test.txtrm &#39;Others/test.txt&#39;PS C:\workspace\AtomSpace\MarkDowns&gt; git statusOn branch masterYour branch is ahead of &#39;origin/master&#39; by 1 commit.  (use &quot;git push&quot; to publish your local commits)  Changes to be committed:  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)        deleted:    Others/test.txt</code></pre><p>可以看出提示我调用<code>git commit</code>来提交到远程仓库，再就是通过版本回退来恢复这次删除。这就证实了确实工作空间中的文件已经被删除了，同时暂存区中的文件也被删除了。  </p><p><strong>总结一下：第一种方式只会删除本地文件，暂存区，本地库，远程库的更新都需要手动操作；而第二种方式则会删除本地和暂存区中的文件，而本地库和远程库的更新需要再行操作</strong></p><h3 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h3><p>当你想从远程仓库克隆项目到本地的话，就可以通过调用<code>git clone</code>命令来实现，具体调用规则如下：</p><pre><code>git clone https://github.com/ericdxf/test.git</code></pre><p>参考资料：<br>廖雪峰大神的Git教程：<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">传送门</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;git-init&quot;&gt;&lt;a href=&quot;#git-init&quot; class=&quot;headerlink&quot; title=&quot;git init&quot;&gt;&lt;/a&gt;git init&lt;/h3&gt;&lt;p&gt;选择一个路径初始化代码版本库，目录下会多一个&lt;code&gt;.git&lt;/code&gt;目录，这里面保</summary>
-      
-    
-    
-    
-    <category term="Git" scheme="https://ericdxf.github.io/categories/Git/"/>
-    
-    
-    <category term="Git基础" scheme="https://ericdxf.github.io/tags/Git%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git忽略规则</title>
-    <link href="https://ericdxf.github.io/2017/08/30/Git/Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99/"/>
-    <id>https://ericdxf.github.io/2017/08/30/Git/Git%E5%BF%BD%E7%95%A5%E8%A7%84%E5%88%99/</id>
-    <published>2017-08-30T09:45:53.000Z</published>
-    <updated>2022-04-22T10:58:34.435Z</updated>
-    
-    <content type="html"><![CDATA[<p>在git中如果想忽略掉某个文件，不让这个文件提交到版本库中，可以使用修改根目录中 .gitignore 文件的方法（如果没有这个文件，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则例如：</p><pre><code class="代码块">#此为注释 – 将被 Git 忽略*.sample 　　 # 忽略所有.sample 结尾的文件!lib.sample 　# 但 lib.sample 除外/TODO 　　    # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODObuild/ 　　   # 忽略 build/ 目录下的所有文件doc/*.txt 　　# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</code></pre><h3 id="提交代码之后修改ignore无效解决办法"><a href="#提交代码之后修改ignore无效解决办法" class="headerlink" title="提交代码之后修改ignore无效解决办法"></a>提交代码之后修改ignore无效解决办法</h3><p>把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因是.gitignore只能忽略那些原来没有被追踪的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。<font color="#17da4d">那么解决方法就是先把本地缓存删除（改变成未被追踪状态），然后再提交：</font>  </p><p>git rm -r –cached .<br>git add .<br>git commit -m ‘update .gitignore’  </p><h3 id="检查忽略地址"><a href="#检查忽略地址" class="headerlink" title="检查忽略地址"></a>检查忽略地址</h3><p>有些时候，你想添加一个文件到Git，但发现添加不了，原因是这个文件被<strong>ignore</strong>忽略了：</p><pre><code>$ git add App.classThe following paths are ignored by one of your .gitignore files:App.classUse -f if you really want to add them.</code></pre><p>你发现，可能是.gitignore写得有问题，需要找出来到底哪个规则写错了，可以用<code>git check-ignore</code>命令检查：</p><pre><code>$ git check-ignore -v App.class.gitignore:3:*.class    App.class</code></pre><p>Git会告诉我们，<code>.gitignore</code>的第3行规则忽略了该文件，于是我们就可以知道应该修订哪个规则。</p><h3 id="最后附上官方的-ignore文件链接-传送门"><a href="#最后附上官方的-ignore文件链接-传送门" class="headerlink" title="最后附上官方的.ignore文件链接 传送门"></a>最后附上官方的<code>.ignore</code>文件链接 <a href="https://github.com/github/gitignore">传送门</a></h3>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;在git中如果想忽略掉某个文件，不让这个文件提交到版本库中，可以使用修改根目录中 .gitignore 文件的方法（如果没有这个文件，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则例如：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;代码块&quot;&gt;#此为注释 – 将</summary>
-      
-    
-    
-    
-    <category term="Git" scheme="https://ericdxf.github.io/categories/Git/"/>
-    
-    
-    <category term="Git基础" scheme="https://ericdxf.github.io/tags/Git%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
 </feed>
-feed>
