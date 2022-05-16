@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eric的博客 || 基础</title>
+    <title>Eric的博客 || Hexo博客搭建</title>
     <meta name="author" content="Eric Du">
     <meta name="description" content="记录、分享、交流 ">
     <meta name="keywords" content=" ">
@@ -167,213 +167,76 @@
 
                 <div id="main">
                      
-<div class="categories-tags">
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>Hexo博客搭建 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/5/16
+        </span>
+
+        
+        <span class="category">
+            <a href="/categories/博客相关">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                博客相关
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/基础" style=color:#00bcd4>
+                    基础
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h3 id="Windows系统"><a href="#Windows系统" class="headerlink" title="Windows系统"></a>Windows系统</h3><ol>
+<li><p>jdk路径下打开jvisualvm.exe软件</p>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/image-20210630143317123.png" alt="image-20210630143317123"></p>
+</li>
+<li><p>找到对应进程pid</p>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/image-20210630143445508.png" alt="image-20210630143445508"></p>
+</li>
+<li><p>进入arthas安装目录，cmd进入命令行，输入命令</p>
+<pre><code>as.bat 16268
+</code></pre>
+<p>其中16268为对应进程的pid</p>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/image-20210630143804200.png" alt="image-20210630143804200"></p>
+</li>
+<li><p>输入对应命令观察方法耗时情况</p>
+<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/image-20210630143848120.png" alt="image-20210630143848120"></p>
+</li>
+</ol>
+
+    </div>
+
     
-    <div class="all-s">
-        
-        
-        <span>
-            <a href="/tags/安卓基础/" style=background:#03a9f4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                安卓基础
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/MySql/" style=background:#ff7d73>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                MySql
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/Git基础/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                Git基础
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/随笔/" style=background:#00a596>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                随笔
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/优化/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                优化
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/部署/" style=background:#ff7d73>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                部署
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/基础/" style='background:linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)'>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                基础
-            </a>
-        </span>
-        
-        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
     </div>
-    <div id="archives">
-        
-        <a-timeline>
-            <a-timeline-item color="#a5c2f5">
-                <a-card hoverable>
-                    <div class="item-time">2022/4/24</div>
-                    <a href="/2022/04/24/资料/博客搭建/">
-                        <h3>Hexo博客搭建</h3>
-                    </a>
-                    <div class="info">
-                        
-                        <span class="category">
-                            <a href="/categories/博客相关">
-                                <span class="icon">
-                                    <a-icon type="book" theme="filled" />
-                                </span>
-                                博客相关
-                            </a>
-                        </span>
-                        
-
-                        
-                        <span class="tags">
-                            <span class="icon">
-                                <a-icon type="tags" theme="filled" />
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/tags/基础" style=color:#ff7d73>
-                                    基础
-                                </a>
-                            </span>
-                            
-                        </span>
-                        
-                    </div>
-                </a-card>
-            </a-timeline-item>
-        </a-timeline>
-        
-        <a-timeline>
-            <a-timeline-item color="#a5c2f5">
-                <a-card hoverable>
-                    <div class="item-time">2022/5/16</div>
-                    <a href="/2022/05/16/资料/arthas手册/">
-                        <h3>Hexo博客搭建</h3>
-                    </a>
-                    <div class="info">
-                        
-                        <span class="category">
-                            <a href="/categories/博客相关">
-                                <span class="icon">
-                                    <a-icon type="book" theme="filled" />
-                                </span>
-                                博客相关
-                            </a>
-                        </span>
-                        
-
-                        
-                        <span class="tags">
-                            <span class="icon">
-                                <a-icon type="tags" theme="filled" />
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/tags/基础" style=color:#00a596>
-                                    基础
-                                </a>
-                            </span>
-                            
-                        </span>
-                        
-                    </div>
-                </a-card>
-            </a-timeline-item>
-        </a-timeline>
-        
-        <a-timeline>
-            <a-timeline-item color="#a5c2f5">
-                <a-card hoverable>
-                    <div class="item-time">2022/5/16</div>
-                    <a href="/2022/05/16/资料/图床测试/">
-                        <h3>图床测试</h3>
-                    </a>
-                    <div class="info">
-                        
-                        <span class="category">
-                            <a href="/categories/其他">
-                                <span class="icon">
-                                    <a-icon type="book" theme="filled" />
-                                </span>
-                                其他
-                            </a>
-                        </span>
-                        
-
-                        
-                        <span class="tags">
-                            <span class="icon">
-                                <a-icon type="tags" theme="filled" />
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/tags/基础" style=color:#00bcd4>
-                                    基础
-                                </a>
-                            </span>
-                            
-                        </span>
-                        
-                    </div>
-                </a-card>
-            </a-timeline-item>
-        </a-timeline>
-        
-    </div>
-    <script>
-        new Vue({
-            el: '#archives'
-        })
-    </script>
+    
 </div>
                      
 <footer id="footer">
@@ -437,6 +300,21 @@
             }
         }
     })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'korilin',
+        admin: ['korilin'],
+        language: 'en',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
 </script>
 
 </body>

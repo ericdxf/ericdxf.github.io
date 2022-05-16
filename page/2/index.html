@@ -198,6 +198,166 @@
 
 <div class="post">
 
+    <a href="/2018/08/17/MySql/MySql初始化及用户创建/">
+        <h2>
+            MySql初始化及用户创建
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+        <span class="category">
+            <a href="/categories/MySql">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                MySql
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2018/8/17
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <p>CentOS安装MySql8.0之后，部分配置和之前的5.7有比较大的差异，在这里整理一下<br>使用的安装方式是rpm安装</p>
+<pre><code>#wget http://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm  
+rpm -ivh mysql80-community-release-el7-1.noarch.rpm  
+</code></pre>
+<p>然后执行安装命令</p>
+<pre><code>yum -y install mysql mysql-server mysql-devel  
+</code></pre>
+<p>再次执行安装命令可查看安装情况，会给出提示，表示安装成功</p>
+<pre><code>[root@VM_94_149_centos www]# yum -y install mysql mysql-server mysql-devel
+Loaded plugins: fastestmirror, langpacks
+Loading mirror speeds from cached hostfile
+Package mysql-community-client-8.0.12-1.el7.x86_64 already installed and latest version
+Package mysql-community-server-8.0.12-1.el7.x86_64 already installed and latest version
+Package mysql-community-devel-8.0.12-1.el7.x86_64 already installed and latest version
+Nothing to do
+</code></pre>
+<p>其他一些相关指令记录如下<br>查看默认密码</p>
+<pre><code>mysql&gt; grep &quot;A temporary password&quot; /var/log/mysqld.log
+</code></pre>
+<p>修改默认密码</p>
+<pre><code>mysql&gt; ALTER USER USER() IDENTIFIED BY &#39;newPassword&#39;;
+</code></pre>
+<p>创建用户</p>
+<pre><code>mysql&gt; create user eric@&#39;%&#39; identified by &#39;your password&#39;;
+</code></pre>
+<p>由于机密方式不同导致连接不上的问题处理</p>
+<pre><code>mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;your password&#39; PASSWORD EXPIRE NEVER;
+mysql&gt; ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED WITH mysql_native_password BY &#39;your password&#39;;
+mysql&gt; flush privileges;
+</code></pre>
+<p>授权，默认创建的用户权限是usage,就是无权限，只能登录而已，（all：所有权限，这里有select,update等等权限，可以去搜一下；后面的*.*：指定数据库.指定表，这里是所有；to后面就是你刚才创建的用户）</p>
+<pre><code>mysql&gt; grant all on *.* to &#39;eric&#39;@&#39;%&#39;;
+</code></pre>
+<p>需要注意的一点是，8.0以后的MySql版本里密码验证是很严格的，必须要有大小写字母和特殊字符，上面的your password替换时要注意下。</p>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/MySql" style=color:#ff7d73>
+                MySql
+            </a>
+        </span>
+        
+    </div>
+
+    <a href="/2018/08/17/MySql/MySql初始化及用户创建/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2017/10/18/Android/Android系统路径/">
+        <h2>
+            Android系统路径
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+        <span class="category">
+            <a href="/categories/Android">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                Android
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2017/10/18
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h3 id="1-通过Environment获取的"><a href="#1-通过Environment获取的" class="headerlink" title="1.通过Environment获取的"></a>1.通过Environment获取的</h3><p>Environment.getDataDirectory().getPath()<br>获得根目录&#x2F;data 内部存储路径</p>
+<p>Environment.getDownloadCacheDirectory().getPath()<br>获得缓存目录&#x2F;cache</p>
+<p>Environment.getExternalStorageDirectory().getPath()<br>获得SD卡目录&#x2F;mnt&#x2F;sdcard（获取的是手机外置sd卡的路径）</p>
+<p>Environment.getRootDirectory().getPath()<br>获得系统目录&#x2F;system<br><strong>这些获取的都是应用外部路径。</strong></p>
+<h3 id="2-通过Context获取的"><a href="#2-通过Context获取的" class="headerlink" title="2.通过Context获取的"></a>2.通过Context获取的</h3><p>Context.getFilesDir().getPath()<br>用于获取APP的files目录 &#x2F;data&#x2F;data&#x2F;&lt;application package&gt;&#x2F;files</p>
+<p>Context.getCacheDir().getPath()<br>用于获取APP的cache目录 &#x2F;data&#x2F;data&#x2F;&lt;application package&gt;&#x2F;cache目录</p>
+<p>Context.getExternalFilesDir().getPath()<br>用于获取APP的在SD卡中的cache目录&#x2F;mnt&#x2F;sdcard&#x2F;Android&#x2F;data&#x2F;&lt;application package&gt;&#x2F;files</p>
+<p>Context.getExternalCacheDir().getPath()<br>用于获取APP的在SD卡中的cache目录&#x2F;mnt&#x2F;sdcard&#x2F;Android&#x2F;data&#x2F;&lt;application package&gt;&#x2F;cache<br><strong>后两个获取的是应用内部路径，即随着应用卸载会一起删除掉。</strong></p>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/安卓基础" style=color:#00a596>
+                安卓基础
+            </a>
+        </span>
+        
+    </div>
+
+    <a href="/2017/10/18/Android/Android系统路径/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
     <a href="/2017/09/30/Git/随笔/">
         <h2>
             随笔
@@ -417,7 +577,7 @@ origin  https://github.com/ericdxf/Record.git (push)
         
         <span class="tag">
             
-            <a href="/tags/Git基础" style=color:#00a596>
+            <a href="/tags/Git基础" style=color:#ffa2c4>
                 Git基础
             </a>
         </span>
@@ -518,7 +678,7 @@ f715821..7e2adca  master -&gt; master
         
         <span class="tag">
             
-            <a href="/tags/Git基础" style=color:#00bcd4>
+            <a href="/tags/Git基础" style=color:#03a9f4>
                 Git基础
             </a>
         </span>
@@ -687,7 +847,7 @@ Changes to be committed:
         
         <span class="tag">
             
-            <a href="/tags/Git基础" style=color:#03a9f4>
+            <a href="/tags/Git基础" style=color:#ff7d73>
                 Git基础
             </a>
         </span>
@@ -767,7 +927,7 @@ Use -f if you really want to add them.
         
         <span class="tag">
             
-            <a href="/tags/Git基础" style=color:#00a596>
+            <a href="/tags/Git基础" style=color:#ff7d73>
                 Git基础
             </a>
         </span>

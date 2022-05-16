@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/%E5%9B%BE%E5%BA%8A%E6%B5%8B%E8%AF%95/</loc>
+    
+    <lastmod>2022-05-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ericdxf.github.io/2022/05/16/%E8%B5%84%E6%96%99/arthas%E6%89%8B%E5%86%8C/</loc>
+    
+    <lastmod>2022-05-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ericdxf.github.io/2022/04/24/%E8%B5%84%E6%96%99/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
     
     <lastmod>2022-05-16</lastmod>
@@ -153,6 +171,13 @@
   </url>
   
   <url>
+    <loc>https://ericdxf.github.io/tags/MySql/</loc>
+    <lastmod>2022-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ericdxf.github.io/tags/Git%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2022-05-16</lastmod>
     <changefreq>weekly</changefreq>
@@ -187,17 +212,17 @@
     <priority>0.2</priority>
   </url>
   
+
+  
   <url>
-    <loc>https://ericdxf.github.io/tags/MySql/</loc>
+    <loc>https://ericdxf.github.io/categories/Android/</loc>
     <lastmod>2022-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
-
-  
   <url>
-    <loc>https://ericdxf.github.io/categories/Android/</loc>
+    <loc>https://ericdxf.github.io/categories/MySql/</loc>
     <lastmod>2022-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -232,7 +257,7 @@
   </url>
   
   <url>
-    <loc>https://ericdxf.github.io/categories/MySql/</loc>
+    <loc>https://ericdxf.github.io/categories/%E5%85%B6%E4%BB%96/</loc>
     <lastmod>2022-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
