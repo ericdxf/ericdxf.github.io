@@ -92,30 +92,6 @@
   </entry>
   
   <entry>
-    <title>Nginx部署</title>
-    <link href="https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E5%AE%89%E8%A3%85/"/>
-    <id>https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E5%AE%89%E8%A3%85/</id>
-    <published>2022-04-22T11:45:53.000Z</published>
-    <updated>2022-04-22T11:38:48.099Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="Nginx部署"><a href="#Nginx部署" class="headerlink" title="Nginx部署"></a>Nginx部署</h3><h5 id="1-安装依赖包"><a href="#1-安装依赖包" class="headerlink" title="1.安装依赖包"></a>1.安装依赖包</h5><pre><code>//一键安装上面四个依赖yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel</code></pre><h5 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="2.下载并解压安装包"></a>2.下载并解压安装包</h5><pre><code>//创建一个文件夹cd /usr/localmkdir nginxcd nginx//下载tar包wget http://nginx.org/download/nginx-1.18.0.tar.gztar -xvf nginx-1.18.0.tar.gz</code></pre><h5 id="3-安装nginx"><a href="#3-安装nginx" class="headerlink" title="3.安装nginx"></a>3.安装nginx</h5><pre><code>//进入nginx目录cd /usr/local/nginx//进入目录cd nginx-1.18.0//执行命令./configure//执行make命令make//执行make install命令make install</code></pre><h5 id="4-配置nginx-conf"><a href="#4-配置nginx-conf" class="headerlink" title="4.配置nginx.conf"></a>4.配置nginx.conf</h5><pre><code>// 打开配置文件vim /usr/local/nginx/conf/nginx.conf</code></pre><h5 id="5-启动命令"><a href="#5-启动命令" class="headerlink" title="5.启动命令"></a>5.启动命令</h5><pre><code>/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</code></pre><h5 id="6-添加到环境变量"><a href="#6-添加到环境变量" class="headerlink" title="6.添加到环境变量"></a>6.添加到环境变量</h5><pre><code>ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/</code></pre><p>&#x2F;usr&#x2F;local&#x2F;bin&#x2F;就是环境变量目录</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;Nginx部署&quot;&gt;&lt;a href=&quot;#Nginx部署&quot; class=&quot;headerlink&quot; title=&quot;Nginx部署&quot;&gt;&lt;/a&gt;Nginx部署&lt;/h3&gt;&lt;h5 id=&quot;1-安装依赖包&quot;&gt;&lt;a href=&quot;#1-安装依赖包&quot; class=&quot;headerlink</summary>
-      
-    
-    
-    
-    <category term="Nginx" scheme="https://ericdxf.github.io/categories/Nginx/"/>
-    
-    
-    <category term="部署" scheme="https://ericdxf.github.io/tags/%E9%83%A8%E7%BD%B2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Nginx缓存</title>
     <link href="https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E7%BC%93%E5%AD%98/"/>
     <id>https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E7%BC%93%E5%AD%98/</id>
@@ -164,19 +140,43 @@
   </entry>
   
   <entry>
+    <title>Nginx部署</title>
+    <link href="https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E5%AE%89%E8%A3%85/"/>
+    <id>https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E5%AE%89%E8%A3%85/</id>
+    <published>2022-04-22T11:45:53.000Z</published>
+    <updated>2022-04-22T11:38:48.099Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Nginx部署"><a href="#Nginx部署" class="headerlink" title="Nginx部署"></a>Nginx部署</h3><h5 id="1-安装依赖包"><a href="#1-安装依赖包" class="headerlink" title="1.安装依赖包"></a>1.安装依赖包</h5><pre><code>//一键安装上面四个依赖yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel</code></pre><h5 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="2.下载并解压安装包"></a>2.下载并解压安装包</h5><pre><code>//创建一个文件夹cd /usr/localmkdir nginxcd nginx//下载tar包wget http://nginx.org/download/nginx-1.18.0.tar.gztar -xvf nginx-1.18.0.tar.gz</code></pre><h5 id="3-安装nginx"><a href="#3-安装nginx" class="headerlink" title="3.安装nginx"></a>3.安装nginx</h5><pre><code>//进入nginx目录cd /usr/local/nginx//进入目录cd nginx-1.18.0//执行命令./configure//执行make命令make//执行make install命令make install</code></pre><h5 id="4-配置nginx-conf"><a href="#4-配置nginx-conf" class="headerlink" title="4.配置nginx.conf"></a>4.配置nginx.conf</h5><pre><code>// 打开配置文件vim /usr/local/nginx/conf/nginx.conf</code></pre><h5 id="5-启动命令"><a href="#5-启动命令" class="headerlink" title="5.启动命令"></a>5.启动命令</h5><pre><code>/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</code></pre><h5 id="6-添加到环境变量"><a href="#6-添加到环境变量" class="headerlink" title="6.添加到环境变量"></a>6.添加到环境变量</h5><pre><code>ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/</code></pre><p>&#x2F;usr&#x2F;local&#x2F;bin&#x2F;就是环境变量目录</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;Nginx部署&quot;&gt;&lt;a href=&quot;#Nginx部署&quot; class=&quot;headerlink&quot; title=&quot;Nginx部署&quot;&gt;&lt;/a&gt;Nginx部署&lt;/h3&gt;&lt;h5 id=&quot;1-安装依赖包&quot;&gt;&lt;a href=&quot;#1-安装依赖包&quot; class=&quot;headerlink</summary>
+      
+    
+    
+    
+    <category term="Nginx" scheme="https://ericdxf.github.io/categories/Nginx/"/>
+    
+    
+    <category term="部署" scheme="https://ericdxf.github.io/tags/%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>sshkey内容配置</title>
     <link href="https://ericdxf.github.io/2019/03/22/Git/sshkey%E5%86%85%E5%AE%B9%E9%85%8D%E7%BD%AE/"/>
     <id>https://ericdxf.github.io/2019/03/22/Git/sshkey%E5%86%85%E5%AE%B9%E9%85%8D%E7%BD%AE/</id>
     <published>2019-03-22T09:45:53.000Z</published>
     <updated>2022-04-22T11:00:08.614Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>ssh-keygen -t rsa -C <a href="mailto:&#x64;&#117;&#x78;&#102;&#x40;&#x71;&#x64;&#x63;&#97;&#114;&#x65;&#115;&#46;&#99;&#x6e;">&#x64;&#117;&#x78;&#102;&#x40;&#x71;&#x64;&#x63;&#97;&#114;&#x65;&#115;&#46;&#99;&#x6e;</a> -b 1024<br>在git bash中使用上面的命令生成rsa公私钥，部分软件类似winscp要求使用ppk类型的私钥，需要使用puttygen工具进行转换即可</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>ssh-keygen -t rsa -C <a href="mailto:&#x64;&#x75;&#120;&#x66;&#x40;&#x71;&#x64;&#99;&#x61;&#x72;&#x65;&#x73;&#x2e;&#x63;&#x6e;">&#x64;&#x75;&#120;&#x66;&#x40;&#x71;&#x64;&#99;&#x61;&#x72;&#x65;&#x73;&#x2e;&#x63;&#x6e;</a> -b 1024<br>在git bash中使用上面的命令生成rsa公私钥，部分软件类似winscp要求使用ppk类型的私钥，需要使用puttygen工具进行转换即可</p></blockquote>]]></content>
     
     
       
       
     <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;ssh-keygen -t rsa -C &lt;a href=&quot;mailto:&amp;#x64;&amp;#117;&amp;#x78;&amp;#102;&amp;#x40;&amp;#x71;&amp;#x64;&amp;#x63;&amp;#97;&amp;#114;&amp;#x65;&amp;#115;&amp;#46;&amp;#99;&amp;#x6e;</summary>
+&lt;p&gt;ssh-keygen -t rsa -C &lt;a href=&quot;mailto:&amp;#x64;&amp;#x75;&amp;#120;&amp;#x66;&amp;#x40;&amp;#x71;&amp;#x64;&amp;#99;&amp;#x61;&amp;#x72;&amp;#x65;&amp;#x73;&amp;#x2e;&amp;#x63;&amp;#x6</summary>
       
     
     

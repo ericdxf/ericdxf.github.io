@@ -545,7 +545,7 @@ kill -QUIT 2072
         
         <span class="tag">
             
-            <a href="/tags/优化" style=color:#ffa2c4>
+            <a href="/tags/优化" style=color:#00a596>
                 优化
             </a>
         </span>
@@ -553,95 +553,6 @@ kill -QUIT 2072
     </div>
 
     <a href="/2022/04/22/Nginx/Nginx使用记录/ " class="go-post">
-        阅读全文
-    </a>
-</div>
-
-<div class="post">
-
-    <a href="/2022/04/22/Nginx/Nginx安装/">
-        <h2>
-            Nginx部署
-        </h2>
-    </a>
-
-    <div class="category-and-date">
-
-        
-        <span class="category">
-            <a href="/categories/Nginx">
-                <span class="icon">
-                    <a-icon type="book" theme="filled" /></span>
-                Nginx
-            </a>
-        </span>
-        
-
-        <span class="date">
-            <span class="icon">
-                <a-icon type="calendar" theme="filled" />
-            </span>
-            2022/4/22
-        </span>
-
-    </div>
-
-    <div class="excerpt">
-        <div class="content" v-pre>
-            
-            
-            <h3 id="Nginx部署"><a href="#Nginx部署" class="headerlink" title="Nginx部署"></a>Nginx部署</h3><h5 id="1-安装依赖包"><a href="#1-安装依赖包" class="headerlink" title="1.安装依赖包"></a>1.安装依赖包</h5><pre><code>//一键安装上面四个依赖
-yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel
-</code></pre>
-<h5 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="2.下载并解压安装包"></a>2.下载并解压安装包</h5><pre><code>//创建一个文件夹
-cd /usr/local
-mkdir nginx
-cd nginx
-//下载tar包
-wget http://nginx.org/download/nginx-1.18.0.tar.gz
-tar -xvf nginx-1.18.0.tar.gz
-</code></pre>
-<h5 id="3-安装nginx"><a href="#3-安装nginx" class="headerlink" title="3.安装nginx"></a>3.安装nginx</h5><pre><code>//进入nginx目录
-cd /usr/local/nginx
-//进入目录
-cd nginx-1.18.0
-//执行命令
-./configure
-//执行make命令
-make
-//执行make install命令
-make install
-</code></pre>
-<h5 id="4-配置nginx-conf"><a href="#4-配置nginx-conf" class="headerlink" title="4.配置nginx.conf"></a>4.配置nginx.conf</h5><pre><code>// 打开配置文件
-vim /usr/local/nginx/conf/nginx.conf
-</code></pre>
-<h5 id="5-启动命令"><a href="#5-启动命令" class="headerlink" title="5.启动命令"></a>5.启动命令</h5><pre><code>/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
-</code></pre>
-<h5 id="6-添加到环境变量"><a href="#6-添加到环境变量" class="headerlink" title="6.添加到环境变量"></a>6.添加到环境变量</h5><pre><code>ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/
-</code></pre>
-<p>&#x2F;usr&#x2F;local&#x2F;bin&#x2F;就是环境变量目录</p>
-
-            
-        </div>
-    </div>
-
-    <div class="post-tags">
-        
-        <span class="icon">
-            <a-icon type="tags" theme="filled" />
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="/tags/部署" style=color:#00a596>
-                部署
-            </a>
-        </span>
-        
-    </div>
-
-    <a href="/2022/04/22/Nginx/Nginx安装/ " class="go-post">
         阅读全文
     </a>
 </div>
@@ -809,7 +720,7 @@ proxy_cache_valid any      1m;
         
         <span class="tag">
             
-            <a href="/tags/优化" style=color:#00bcd4>
+            <a href="/tags/优化" style=color:#00a596>
                 优化
             </a>
         </span>
@@ -901,7 +812,7 @@ proxy_cache_valid any      1m;
         
         <span class="tag">
             
-            <a href="/tags/优化" style=color:#00bcd4>
+            <a href="/tags/优化" style=color:#03a9f4>
                 优化
             </a>
         </span>
@@ -909,6 +820,95 @@ proxy_cache_valid any      1m;
     </div>
 
     <a href="/2022/04/22/Nginx/Nginx配置成Windows服务/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/2022/04/22/Nginx/Nginx安装/">
+        <h2>
+            Nginx部署
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+        <span class="category">
+            <a href="/categories/Nginx">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                Nginx
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/22
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            
+            <h3 id="Nginx部署"><a href="#Nginx部署" class="headerlink" title="Nginx部署"></a>Nginx部署</h3><h5 id="1-安装依赖包"><a href="#1-安装依赖包" class="headerlink" title="1.安装依赖包"></a>1.安装依赖包</h5><pre><code>//一键安装上面四个依赖
+yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel
+</code></pre>
+<h5 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="2.下载并解压安装包"></a>2.下载并解压安装包</h5><pre><code>//创建一个文件夹
+cd /usr/local
+mkdir nginx
+cd nginx
+//下载tar包
+wget http://nginx.org/download/nginx-1.18.0.tar.gz
+tar -xvf nginx-1.18.0.tar.gz
+</code></pre>
+<h5 id="3-安装nginx"><a href="#3-安装nginx" class="headerlink" title="3.安装nginx"></a>3.安装nginx</h5><pre><code>//进入nginx目录
+cd /usr/local/nginx
+//进入目录
+cd nginx-1.18.0
+//执行命令
+./configure
+//执行make命令
+make
+//执行make install命令
+make install
+</code></pre>
+<h5 id="4-配置nginx-conf"><a href="#4-配置nginx-conf" class="headerlink" title="4.配置nginx.conf"></a>4.配置nginx.conf</h5><pre><code>// 打开配置文件
+vim /usr/local/nginx/conf/nginx.conf
+</code></pre>
+<h5 id="5-启动命令"><a href="#5-启动命令" class="headerlink" title="5.启动命令"></a>5.启动命令</h5><pre><code>/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
+</code></pre>
+<h5 id="6-添加到环境变量"><a href="#6-添加到环境变量" class="headerlink" title="6.添加到环境变量"></a>6.添加到环境变量</h5><pre><code>ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/
+</code></pre>
+<p>&#x2F;usr&#x2F;local&#x2F;bin&#x2F;就是环境变量目录</p>
+
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/tags/部署" style=color:#00bcd4>
+                部署
+            </a>
+        </span>
+        
+    </div>
+
+    <a href="/2022/04/22/Nginx/Nginx安装/ " class="go-post">
         阅读全文
     </a>
 </div>
@@ -947,7 +947,7 @@ proxy_cache_valid any      1m;
             
             
             <blockquote>
-<p>ssh-keygen -t rsa -C <a href="mailto:&#x64;&#117;&#x78;&#102;&#x40;&#x71;&#x64;&#x63;&#97;&#114;&#x65;&#115;&#46;&#99;&#x6e;">&#x64;&#117;&#x78;&#102;&#x40;&#x71;&#x64;&#x63;&#97;&#114;&#x65;&#115;&#46;&#99;&#x6e;</a> -b 1024<br>在git bash中使用上面的命令生成rsa公私钥，部分软件类似winscp要求使用ppk类型的私钥，需要使用puttygen工具进行转换即可</p>
+<p>ssh-keygen -t rsa -C <a href="mailto:&#x64;&#x75;&#120;&#x66;&#x40;&#x71;&#x64;&#99;&#x61;&#x72;&#x65;&#x73;&#x2e;&#x63;&#x6e;">&#x64;&#x75;&#120;&#x66;&#x40;&#x71;&#x64;&#99;&#x61;&#x72;&#x65;&#x73;&#x2e;&#x63;&#x6e;</a> -b 1024<br>在git bash中使用上面的命令生成rsa公私钥，部分软件类似winscp要求使用ppk类型的私钥，需要使用puttygen工具进行转换即可</p>
 </blockquote>
 
             
@@ -963,7 +963,7 @@ proxy_cache_valid any      1m;
         
         <span class="tag">
             
-            <a href="/tags/Git基础" style=color:#ffa2c4>
+            <a href="/tags/Git基础" style=color:#00bcd4>
                 Git基础
             </a>
         </span>
@@ -1028,7 +1028,7 @@ proxy_cache_valid any      1m;
         
         <span class="tag">
             
-            <a href="/tags/MySql" style=color:#00a596>
+            <a href="/tags/MySql" style=color:#00bcd4>
                 MySql
             </a>
         </span>
@@ -1128,7 +1128,7 @@ compute max(数量),min(数量),avg(数量) by 类别
         
         <span class="tag">
             
-            <a href="/tags/MySql" style=color:#ff7d73>
+            <a href="/tags/MySql" style=color:#00a596>
                 MySql
             </a>
         </span>
@@ -1221,7 +1221,7 @@ mysql&gt; flush privileges;
         
         <span class="tag">
             
-            <a href="/tags/MySql" style=color:#ff7d73>
+            <a href="/tags/MySql" style=color:#03a9f4>
                 MySql
             </a>
         </span>
