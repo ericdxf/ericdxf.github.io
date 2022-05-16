@@ -155,28 +155,7 @@
 
   
   <url>
-    <loc>https://ericdxf.github.io/tags/%E9%83%A8%E7%BD%B2/</loc>
-    <lastmod>2022-05-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ericdxf.github.io/tags/%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2022-05-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ericdxf.github.io/tags/%E5%AE%89%E5%8D%93%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2022-05-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ericdxf.github.io/tags/MySql/</loc>
     <lastmod>2022-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -197,6 +176,27 @@
   </url>
   
   <url>
+    <loc>https://ericdxf.github.io/tags/%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2022-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ericdxf.github.io/tags/%E9%83%A8%E7%BD%B2/</loc>
+    <lastmod>2022-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ericdxf.github.io/tags/MySql/</loc>
+    <lastmod>2022-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ericdxf.github.io/tags/%E5%9F%BA%E7%A1%80/</loc>
     <lastmod>2022-05-16</lastmod>
     <changefreq>weekly</changefreq>
@@ -206,28 +206,7 @@
 
   
   <url>
-    <loc>https://ericdxf.github.io/categories/Nginx/</loc>
-    <lastmod>2022-05-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ericdxf.github.io/categories/Android/</loc>
-    <lastmod>2022-05-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ericdxf.github.io/categories/MySql/</loc>
-    <lastmod>2022-05-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ericdxf.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2022-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -242,6 +221,27 @@
   
   <url>
     <loc>https://ericdxf.github.io/categories/notes/</loc>
+    <lastmod>2022-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ericdxf.github.io/categories/Nginx/</loc>
+    <lastmod>2022-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ericdxf.github.io/categories/MySql/</loc>
+    <lastmod>2022-05-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ericdxf.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2022-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
