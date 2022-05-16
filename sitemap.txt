@@ -1,4 +1,4 @@
-https://ericdxf.github.io/2022/04/22/%E8%B5%84%E6%96%99/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/
+https://ericdxf.github.io/2022/04/24/%E8%B5%84%E6%96%99/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/
 https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/
 https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E9%85%8D%E7%BD%AE%E6%88%90Windows%E6%9C%8D%E5%8A%A1/
 https://ericdxf.github.io/2022/04/22/Nginx/Nginx%E7%BC%93%E5%AD%98/
