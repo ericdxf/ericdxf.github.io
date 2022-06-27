@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html lang="en ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eric的博客 || My personal blog</title>
+    <meta name="referrer" content="no-referrer" />
+    <meta name="author" content="Eric Du">
+    <meta name="description" content="记录、分享、交流 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/head_image.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Eric的博客" type="application/atom+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Eric的博客</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/like/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/like/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://en.korilin.com">
+            <span>
+                <a-icon type="compass" theme="filled" />
+            </span>
+            <span>英文博客</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Eric的博客</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/like/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/like/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+            <a target="_blank" rel="noopener" href="https://en.korilin.com">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="compass" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">英文博客</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1> </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2021/4/19
+        </span>
+
+        
+
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h2 id="移动管理平台部署文档"><a href="#移动管理平台部署文档" class="headerlink" title="移动管理平台部署文档"></a>移动管理平台部署文档</h2><h2 id="依赖环境"><a href="#依赖环境" class="headerlink" title="依赖环境"></a>依赖环境</h2><ul>
+<li>Jdk 8</li>
+<li>ElasticSearch 6.6.0</li>
+<li>MySQL 5.7 </li>
+<li>MongoDB </li>
+<li><del>RabbitMQ（后续将不再需要RabbitMQ）</del></li>
+</ul>
+<h2 id="ElasticSearch配置"><a href="#ElasticSearch配置" class="headerlink" title="ElasticSearch配置"></a>ElasticSearch配置</h2><p>配置文件路径：config&#x2F;elasticsearch.yml</p>
+<pre><code class="yaml">cluster.name: elasticsearch
+# 单节点配置
+node.name: node-1
+# 重要：es数据和日志文件路径
+path.data: D:\elasticstack\data
+path.logs: D:\elasticstack\logs
+network.host: [改为你的服务器IP]
+# http与tcp协议端口
+http.port: 9200
+transport.tcp.port: 9300
+</code></pre>
+<h2 id="应用目录"><a href="#应用目录" class="headerlink" title="应用目录"></a>应用目录</h2><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><ul>
+<li>总路径：&#x2F;opt&#x2F;abc&#x2F;			#abc为机场三字码的小写字母<ul>
+<li><pre><code>子路径：
+</code></pre>
+<ol>
+<li>&#x2F;opt&#x2F;abc&#x2F;logs		#日志存放路径<ul>
+<li>&#x2F;opt&#x2F;abc&#x2F;logs&#x2F;xxxx		#xxxx为应用名称</li>
+<li><pre><code>/opt/abc/logs/xxxx/run.log		#xxxx应用的当前日志
+</code></pre>
+</li>
+<li><pre><code>/opt/abc/logs/xxxx/history/run-yyyy-MM-dd.i.log	 #归档日志
+</code></pre>
+</li>
+</ul>
+</li>
+<li><pre><code>/opt/abc/webapps	#应用jar包路径
+</code></pre>
+<ul>
+<li><pre><code>/opt/abc/webapps/xxxx.jar		#当前运行的xxxx应用
+</code></pre>
+</li>
+<li><pre><code>/opt/abc/webapps/history/yyyy-MM-dd.i/xxxx.jar 	#发布日期下的应用
+</code></pre>
+</li>
+</ul>
+</li>
+<li><pre><code>/opt/abc/conf		#配置文件路径
+</code></pre>
+<ul>
+<li><pre><code>/opt/abc/conf/application-xxxx.yml		#xxxx应用当前的配置文件
+</code></pre>
+</li>
+<li><pre><code>/opt/abc/conf/history/yyyy-MM-dd.i/application-xxxx.yml  #调整的应用配置
+</code></pre>
+</li>
+</ul>
+</li>
+<li><pre><code>/opt/abc/bin		#脚本文件路径
+</code></pre>
+<ul>
+<li>&#x2F;opt&#x2F;abc&#x2F;bin&#x2F;xxxx-start.sh		#xxxx应用当前的脚本，可能存在多个</li>
+<li><pre><code>/opt/abc/bin/history/yyyy-MM-dd.i/server.sh  #调整的应用脚本
+</code></pre>
+</li>
+</ul>
+</li>
+<li>&#x2F;opt&#x2F;abc&#x2F;pids		#pid文件路径<ul>
+<li>&#x2F;opt&#x2F;abc&#x2F;bin&#x2F;xxxx.pid		#xxxx应用的pid</li>
+</ul>
+</li>
+<li>&#x2F;opt&#x2F;abc&#x2F;tmp		#临时文件路径<ul>
+<li>&#x2F;opt&#x2F;abc&#x2F;tmp&#x2F;xxxx202002021122.hprof		#xxxx应用的临时文件<blockquote>
+<p>应用、配置文件、脚本等在更新前首先在历史目录里，存档一份，然后再更新到当前应用的目录下。目录命名按照年-月-日的格式，相同日期内存在多次发布，在后面增加序号。</p>
+</blockquote>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3></li>
+</ul>
+</li>
+</ol>
+</li>
+<li>windows 环境请选择最靠近C盘的非系统盘下创建abc（三字码）目录</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ol>
+<li>建库</li>
+</ol>
+<blockquote>
+<p>数据库名称使用 mgmt_xxx（机场三字码小写）</p>
+</blockquote>
+<pre><code class="sql"> CREATE DATABASE `mgmt_xxx` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+</code></pre>
+<ol start="2">
+<li>建表<blockquote>
+<p>数据库表使用自动映射，启动项目jar包后自动建表</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="基础数据导入"><a href="#基础数据导入" class="headerlink" title="基础数据导入"></a>基础数据导入</h2><blockquote>
+<p>依次执行sql脚本,导入基础数据</p>
+</blockquote>
+<ul>
+<li>mgmt_base_api.sql</li>
+<li>mgmt_base_component.sql</li>
+</ul>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><blockquote>
+<p>如果项目有统一的common配置文件，请使用统一的common配置</p>
+</blockquote>
+<ul>
+<li>在启动命令中使用 <strong>–spring.conf.location</strong> 指定配置文件位置，不要手动修改jar包</li>
+<li>所有环境都使用配置文件：application-common.yml和application-mobile-manage.yml<ul>
+<li>各环境的具体配置都在application-common.yml中travelsky节点下修改</li>
+<li>application-mobile-manage.yml文件不需要修改</li>
+</ul>
+</li>
+</ul>
+<h2 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h2><blockquote>
+<p>如果项目有统一的启动脚本，请使用统一的启动脚本</p>
+</blockquote>
+<ul>
+<li>windows 启动命令</li>
+</ul>
+<pre><code class="shell"> java -jar -Xms512m -Xmx512m -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m -XX:+HeapDumpOnOutOfMemoryError 
+-XX:HeapDumpPath=D:/abc/temp/mobile-manage.hprof       
+-XX:+UseG1GC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintTenuringDistribution
+-Xloggc:D:/xxx/logs/mobile-manage/gc_mobile_manage.log -XX:ErrorFile=D:/abc/mobile-manage/hs_error_mobile_manage.log -DlogPath=D:/logs/mobile-manage
+-Dspring.config.location=D:\xxx\conf\application-common.yml,D:\xxx\conf\application-mobile-manage.yml mobile-managejar
+</code></pre>
+<ul>
+<li>Linux启动命令</li>
+<li>&#96;&#96;&#96; shell<br>nohup java -jar -Xms${MinMEM} -Xmx${MaxMEM} -XX:MetaspaceSize&#x3D;256m -XX:MaxMetaspaceSize&#x3D;256m -XX:+HeapDumpOnOutOfMemoryError</li>
+</ul>
+<p>-XX:HeapDumpPath&#x3D;&#x2F;opt&#x2F;abc&#x2F;temp&#x2F;mobile-manage-$(date “+%Y-%m-%d%H:%M:%S”).hprof<br>-XX:+UseG1GC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintTenuringDistribution<br>-Xloggc:&#x2F;opt&#x2F;xxx&#x2F;logs&#x2F;mobile-manage&#x2F;gc_%p.log -XX:ErrorFile&#x3D;&#x2F;opt&#x2F;xxx&#x2F;logs&#x2F;mobile-manage&#x2F;hs_error_pid%p.log -DlogPath&#x3D;&#x2F;opt&#x2F;xxx&#x2F;logs&#x2F;mobile-manage<br>-Dspring.config.location&#x3D;&#x2F;opt&#x2F;abc&#x2F;conf&#x2F;application-common.yml,&#x2F;opt&#x2F;abc&#x2F;conf&#x2F;application-mobile-manage.yml mobile-manage.jar &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1 &amp; echo</p>
+<p>&#96;&#96;&#96;</p>
+<h2 id="系统部署提供清单"><a href="#系统部署提供清单" class="headerlink" title="系统部署提供清单"></a>系统部署提供清单</h2><ol>
+<li>应用jar包：mobile-manage.jar</li>
+<li>基础数据执行sql： - mgmt_base_api.sql、 mgmt_base_component.sql</li>
+<li>应用配置yml文件：<br>- 项目有统一common配置：提供application-mobile-manage.yml<br>- 项目没有统一的common配置：application-common.yml和application-mobile-manage.yml</li>
+</ol>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2022 Eric的博客
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @Eric Du
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

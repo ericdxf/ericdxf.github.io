@@ -1,0 +1,922 @@
+
+<!DOCTYPE html>
+<html lang="en ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eric的博客 || My personal blog</title>
+    <meta name="referrer" content="no-referrer" />
+    <meta name="author" content="Eric Du">
+    <meta name="description" content="记录、分享、交流 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/head_image.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Eric的博客" type="application/atom+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Eric的博客</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/like/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/like/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://en.korilin.com">
+            <span>
+                <a-icon type="compass" theme="filled" />
+            </span>
+            <span>英文博客</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Eric的博客</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/like/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/like/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+            <a target="_blank" rel="noopener" href="https://en.korilin.com">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="compass" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">英文博客</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1> </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/4/22
+        </span>
+
+        
+
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h1 id="流亭掌控机场Kettle抽数SQL整理"><a href="#流亭掌控机场Kettle抽数SQL整理" class="headerlink" title="流亭掌控机场Kettle抽数SQL整理"></a>流亭掌控机场Kettle抽数SQL整理</h1><p>PS：下面所有环节中的数据都是抽的流亭集成fims库的数据</p>
+<h3 id="RPT-FLIGHT（航班信息表）"><a href="#RPT-FLIGHT（航班信息表）" class="headerlink" title="RPT_FLIGHT（航班信息表）"></a>RPT_FLIGHT（航班信息表）</h3><pre><code>select f.id,
+       f.flightno,
+       f.airlineiata,
+       f.airlinecn as Airline ,
+       f.flightdate  as flightdate,
+       f.taskcn as Task,
+       f.isarrflight as isArr,
+       f.dep_airport_iata as StartAirportIata,
+       f.dep_airport_cn as StartAirport,
+       f.des_airport_iata as EndAirportIata,
+       f.des_airport_cn as EndAirport,
+       d.code as StatusCode,
+       f.statuscn as Status,
+       f.regioncn as region,
+       f.craftno as Aircraft,
+       f.CRAFTCODE  as CraftModel,
+       nvl(f.avseat,d2.seatnum) as SeatCount,
+       f.dep_plan_takeoff  as PlanTakeOff,
+       f.des_plan_landing as PlanLanding,
+       f.dep_alter_takeoff  as AlterTakeOff,
+       f.des_alter_landing as AlterLanding,
+       f.dep_real_takeoff as RealTakeOff,
+       f.des_real_landing as RealLanding,
+       decode(f.isarrflight,1,c.depflightid,c.arrflightid) as ConnectedFltId,
+      (select to_char(wm_concat(a.iata||s.flightno))from fims.naoms_fims_share  s 
+                                               inner join fims.naoms_cfg_airline a on s.airlineid=a.id
+                                        where s.flightid=f.id) as &quot;Share&quot;,
+       d1.code as AbnCode,        
+       f.abn_status_name as Abn ,     
+       abn.cn as AbnRsn,
+        case 
+          when f.isarrflight=1 and f.statuscn=&#39;到达&#39; then 
+            1
+          when f.isarrflight=0 and f.statuscn=&#39;起飞&#39; then 
+            1
+          when d1.code=&#39;CAN&#39; then 
+            1
+          else
+            0
+        end as isCompleted,
+        case when f.taskcn=&#39;返航&#39; then 0
+            else nvl(f.cargo_weight, 0)+nvl(f.mail_weight, 0)
+       end AS cml,
+    case 
+       
+         when f.isarrflight=0 and  f.abn_status_name is null and (arr.id is null or(arr.abn_status_name is null) )
+           and round(24 * 60 *(trunc(nvl(f.dep_real_takeoff,f.dep_alter_takeoff) ,&#39;mi&#39;)-trunc(f.dep_plan_takeoff, &#39;mi&#39;)),0)&gt;=$&#123;JOB_GEESE_RDLY&#125; then 
+             1
+         when  f.isarrflight=0 and f.statuscn!=&#39;起飞&#39; and f.abn_status_name is null  and (arr.id is null or(arr.abn_status_name is null) )
+           and nvl(round(24 * 60 *(trunc(nvl(f.dep_alter_takeoff,sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;), &#39;mi&#39;) - trunc(f.dep_plan_takeoff, &#39;mi&#39;)),0),0)&gt;=$&#123;JOB_GEESE_TDLY&#125; then 
+              1
+         when d1.code in(&#39;DLY&#39;,&#39;CAN&#39;) and f.isarrflight=0 and (arr.id is null or (arr.abn_status_name is null) )  then 
+               1  
+         else
+               0
+     end as isHomeAbn, 
+    case 
+           when d1.code=&#39;DLY&#39; then 
+                 &#39;1&#39;
+           when f.isarrflight=1 and f.abn_status_name is null 
+             and round(24 * 60 *(trunc(nvl(f.des_real_landing,f.des_alter_landing) ,&#39;mi&#39;)-trunc(f.des_plan_landing, &#39;mi&#39;)),0)&gt;=$&#123;JOB_GEESE_RDLY&#125; then 
+                 &#39;2&#39;
+           when f.isarrflight=0 and  f.abn_status_name is null 
+             and round(24 * 60 *(trunc(nvl(f.dep_real_takeoff,f.dep_alter_takeoff) ,&#39;mi&#39;)-trunc(f.dep_plan_takeoff, &#39;mi&#39;)),0)&gt;=$&#123;JOB_GEESE_RDLY&#125; then 
+                 &#39;2&#39;
+           when f.isarrflight=1 and f.statuscn!=&#39;到达&#39; and  f.abn_status_name is null 
+             and nvl(round(24 * 60 *(trunc(nvl(f.des_alter_landing,sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;) ,&#39;mi&#39;) - trunc(f.des_plan_landing, &#39;mi&#39;)),0),0)&gt;=$&#123;JOB_GEESE_TDLY&#125;then 
+                 &#39;3&#39;
+           when  f.isarrflight=0 and f.statuscn!=&#39;起飞&#39; and f.abn_status_name is null 
+                   and  nvl(round(24 * 60 *(trunc(nvl(f.dep_alter_takeoff,sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;), &#39;mi&#39;) - trunc(f.dep_plan_takeoff, &#39;mi&#39;)),0),0)&gt;=$&#123;JOB_GEESE_TDLY&#125; then 
+                 &#39;3&#39;
+           when f.isarrflight=1 and f.abn_status_name=&#39;返航&#39; then
+                 &#39;4&#39;
+           when f.isarrflight=1 and f.abn_status_name=&#39;备降&#39; then
+                 &#39;5&#39;
+     end as delay,
+     case 
+        when d1.code=&#39;DLY&#39; and f.isarrflight=1 then 
+          round(24 * 60 *
+                    (trunc(nvl(f.des_real_landing,sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;), &#39;mi&#39;) - trunc(f.des_plan_landing, &#39;mi&#39;)),
+                    0)
+        when d1.code=&#39;DLY&#39; and f.isarrflight=0 then 
+          round(24 * 60 *
+                    (trunc(nvl(f.dep_real_takeoff,sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;), &#39;mi&#39;) - trunc(f.dep_plan_takeoff, &#39;mi&#39;)),
+                    0)
+        when f.isarrflight=1 and f.abn_status_name is null 
+           and round(24 * 60 *(trunc(nvl(f.des_real_landing,f.des_alter_landing) ,&#39;mi&#39;)-trunc(f.des_plan_landing, &#39;mi&#39;)),0)&gt;=$&#123;JOB_GEESE_RDLY&#125; then 
+              round(24 * 60 *(trunc(nvl(f.des_real_landing,f.des_alter_landing) ,&#39;mi&#39;)-trunc(f.des_plan_landing, &#39;mi&#39;)),0) 
+         when f.isarrflight=0 and  f.abn_status_name is null 
+           and round(24 * 60 *(trunc(nvl(f.dep_real_takeoff,f.dep_alter_takeoff) ,&#39;mi&#39;)-trunc(f.dep_plan_takeoff, &#39;mi&#39;)),0)&gt;=$&#123;JOB_GEESE_RDLY&#125; then 
+              round(24 * 60 *(trunc(nvl(f.dep_real_takeoff,f.dep_alter_takeoff) ,&#39;mi&#39;)-trunc(f.dep_plan_takeoff, &#39;mi&#39;)),0)
+         when f.isarrflight=1 and f.statuscn!=&#39;到达&#39; and  f.abn_status_name is null 
+           and nvl(round(24 * 60 *(trunc(nvl(f.des_alter_landing,sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;) ,&#39;mi&#39;) - trunc(f.des_plan_landing, &#39;mi&#39;)),0),0)&gt;=$&#123;JOB_GEESE_TDLY&#125;then 
+               nvl(round(24 * 60 *(trunc(nvl(f.des_alter_landing,sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;) ,&#39;mi&#39;) - trunc(f.des_plan_landing, &#39;mi&#39;)),0),0)
+         when  f.isarrflight=0 and f.statuscn!=&#39;起飞&#39; and f.abn_status_name is null 
+           and nvl(round(24 * 60 *(trunc(nvl(f.dep_alter_takeoff,sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;), &#39;mi&#39;) - trunc(f.dep_plan_takeoff, &#39;mi&#39;)),0),0)&gt;=$&#123;JOB_GEESE_TDLY&#125; then 
+               nvl(round(24 * 60 *(trunc(nvl(f.dep_alter_takeoff,sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;), &#39;mi&#39;) - trunc(f.dep_plan_takeoff, &#39;mi&#39;)),0),0)
+         when f.isarrflight=1 and f.abn_status_name=&#39;返航&#39; then
+               nvl(round(24 * 60 *(trunc(nvl(f.des_real_landing,f.des_alter_landing), &#39;mi&#39;) - trunc(f.des_plan_landing, &#39;mi&#39;)),0),0)
+         when f.isarrflight=1 and f.abn_status_name=&#39;备降&#39; then
+              nvl(round(24 * 60 *(trunc(nvl(f.des_real_landing,f.des_alter_landing), &#39;mi&#39;) - trunc(f.des_plan_landing, &#39;mi&#39;)),0),0) 
+         else
+              0 
+    end as delayTime,
+    nvl(e.ckicnt,0) as ckicnt,
+    f.craftseat
+from fims.naoms_mv_flightinfo f
+left join fims.naoms_esb_passencnt e on e.flightno=f.flightno and e.flightdate=f.flightdate and f.isarrflight=0 
+inner join fims.naoms_fims_connectflight c on (c.depflightid=f.id or c.arrflightid=f.id)
+left join fims.naoms_mv_flightinfo arr on arr.id=c.arrflightid
+left join fims.naoms_cfg_dict d on f.statusid=d.id
+left join fims.naoms_cfg_flightabnormal abn on f.outerabnrsnid=abn.id
+left join fims.naoms_cfg_dict d1 on f.abnstatusid=d1.id
+left join fims.naoms_fims_route r on r.id=f.abnrouteid
+left join fims.naoms_cfg_airport a on r.airportid=a.id
+left join fims.naoms_cfg_aircraft d2 on f.craftid=d2.id
+where f.flightdate=to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+order by f.FlightDate,f.ID
+</code></pre>
+<h3 id="RPT-VIA（经停站信息表）"><a href="#RPT-VIA（经停站信息表）" class="headerlink" title="RPT_VIA（经停站信息表）"></a>RPT_VIA（经停站信息表）</h3><pre><code>select r.id,
+       r.flightid,
+       a.iata           as AirportIata,
+       a.cn             as Airport,
+       r.plantakeoff as plantakeoff,
+       r.planlanding as planlanding,
+       r.altertakeoff as altertakeoff,
+       r.alterlanding as alterlanding,
+       r.realtakeoff as realtakeoff,
+       r.reallanding as reallanding,
+       r.isalterairport as isAlt,
+       r.routeorder    as &quot;Order&quot;  
+  from fims.naoms_fims_route r
+  left join fims.naoms_cfg_airport a
+    on r.airportid = a.id
+  left join fims.naoms_mv_flightinfo f
+    on r.flightid = f.id
+  left join (select r.flightid, max(r.routeorder) as maxRouteorder
+               from fims.naoms_fims_route r
+               left join fims.naoms_mv_flightinfo f
+                 on r.flightid = f.id
+              where  f.flightdate =to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+              group by r.flightid) x
+    on x.flightid = r.flightid
+ where  f.flightdate=to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+   and r.routeorder != 1
+   and r.routeorder &lt; x.maxRouteorder
+   and a.iata != &#39;$&#123;JOB_GEESE_NATIVEPORT&#125;&#39;
+order by r.id
+</code></pre>
+<h3 id="RPT-DISPATCH（保障信息表）"><a href="#RPT-DISPATCH（保障信息表）" class="headerlink" title="RPT_DISPATCH（保障信息表）"></a>RPT_DISPATCH（保障信息表）</h3><pre><code>select d.id,
+       f.id as FlightId,
+       d1.name as Dispatch,
+       nvl(substr(p.code, 0, instr(p.code, &#39;_&#39;) - 1), p.code) as Dept,
+      case
+         when nvl(d.realstart,d.realend) is null and nvl(d.planstart,d.planend) is null  then
+           &#39;未开始&#39;
+         when nvl(d.realstart,d.realend) is null and round(24 * 60 * (trunc(sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;, &#39;mi&#39;)-trunc(d.planstart, &#39;mi&#39;))) &lt;=0 then
+          &#39;未开始&#39;
+        when nvl(d.realstart,d.realend) is null and round(24 * 60 * (trunc(sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;, &#39;mi&#39;)-trunc(d.planstart, &#39;mi&#39;))) &gt;0 then
+          &#39;未开始延误&#39;
+         when d1.segment = 1 and d.realstart is not null and round(24 * 60 * (trunc(sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;, &#39;mi&#39;)-trunc(d.planend, &#39;mi&#39;))) &lt;=0
+              and d.realend is null then 
+          &#39;进行中&#39;
+         when d1.segment = 1 and d.realstart is not null and round(24 * 60 * (trunc(sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;, &#39;mi&#39;)-trunc(d.planend, &#39;mi&#39;))) &gt;0
+              and d.realend is null then 
+          &#39;延误中&#39;
+          when d1.segment = 1 and d.realend is not null and round(24 * 60 * (trunc(d.realend, &#39;mi&#39;)-trunc(d.planend, &#39;mi&#39;)))&gt;0 then 
+          &#39;完成延误&#39;
+         when d1.segment = 0 and nvl(d.realstart,d.realend) is not null and round(24 * 60 * (trunc(nvl(d.realstart,d.realend), &#39;mi&#39;)-trunc(nvl(d.planend,d.planstart) , &#39;mi&#39;)))&gt;0 then 
+          &#39;完成延误&#39;  
+         else
+          &#39;完成&#39;
+       end as Status,
+       case
+         when nvl(d.realstart,d.realend) is null and nvl(d.planstart,d.planend) is null  then
+           &#39;nodo&#39;
+         when nvl(d.realstart,d.realend) is null  and round(24 * 60 * (trunc(sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;, &#39;mi&#39;)-trunc(d.planstart, &#39;mi&#39;))) &lt;=0  then
+           &#39;nodo&#39;
+         when nvl(d.realstart,d.realend) is null  and round(24 * 60 * (trunc(sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;, &#39;mi&#39;)-trunc(d.planstart, &#39;mi&#39;))) &gt;0  then
+          &#39;nododly&#39;
+         when d1.segment = 1 and d.realstart is not null and round(24 * 60 * (trunc(sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;, &#39;mi&#39;)-trunc(d.planend, &#39;mi&#39;))) &lt;=0
+              and d.realend is null then 
+          &#39;doing&#39;
+         when d1.segment = 1 and d.realstart is not null and round(24 * 60 * (trunc(sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;, &#39;mi&#39;)-trunc(d.planend, &#39;mi&#39;))) &gt;0
+             and  d.realend is null then 
+          &#39;dlying&#39;
+          when d1.segment = 1 and d.realend is not null and round(24 * 60 * (trunc(d.realend, &#39;mi&#39;)-trunc(d.planend, &#39;mi&#39;)))&gt;0 then 
+          &#39;donedly&#39;
+         when d1.segment = 0 and nvl(d.realstart,d.realend) is not null and round(24 * 60 * (trunc(nvl(d.realstart,d.realend), &#39;mi&#39;)-trunc(nvl(d.planend,d.planstart) , &#39;mi&#39;)))&gt;0  then 
+          &#39;donedly&#39;  
+          when nvl(d.planstart,d.planend) is null then 
+           &#39;nodo&#39;
+         else
+          &#39;done&#39;
+       end as StatusCode, 
+       d.planstart as planstart, 
+       d.planend as planend,
+       d.realstart as realstart,
+       d.realend as realend,
+       (select to_char(wm_concat(u.name)) from fims.naoms_gos_employee t1 
+                 left join fims.naoms_gos_dispatchuser u on t1.dispatchuserid=u.id
+        where t1.flightdispatchid=d.id) as Staffs,
+       nvl2(a.flightdispatchid, 1, 0) as isAbn,
+       nvl2(a.flightdispatchid, a1.name, null) as AbnRsn,
+        case
+         when nvl(d.realstart,d.realend) is null  and round(24 * 60 * (trunc(sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;, &#39;mi&#39;)-trunc(d.planstart, &#39;mi&#39;))) &gt;0  then
+             round(24 * 60 * (trunc(sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;, &#39;mi&#39;)-trunc(d.planstart, &#39;mi&#39;)))
+         when d1.segment = 1 and d.realstart is not null and sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;&gt;d.planend and d.realend is null then 
+            round(24 * 60 * (trunc(sysdate-$&#123;JOB_GEESE_ENDDATE_OFFSET&#125;, &#39;mi&#39;)-trunc(d.planend, &#39;mi&#39;))) 
+         when d1.segment = 1 and  d.realend is not null and d.realend&gt;d.planend  then 
+            round(24 * 60 * (trunc(d.realend, &#39;mi&#39;)-trunc(d.planend, &#39;mi&#39;))) 
+         when d1.segment = 0 and nvl(d.realstart,d.realend) is not null and nvl(d.realstart,d.realend)&gt;nvl(d.planend,d.planstart)  then 
+            round(24 * 60 * (trunc(nvl(d.realstart,d.realend), &#39;mi&#39;)-trunc(nvl(d.planend,d.planstart) , &#39;mi&#39;))) 
+         else
+          0
+       end as  delayTime
+  from fims.naoms_gos_dispatch d
+  left join fims.naoms_mv_flightinfo f
+    on d.flightid = f.id
+  left join fims.naoms_cfg_dispatch d1
+    on d.dispatchid = d1.id
+  left join fims.naoms_ath_dept p
+    on d.belongdept = p.id
+  left join (select distinct ga.flightdispatchid,ga.abnrsnid from fims.naoms_gos_abndispatch ga ) a
+    on d.id = a.flightdispatchid
+  left join fims.naoms_cfg_dispatchabnormal a1
+    on a1.id = a.abnrsnid
+ where f.flightdate =to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+ group by d.id,
+          f.id,
+          d1.name,
+          p.name,
+          nvl(substr(p.code, 0, instr(p.code, &#39;_&#39;) - 1), p.code),
+          a.flightdispatchid,
+          d1.segment,
+          d.realstart,
+          d.realend,
+          d.planstart,
+          d.planend,
+          a1.name
+order by d.id
+</code></pre>
+<h3 id="RPT-RESOURCE（登机口、廊桥、机位信息表）"><a href="#RPT-RESOURCE（登机口、廊桥、机位信息表）" class="headerlink" title="RPT_RESOURCE（登机口、廊桥、机位信息表）"></a>RPT_RESOURCE（登机口、廊桥、机位信息表）</h3><pre><code>
+select * from (select g.id,g.flightid, null as DispatchId,
+&#39;登机口&#39; as ResourceType,
+g1.name as  &quot;Resource&quot;,
+d.planstart   as planstart,
+d.planend    as planend,
+d.realstart   as realstart,
+d.realend   as realend,
+null as resFlag
+ from fims.naoms_GOS_GATE  g 
+left join fims.naoms_mv_flightinfo f on  g.flightid=f.id
+left join fims.naoms_gos_dispatch d on g.flightdispatchid=d.id
+left join fims.naoms_cfg_dispatch d1 on d.dispatchid=d1.id
+left join fims.naoms_cfg_gate g1 on g.gateid=g1.id
+where f.flightdate =to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+union all
+select c.id,c.flightid,null as  DispatchId,
+&#39;机位&#39; as ResourceType,
+s.name as  &quot;Resource&quot;,
+c.planarvltime   as planstart,
+c.plandepttime   as planend,
+c.realarvltime   as realstart,
+c.realdepttime   as realend,
+decode(s.farseat,1,&#39;远&#39;,&#39;近&#39;) as resFlag
+from fims.naoms_Fims_Craftseat c 
+left join fims.naoms_mv_flightinfo f on c.flightid=f.id
+left join fims.naoms_cfg_craftseat s on c.seatid=s.id
+where f.flightdate =to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+union all
+select 
+       c.id,
+       nvl(a.id,d.id) as flightid,
+       null as dispatchId,
+       &#39;廊桥&#39; as ResourceType,
+       j.name as &quot;Resource&quot;,
+        (select min(g.planstart) from fims.naoms_gos_dispatch g 
+          where g.flightid in(a.id,d.id)
+          and g.dispatchid in( SELECT id FROM fims.naoms_cfg_dispatch WHERE NAME =&#39;靠桥&#39;))as planstart,
+        (select max(g.planend) from fims.naoms_gos_dispatch g 
+          where g.flightid in(d.id,a.id)
+          and g.dispatchid in( SELECT id FROM fims.naoms_cfg_dispatch WHERE NAME =&#39;撤桥&#39;))as planend,
+        (select min(g.realstart) from fims.naoms_gos_dispatch g 
+          where g.flightid in(a.id,d.id)
+          and g.dispatchid in( SELECT id FROM fims.naoms_cfg_dispatch WHERE NAME =&#39;靠桥&#39;))as realstart,
+        (select max(g.realstart) from fims.naoms_gos_dispatch g 
+          where g.flightid in(d.id,a.id)
+          and g.dispatchid in( SELECT id FROM fims.naoms_cfg_dispatch WHERE NAME =&#39;撤桥&#39;))as realend,
+          null as resFlag
+from fims.naoms_fims_connectflight c 
+left join fims.naoms_mv_flightinfo a on c.arrflightid=a.id
+left join fims.naoms_mv_flightinfo d on c.depflightid=d.id
+inner join fims.naoms_cfg_craftseat s on s.name=nvl(a.craftseat,d.craftseat)
+inner join fims.naoms_cfg_seatjetbridge sj on s.id=sj.craftseatid 
+inner join fims.naoms_cfg_jetbridge  j on sj.jetbridgeid=j.id 
+where c.flightdate=to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+and (nvl(a.abn_status_name,d.abn_status_name)!=&#39;取消&#39; or nvl(a.abn_status_name,d.abn_status_name) is null)
+and j.name not like&#39;%副&#39;
+and s.farseat=0
+union all
+select c.id,c.flightid,null as dispatchId,
+&#39;值机柜台&#39; as ResourceType,
+c1.name as  &quot;Resource&quot;,
+d.planstart   as planstart,
+d.planend    as planend,
+d.realstart   as realstart,
+d.realend   as realend,
+null as resFlag
+from fims.naoms_gos_ckic  c
+left join fims.naoms_mv_flightinfo f on c.flightid=f.id
+left join fims.naoms_gos_dispatch d on c.flightdispatchid=d.id
+left join fims.naoms_cfg_ckic c1 on c.ckicid=c1.id
+where f.flightdate =to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+union all
+select c.id,c.flightid,null as dispatchId,
+&#39;行李分拣&#39; as ResourceType,
+c1.name as  &quot;Resource&quot;,
+d.planstart   as planstart,
+d.planend    as planend,
+d.realstart   as realstart,
+d.realend   as realend,
+null as resFlag
+from fims.naoms_gos_dcrsl  c
+left join fims.naoms_mv_flightinfo f on c.flightid=f.id
+left join fims.naoms_gos_dispatch d on c.flightdispatchid=d.id
+left join fims.naoms_cfg_dcrsl c1 on c.dcrslid=c1.id
+where f.flightdate =to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+union all
+select c.id,c.flightid,null as dispatchId,
+&#39;行李提取&#39; as ResourceType,
+c1.name as  &quot;Resource&quot;,
+d.planstart   as planstart,
+d.planend    as planend,
+d.realstart   as realstart,
+d.realend   as realend,
+null as resFlag
+from fims.naoms_gos_acrsl  c
+left join fims.naoms_mv_flightinfo f on c.flightid=f.id
+left join fims.naoms_gos_dispatch d on c.flightdispatchid=d.id
+left join fims.naoms_cfg_acrsl c1 on c.acrslid=c1.id
+where f.flightdate =to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+) x
+order by x.id
+</code></pre>
+<h3 id="RPT-PASSEN（旅客信息表）"><a href="#RPT-PASSEN（旅客信息表）" class="headerlink" title="RPT_PASSEN（旅客信息表）"></a>RPT_PASSEN（旅客信息表）</h3><pre><code>select  f.id,f.id as FlightId,
+     0 as OrderCnt,
+    sum(case
+        when f.isarrflight=1 then 
+          nvl(l.adultcnt+l.childcnt+l.babycnt,0)
+        else 
+          nvl(l.adultcnt+l.childcnt+l.babycnt+l.trans_adultcnt+l.trans_childcnt+l.trans_babycnt,0) 
+     end) as LoadingCnt
+from fims.naoms_mv_flightinfo f
+left join fims.naoms_fims_loadinfo l on f.id=l.flightid and (l.startairportid=298 or l.endairportid=298)
+where f.flightdate=to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+group by f.id
+order by f.id
+</code></pre>
+<h3 id="RPT-AIRPORT（机场航站表）"><a href="#RPT-AIRPORT（机场航站表）" class="headerlink" title="RPT_AIRPORT（机场航站表）"></a>RPT_AIRPORT（机场航站表）</h3><pre><code>select 
+  a.id,
+  a.Iata,
+  a.Icao,
+  a.cn,
+  decode(a.regionid,100001,1,0) as region
+ from fims.naoms_cfg_airport a
+ order by a.id
+</code></pre>
+<h3 id="RPT-UPDATE-CRAFTSEAT（机位总数）"><a href="#RPT-UPDATE-CRAFTSEAT（机位总数）" class="headerlink" title="RPT_UPDATE_CRAFTSEAT（机位总数）"></a>RPT_UPDATE_CRAFTSEAT（机位总数）</h3><pre><code>select &#39;craftseat&#39; as code,count(*) as allNum from fims.naoms_cfg_craftseat c where c.enable=1
+</code></pre>
+<h3 id="RPT-UPDATE-GATE（登机口总数）"><a href="#RPT-UPDATE-GATE（登机口总数）" class="headerlink" title="RPT_UPDATE_GATE（登机口总数）"></a>RPT_UPDATE_GATE（登机口总数）</h3><pre><code>select &#39;gate&#39; as code,count(*) as allNum from fims.naoms_cfg_gate g where g.enable=1
+</code></pre>
+<h3 id="RPT-UPDATE-ACRSL（行李装盘总数）"><a href="#RPT-UPDATE-ACRSL（行李装盘总数）" class="headerlink" title="RPT_UPDATE_ACRSL（行李装盘总数）"></a>RPT_UPDATE_ACRSL（行李装盘总数）</h3><pre><code>select &#39;acrsl&#39; as code,count(*) as allNum from fims.naoms_cfg_acrsl a where a.enable=1
+</code></pre>
+<h3 id="RPT-UPDATE-JETBRIDGE（廊桥表）"><a href="#RPT-UPDATE-JETBRIDGE（廊桥表）" class="headerlink" title="RPT_UPDATE_JETBRIDGE（廊桥表）"></a>RPT_UPDATE_JETBRIDGE（廊桥表）</h3><pre><code>select &#39;jetbridge&#39; as code,count(distinct sj.jetbridgeid) as allNum
+from fims.naoms_cfg_seatjetbridge sj
+inner join naoms_cfg_jetbridge  j on sj.jetbridgeid=j.id where j.fullname not like &#39;%副%&#39; 
+</code></pre>
+<h3 id="RPT-PREFLIGHT（前序航班数据）"><a href="#RPT-PREFLIGHT（前序航班数据）" class="headerlink" title="RPT_PREFLIGHT（前序航班数据）"></a>RPT_PREFLIGHT（前序航班数据）</h3><pre><code>select p.id,p.FlightId,p.flightno as preFlightNo,p.flightstatus as preFlightStatus,
+       p.deptCity,p.destCity,p.deptcitycode as deptCityIata,p.destcitycode as destCityIata,
+       p.std as PlanTakeOff,p.sta as PlanLanding,p.etd as AlterTakeOff,p.eta as AlterLanding,p.atd as RealTakeOff,p.ata as RealLanding,
+       p.deptFlightDate
+from naoms_fims_preflight p
+inner join naoms_mv_flightinfo f on f.id=p.flightid
+where f.flightdate=to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+order by p.id
+</code></pre>
+<h3 id="RPT-DUTY-DETAIL（值班详情数据）"><a href="#RPT-DUTY-DETAIL（值班详情数据）" class="headerlink" title="RPT_DUTY_DETAIL（值班详情数据）"></a>RPT_DUTY_DETAIL（值班详情数据）</h3><pre><code>select planAll.planAll, planBJ.planBJ, planFH.planFH, planQX.planQX, planBJQX.planBJQX ,realAll.realAll, realOut.realOut,realIn.realIn,
+exexuteRate.exexuteRate, dridgeRate.dridgeRate,dridgeCount.dridgeCount,safeguard_in.safeguard_in,
+safeguard_out.safeguard_out,safeguard_post.safeguard_post,commodity_capacity.commodity_capacity,
+safeguard_out.safeguard_out+safeguard_in.safeguard_in+safeguard_post.safeguard_post as traveller_capacity,
+end_time.end_time,realease.rate as release_rate,realease.buzhengchang as prosponed_flight,
+home_flight.home_flight,home_weather_flight.home_weather_flight,
+home_military_flight.home_military_flight, former_flight.former_flight ,
+former_weather_flight.former_weather_flight,former_military_flight.former_military_flight,
+currentdate.flightdate from
+
+(select count(1) as planAll from naoms_mv_flightinfo f 
+  where f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;) and 
+  f.taskcn != &#39;备降&#39; and f.taskcn != &#39;返航&#39; and (f.abn_status_name != &#39;取消&#39; or f.abn_status_name is null)) planAll,
+ (select count(1) as planFH
+    from naoms_mv_flightinfo f
+   where f.taskcn = &#39;备降&#39;
+     and f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;))  planFH,
+ (select count(1) as planBJ
+    from naoms_mv_flightinfo f
+   where f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+     and f.taskcn = &#39;返航&#39;)  planBJ ,
+ (select count(1) as planQX
+    from naoms_mv_flightinfo f
+   where f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+     and f.abn_status_name = &#39;取消&#39;)  planQX,
+ (select count(1) as planBJQX
+    from naoms_mv_flightinfo f
+   where f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+     and f.abn_status_name = &#39;取消&#39;
+     and f.taskcn = &#39;备降&#39;)  planBJQX ,  
+ (select sum(decode(f.isarrflight, 1, 1, 0)) as realIn
+    from naoms_mv_flightinfo f
+   where f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+     and (f.abn_status_name != &#39;取消&#39; or f.abn_status_name is null))  realIn,
+(select sum(decode(f.isarrflight, 1, 0, 1)) as realOut
+    from naoms_mv_flightinfo f
+   where f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+     and (f.abn_status_name != &#39;取消&#39; or f.abn_status_name is null))  realOut,
+(select count(*) as realAll
+  from naoms_mv_flightinfo f where f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+  and abn_status_name != &#39;取消&#39; OR abn_status_name IS NULL) realAll,
+(SELECT ROUND(100 * SUM(CASE WHEN (abn_status_name != &#39;取消&#39; OR abn_status_name IS NULL) THEN 1 ELSE 0 END)/count(1),2) AS exexuteRate
+  FROM NAOMS_MV_FLIGHTINFO f where f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)) exexuteRate,
+(select count(*) as dridgeCount 
+    from naoms_mv_flightinfo f, naoms_cfg_craftseat s
+   WHERE (f.abn_status_name != &#39;取消&#39; or f.abn_status_name is null)
+     and s.name = f.craftseat and s.farseat=0 and f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;) ) dridgeCount,
+(select decode(nvl(sum(fims_function.canRelyOnBrige(f.id)),0),0,0,nvl(round(sum(decode(s.farseat, 1, 0, 1)) /
+               nvl(sum(fims_function.canRelyOnBrige(f.id)),0),
+               3),3) * 100) as dridgeRate
+    from naoms_mv_flightinfo f, naoms_cfg_craftseat s 
+   WHERE  (f.abn_status_name != &#39;取消&#39; or f.abn_status_name is null)
+     and s.name = f.craftseat and f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;) ) dridgeRate,
+( select  sum(decode(f.isarrflight, 1, 0, f.adult_qty + f.child_qty)) as safeguard_out   
+    from naoms_mv_flightinfo f 
+   where f.taskcn != &#39;返航&#39;  and f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+     and (f.abn_status_name != &#39;取消&#39; or f.abn_status_name is null)) safeguard_out,
+(select  sum(decode(f.isarrflight, 1, f.adult_qty + f.child_qty, 0)) as safeguard_in 
+    from naoms_mv_flightinfo f 
+   where f.taskcn != &#39;返航&#39;  and f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+     and (f.abn_status_name != &#39;取消&#39; or f.abn_status_name is null)) safeguard_in,
+(  SELECT sum(nvl(trans_ADULT_QTY, 0) + nvl(trans_CHILD_QTY, 0)) as safeguard_post
+    FROM naoms_mv_flightinfo a
+   WHERE a.isarrflight = 0  and a.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+  and a.taskcn &lt;&gt; &#39;返航&#39;
+     AND (abn_status_name != &#39;取消&#39; OR abn_status_name IS NULL)) safeguard_post,
+(select sum(mail_weight)+sum(cargo_weight)+sum(luggage_weight) as commodity_capacity
+    from naoms_mv_flightinfo f
+   where (f.abn_status_name != &#39;取消&#39; or f.abn_status_name is null)  and f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)) commodity_capacity,
+(select to_char(max(f.real_time), &#39;yyyy-mm-dd HH24mi&#39;) as end_time
+   from naoms_mv_flightinfo f  where f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)) end_time,
+(select nvl(SUM(1), 0) AS fangxing,
+         nvl(SUM(t.isNormalRelease), 0) AS zhengchang,
+         nvl(SUM(decode(t.isNormalRelease, 0, 1, 0)), 0) AS buzhengchang,
+         case
+           when SUM(1) = 0 then 0
+           else decode(nvl(sum(1),0),0,0, round(100 * nvl(SUM(t.isNormalRelease),0) /nvl( SUM(1),0), 2))
+         end as rate
+    from (select case
+                   when trunc(d.real_time, &#39;mi&#39;) &lt;=
+                        case when c.flightdate &lt;= to_date(&#39;2017-08-15&#39;,&#39;yyyy-mm-dd&#39;) then
+                        trunc(d.key_time, &#39;mi&#39;) +15/ 24 / 60 
+                        else
+                        trunc(d.key_time, &#39;mi&#39;) +25/ 24 / 60 end
+                        then
+                    1
+                   when a.id is not null and
+                        trunc(a.real_time + 10 / 24 / 60, &#39;mi&#39;) &gt;trunc(a.key_time, &#39;mi&#39;) and
+                        trunc(d.real_time, &#39;mi&#39;) - trunc(a.real_time, &#39;mi&#39;) -
+                        (trunc(d.key_time, &#39;mi&#39;) - trunc(a.key_time, &#39;mi&#39;)) -
+                        case when c.flightdate &lt;= to_date(&#39;2017-08-15&#39;,&#39;yyyy-mm-dd&#39;) then
+                        15/ 24 / 60 
+                        else
+                        25/24/60 end
+                        - 10 / 24 / 60 &lt;= 0 then
+                    1
+                   else 0
+                 end as isNormalRelease
+            from naoms_fims_connectflight c
+            left join naoms_mv_flightinfo a
+              on c.arrflightid = a.id
+            left join naoms_mv_flightinfo d
+              on c.depflightid = d.id
+           where c.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+             and c.depflightid is not null
+             and (d.abn_status_name != &#39;取消&#39; or d.abn_status_name is null)
+             and d.statuscn = &#39;起飞&#39;
+             and d.taskcn in (&#39;正班&#39;,&#39;加班&#39;,&#39;旅包&#39;,&#39;货班&#39;,&#39;货加&#39;,&#39;货包&#39;)) t) realease,
+(select count(*) as home_flight
+from naoms_mv_flightinfo d 
+left join naoms_fims_releasedelay r on d.id=r.flightid
+left join naoms_cfg_flightabnormal  b on r.innerabnrsnid=b.id where b.cn like &#39;%本站%&#39;and d.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;) ) home_flight,
+(select count(*) as home_weather_flight
+from naoms_mv_flightinfo d 
+left join naoms_fims_releasedelay r on d.id=r.flightid
+left join naoms_cfg_flightabnormal  b on r.innerabnrsnid=b.id where b.cn like &#39;%本站天气%&#39; and d.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;) ) home_weather_flight,
+(select count(*) as home_military_flight
+from naoms_mv_flightinfo d 
+left join naoms_fims_releasedelay r on d.id=r.flightid
+left join naoms_cfg_flightabnormal  b on r.innerabnrsnid=b.id where b.cn like &#39;%本站军事%&#39; and d.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;) ) home_military_flight,
+(select count(*) as former_flight
+from naoms_mv_flightinfo d 
+left join naoms_fims_releasedelay r on d.id=r.flightid
+left join naoms_cfg_flightabnormal  b on r.innerabnrsnid=b.id where b.cn like &#39;%前站%&#39; and d.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;) ) former_flight,
+(select count(*) as former_weather_flight
+from naoms_mv_flightinfo d 
+left join naoms_fims_releasedelay r on d.id=r.flightid
+left join naoms_cfg_flightabnormal  b on r.innerabnrsnid=b.id where b.cn like &#39;%前站天气%&#39; and d.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)  ) former_weather_flight,
+(select count(*) as former_military_flight
+from naoms_mv_flightinfo d 
+left join naoms_fims_releasedelay r on d.id=r.flightid
+left join naoms_cfg_flightabnormal  b on r.innerabnrsnid=b.id where b.cn like &#39;%前站军事%&#39;  and d.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;) ) former_military_flight,
+(select flightdate from naoms_mv_flightinfo where flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;) group by flightdate) currentdate
+</code></pre>
+<h3 id="TD-PLAN-LEG-DAY"><a href="#TD-PLAN-LEG-DAY" class="headerlink" title="TD_PLAN_LEG_DAY"></a>TD_PLAN_LEG_DAY</h3><pre><code>select 
+f.id||&#39;&#39; as amb_fltid,
+f.flightno  as pleg_fltno,
+replace((select to_char(wm_concat(al1.iata||s.flightno)) 
+         from naoms_fims_share s 
+          inner join naoms_cfg_airline al1 on s.airlineid=al1.id
+          where s.flightid=f.id),
+          &#39;,&#39;,
+          &#39; &#39;) as pleg_share,
+decode(f.isarrflight,1,null,0,cc.arrflightid)as pleg_upcp_flt_id ,
+decode(f.isarrflight,1,jc.depflightid||&#39;&#39;,0,null )as pleg_cpflt_id,
+f.flightdate as pleg_date,
+decode(f.regioncode,&#39;REGI&#39;,&#39;E&#39;,&#39;OUT&#39;,&#39;O&#39;,&#39;DMST&#39;,&#39;D&#39;,&#39;INTER&#39;,&#39;I&#39;,&#39;ZONE&#39;,&#39;R&#39;,&#39;MIX&#39;,&#39;M&#39;) as pleg_type_i_d,
+f.craftno as pleg_regno,
+f.craftcode as pleg_plane_type,
+f.line_name_iata as pleg_ap_thr_all,
+f.taskcn as pleg_type, 
+decode(f.isarrflight,1,f.pre_airport_iata,0,f.dep_airport_iata) as pleg_ap_thr_dep,
+decode(f.isarrflight,1,null,0,f.ckic) as pleg_cki_counter_no,
+decode(f.isarrflight,1,null,0,f.craftseat) as pleg_park_dep,
+decode(f.isarrflight,1,f.pre_plan_takeoff,0,f.dep_plan_takeoff) as pleg_tm_ptd,
+decode(f.isarrflight,1,f.pre_alter_takeoff,0,f.dep_alter_takeoff) as pleg_tm_etd,
+decode(f.isarrflight,1,f.pre_real_takeoff,0,f.dep_real_takeoff) as  pleg_tm_atd,
+decode(f.isarrflight,1,f.des_airport_iata,0,f.next_airport_iata) as pleg_ap_thr_arr,
+decode(f.isarrflight,1,f.craftseat,0,null) as pleg_park_arr,
+decode(f.isarrflight,1,f.des_plan_landing,0,f.next_plan_landing) as pleg_tm_pta,
+decode(f.isarrflight,1,f.des_alter_landing,0,f.next_alter_landing) as pleg_tm_eta,
+decode(f.isarrflight,1,f.des_real_landing,0,f.next_real_landing) as pleg_tm_ata,
+decode(f.isarrflight,1,f.acrsl,0,null) as pleg_bag_trans_belt_arr,
+decode(f.isarrflight,1,null,0,(select max(cb.name) 
+from  naoms_cfg_building cb 
+inner join naoms_cfg_acrsl ca on ca.buildingid=cb.id
+where ca.name=f.dcrsl)) as pleg_terminal_dep,
+decode(f.isarrflight,1,(select max(cb.name) 
+from  naoms_cfg_building cb 
+inner join naoms_cfg_acrsl ca on ca.buildingid=cb.id
+where ca.name=f.acrsl),0,null) pleg_terminal_arr,
+f.gate as pleg_brd_gate,
+f.statuscn as pleg_status,
+f.abn_status_name as pleg_abn_status,
+(select cn from naoms_cfg_flightabnormal 
+where id=f.innerabnrsnid) as pleg_abn_reason,
+f.statuscn as pleg_status_inner,
+f.abn_status_name as pleg_abn_status_inner,
+(select cn from naoms_cfg_flightabnormal 
+where id=f.OUTERABNRSNID) as pleg_abn_reason_inner,
+sysdate as pleg_op_tm,
+f.flightdate as pleg_fsdt,
+to_date(NULL) AS pleg_cdm_ctot,
+to_date(NULL) AS pleg_cdm_codt,
+t.code AS pleg_cdm_runway
+
+from naoms_mv_flightinfo  f 
+left join naoms_fims_connectflight jc on jc.arrflightid=f.id 
+left join naoms_fims_connectflight cc on cc.depflightid=f.id
+
+left join  naoms_fims_track m on f.id=m.flightid
+left join naoms_cfg_track t on m.trackid=t.id
+left join naoms_fims_flight g   on f.id=g.id 
+and f.flightdate = to_date(&#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+
+where 
+f.flightdate = to_date(&#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;)
+order by f.id
+</code></pre>
+<h3 id="RPT-WEATHER-REPORT（天气信息）"><a href="#RPT-WEATHER-REPORT（天气信息）" class="headerlink" title="RPT_WEATHER_REPORT（天气信息）"></a>RPT_WEATHER_REPORT（天气信息）</h3><pre><code>SELECT
+  ID
+, ICAO
+, TELEX_TYPE
+, REPORT_TYPE
+, REPORT_CONTENT
+, PUBLISH_DATE
+, OBSERVE_DATE
+, VALID_BEGIN
+, VALID_END
+, VERSION
+, REPORT_SUB_TYPE
+,PUBLISH_DATE as ETL_DATE
+FROM NAOMS_ESB_WEATHER_REPORT where trunc(PUBLISH_DATE,&#39;dd&#39;) = trunc(to_date(&#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;),&#39;dd&#39;) and ICAO = &#39;ZSQD&#39;
+</code></pre>
+<h3 id="NAOMS-GOS-DISPATCHFINISHTIME（保障完成时间）"><a href="#NAOMS-GOS-DISPATCHFINISHTIME（保障完成时间）" class="headerlink" title="NAOMS_GOS_DISPATCHFINISHTIME（保障完成时间）"></a>NAOMS_GOS_DISPATCHFINISHTIME（保障完成时间）</h3><pre><code>select df.id,
+       df.planfinishtime,
+       df.alterfinishtime,
+       df.realfinishtime,
+       df.operatetime,
+       df.version
+  from naoms_gos_dispatchfinishtime df
+ where exists (select 1
+          from naoms_fims_flight f
+         where f.dispatchfinishtime_id = df.id
+           and f.flightdate = to_date( &#39;$&#123;ETL_DATE&#125;&#39;,&#39;yyyy-mm-dd&#39;))
+order by df.id
+</code></pre>
+<h3 id="RPT-PASSEN-ISOLATED（安检旅客信息）"><a href="#RPT-PASSEN-ISOLATED（安检旅客信息）" class="headerlink" title="RPT_PASSEN_ISOLATED（安检旅客信息）"></a>RPT_PASSEN_ISOLATED（安检旅客信息）</h3><pre><code>select FLIGHTDATE as FlightDate,
+     FLIGHTNO as FlightNo,
+     CKICNT as PassSafetyCnt,
+     BORCNT as BorCnt	
+FROM &quot;NAOMS_ESB_PASSENCNT&quot;
+where FlightDate=&#39;$&#123;ETL_DATE&#125;&#39;
+order by FlightNo
+</code></pre>
+<ol>
+<li><p>rpt_dispatch表id来自于naoms_gos_dispatch.id，flightid不使用，需要刷一遍</p>
+</li>
+<li><p>rpt_dispatch_finishtime来自于naoms_gos_dispatchfinishtime，ID、FlightId需要刷</p>
+</li>
+<li><p>rpt_flight表，ID字段来自于naoms_mv_flightfullinfo</p>
+</li>
+<li><p>rpt_passen表，ID&#x3D;FlightId，来自于naoms_mv_flightfullinfo</p>
+</li>
+<li><p>rpt_plan_leg表   amb_fltid     pleg_upcp_flt_id   pleg_cpflt_id</p>
+<p>来自于 MV  ConnectFlight表</p>
+</li>
+<li><p>rpt_preflight表  ID  FlightId 来自于  nomas_preflight</p>
+</li>
+<li><p>rpt_resource表  ID、FlightId 来自于  naoms_GOS_GATE</p>
+</li>
+<li><p>rpt_via表 ID、flightId 来自于 naoms_fims_route</p>
+</li>
+<li><p>rpt_weather_report  ID 来自于 Weather表</p>
+</li>
+</ol>
+<pre><code>update `rpt_dispatch` set ID = -ID;
+update `rpt_dispatch` set FlightId = -FlightId;
+
+update `rpt_dispatch_finishtime` set ID = -ID;
+update `rpt_dispatch_finishtime` set FlightId = -FlightId;
+
+update `rpt_flight` set ID = -ID;
+
+update `rpt_passen` set FlightId = -FlightId;
+update `rpt_passen` set ID = -ID;
+</code></pre>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2022 Eric的博客
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @Eric Du
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

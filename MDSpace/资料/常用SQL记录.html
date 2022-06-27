@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<html lang="en ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eric的博客 || My personal blog</title>
+    <meta name="referrer" content="no-referrer" />
+    <meta name="author" content="Eric Du">
+    <meta name="description" content="记录、分享、交流 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/head_image.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Eric的博客" type="application/atom+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Eric的博客</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/like/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/like/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://en.korilin.com">
+            <span>
+                <a-icon type="compass" theme="filled" />
+            </span>
+            <span>英文博客</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Eric的博客</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/like/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/like/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+            <a target="_blank" rel="noopener" href="https://en.korilin.com">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="compass" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">英文博客</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1> </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/5/23
+        </span>
+
+        
+
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h2 id="常用SQL记录"><a href="#常用SQL记录" class="headerlink" title="常用SQL记录"></a>常用SQL记录</h2><h4 id="按密码出现次数排序，并查询出现次数"><a href="#按密码出现次数排序，并查询出现次数" class="headerlink" title="按密码出现次数排序，并查询出现次数"></a>按密码出现次数排序，并查询出现次数</h4><pre><code>SELECT password,
+    count( 1 ) AS number 
+FROM
+    sys_account_info 
+GROUP BY
+    password 
+ORDER BY
+    count( 1 ) DESC
+</code></pre>
+<h4 id="查询数据库所有外键及启用情况"><a href="#查询数据库所有外键及启用情况" class="headerlink" title="查询数据库所有外键及启用情况"></a>查询数据库所有外键及启用情况</h4><pre><code>select name,is_disabled from sys.foreign_keys
+</code></pre>
+<h4 id="启用或禁用所有数据库外键"><a href="#启用或禁用所有数据库外键" class="headerlink" title="启用或禁用所有数据库外键"></a>启用或禁用所有数据库外键</h4><pre><code>-- 禁用某个数据库的所有表的外键约束
+EXEC sp_MSforeachtable @command1=&#39;alter table ? NOCHECK constraint all;&#39;
+-- 启用某个数据库的所有表的外键约束
+EXEC sp_MSforeachtable @command1=&#39;alter table ? CHECK constraint all;&#39;
+</code></pre>
+<h4 id="查询某个表的所有外键"><a href="#查询某个表的所有外键" class="headerlink" title="查询某个表的所有外键"></a>查询某个表的所有外键</h4><pre><code>SELECT
+    fk.name,
+    fk.object_id,
+    OBJECT_NAME( fk.parent_object_id ) AS referenceTableName 
+FROM
+    sys.foreign_keys AS fk
+    JOIN sys.objects AS o ON fk.referenced_object_id= o.object_id 
+WHERE
+    o.name= &#39;apss_light_application&#39;
+</code></pre>
+<h4 id="replace函数"><a href="#replace函数" class="headerlink" title="replace函数"></a>replace函数</h4><pre><code>-- 更新apss_light_application，替换entry_address字段中的192.16.1.144和192.16.1.151为10.235.68.12
+UPDATE [dbo].[apss_light_application] 
+SET entry_address = REPLACE( entry_address, &#39;192.16.1.144&#39;, &#39;10.235.68.12&#39; );
+
+UPDATE [dbo].[apss_light_application] 
+SET entry_address = REPLACE( entry_address, &#39;192.16.1.151&#39;, &#39;10.235.68.12&#39; );
+
+-- 修改text 或 ntext类型数据
+UPDATE [dbo].[apss_material_management_module] 
+SET substance = REPLACE( cast(substance as varchar(max)), &#39;http://10.235.68.11:6001&#39;, &#39;https://wap.hzairport.com/simple-file-service&#39; )
+WHERE substance LIKE &#39;%10.235.68.%&#39;;
+</code></pre>
+<h4 id="设置id插入允许"><a href="#设置id插入允许" class="headerlink" title="设置id插入允许"></a>设置id插入允许</h4><pre><code>set identity_insert dbo.apss_material_management_module on;
+set identity_insert dbo.apss_material_management_module off;
+</code></pre>
+<h4 id="修改列长度"><a href="#修改列长度" class="headerlink" title="修改列长度"></a>修改列长度</h4><pre><code>-- 修改列 auth_code 长度为255
+alter table [dbo].[membership_auth_record] alter column auth_code varchar(255)
+</code></pre>
+<h4 id="替换列内容"><a href="#替换列内容" class="headerlink" title="替换列内容"></a>替换列内容</h4><pre><code>alter table [dbo].[apss_material_management_module] add substance_n ntext;
+UPDATE [dbo].[apss_material_management_module] SET substance_n = substance;
+alter table [dbo].[apss_material_management_module] DROP COLUMN substance;
+-- 替换回来
+exec sp_rename &#39;[dbo].[apss_material_management_module].substance_n&#39;,&#39;substance&#39;,&#39;COLUMN&#39;
+</code></pre>
+<h4 id="MYSQL中group-concat长度限制！默认1024"><a href="#MYSQL中group-concat长度限制！默认1024" class="headerlink" title="MYSQL中group_concat长度限制！默认1024"></a>MYSQL中group_concat长度限制！默认1024</h4><pre><code>1).在MySQL配置文件中加上
+    group_concat_max_len = 102400 #你要的最大长度
+2).可以简单一点，执行语句,可以设置作用范围
+    SET GLOBAL group_concat_max_len=102400;
+    SET SESSION group_concat_max_len=102400;
+</code></pre>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2022 Eric的博客
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @Eric Du
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

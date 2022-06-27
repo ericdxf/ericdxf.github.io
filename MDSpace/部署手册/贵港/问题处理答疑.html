@@ -1,0 +1,416 @@
+
+<!DOCTYPE html>
+<html lang="en ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eric的博客 || My personal blog</title>
+    <meta name="referrer" content="no-referrer" />
+    <meta name="author" content="Eric Du">
+    <meta name="description" content="记录、分享、交流 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/head_image.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Eric的博客" type="application/atom+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Eric的博客</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/like/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/like/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://en.korilin.com">
+            <span>
+                <a-icon type="compass" theme="filled" />
+            </span>
+            <span>英文博客</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Eric的博客</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/like/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/like/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+            <a target="_blank" rel="noopener" href="https://en.korilin.com">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="compass" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">英文博客</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1> </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/6/27
+        </span>
+
+        
+
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h3 id="问题处理答疑"><a href="#问题处理答疑" class="headerlink" title="问题处理答疑"></a>问题处理答疑</h3><h3 id="1-数据看板"><a href="#1-数据看板" class="headerlink" title="1.数据看板"></a>1.数据看板</h3><p>接口已提供</p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220307143747265.png" alt="image-20220307143747265"></p>
+<ul>
+<li>字段解释</li>
+</ul>
+<pre><code>@ApiModelProperty(&quot;今日油脂收运量&quot;)
+private String collectNumDayValue;
+@ApiModelProperty(&quot;本月油脂收运量&quot;)
+private String collectNumMonthValue;
+
+@ApiModelProperty(&quot;本月油脂结算金额&quot;)
+private String collectMoneyMonthValue;
+@ApiModelProperty(&quot;本年油脂结算金额&quot;)
+private String collectMoneyYearValue;
+
+@ApiModelProperty(&quot;本年油脂销售量&quot;)
+private String saleNumMonthValue;
+@ApiModelProperty(&quot;本年油脂销售量&quot;)
+private String saleNumYearValue;
+
+@ApiModelProperty(&quot;本月油脂销售金额&quot;)
+private String saleMoneyMonthValue;
+@ApiModelProperty(&quot;本年油脂销售金额&quot;)
+private String saleMoneyYearValue;
+
+@ApiModelProperty(&quot;本月地沟油提取量&quot;)
+private String gutterOilMonthValue;
+@ApiModelProperty(&quot;本年地沟油提取量&quot;)
+private String gutterOilYearValue;
+
+@ApiModelProperty(&quot;本月泔水油提取量&quot;)
+private String swillOilMonthValue;
+@ApiModelProperty(&quot;本年泔水油提取量&quot;)
+private String swillOilYearValue;
+</code></pre>
+<h3 id="2-商户查询即将到期"><a href="#2-商户查询即将到期" class="headerlink" title="2.商户查询即将到期"></a>2.商户查询即将到期</h3><p>增加<code>queryDue</code>参数传值<code>m1</code>，不传<code>queryDue</code>则不过滤即将过期</p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220307144059805.png" alt="image-20220307144059805"></p>
+<h3 id="3-商户类型"><a href="#3-商户类型" class="headerlink" title="3.商户类型"></a>3.商户类型</h3><p>DICT分类<code>productUnitType</code></p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220307143910421.png" alt="image-20220307143910421"></p>
+<h3 id="4-新增商铺字段解释"><a href="#4-新增商铺字段解释" class="headerlink" title="4.新增商铺字段解释"></a>4.新增商铺字段解释</h3><p><code>binCapacity</code>:容器容量</p>
+<p><code>contractContainerAmount</code>:容器数量</p>
+<h3 id="5-商铺类型下拉"><a href="#5-商铺类型下拉" class="headerlink" title="5.商铺类型下拉"></a>5.商铺类型下拉</h3><p>参考解释3：商户类型</p>
+<h3 id="6-数据看板折线图拆分"><a href="#6-数据看板折线图拆分" class="headerlink" title="6.数据看板折线图拆分"></a>6.数据看板折线图拆分</h3><p>接口已实现，参考解释1</p>
+<h3 id="7-缺少收油统计项目"><a href="#7-缺少收油统计项目" class="headerlink" title="7.缺少收油统计项目"></a>7.缺少收油统计项目</h3><p>已添加接口，具体看截图</p>
+<pre><code>&#123;&#123;base_url&#125;&#125;/trsyb/rest/ctPlan/planStatistics?date=2022-03-07
+</code></pre>
+<h3 id="8-商户信息获取"><a href="#8-商户信息获取" class="headerlink" title="8.商户信息获取"></a><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220307182816259.png" alt="image-20220307182816259">8.商户信息获取</h3><p>参考截图</p>
+<pre><code>&#123;&#123;base_url&#125;&#125;/trsyb/rest/customerInfo/page
+</code></pre>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220307184150356.png" alt="image-20220307184150356"></p>
+<h3 id="9-商户提报计划列表"><a href="#9-商户提报计划列表" class="headerlink" title="9.商户提报计划列表"></a>9.商户提报计划列表</h3><pre><code>&#123;&#123;base_url&#125;&#125;/trsyb/rest/collectPlan/queryPage
+</code></pre>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220307184441965.png" alt="image-20220307184441965"></p>
+<h3 id="10-人员调班功能"><a href="#10-人员调班功能" class="headerlink" title="10.人员调班功能"></a>10.人员调班功能</h3><ul>
+<li>车辆排班列表接口</li>
+</ul>
+<pre><code>&#123;&#123;base_url&#125;&#125;/trsyb/rest/regularPlan/carPreview
+</code></pre>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220308111019167.png" alt="image-20220308111019167"></p>
+<ul>
+<li><p>人员调班接口</p>
+<p>参数解释，下面两个id至少传一个，或一起传</p>
+<p>driverId：司机id</p>
+<p>assistId：助手id</p>
+</li>
+</ul>
+<pre><code>&#123;&#123;base_url&#125;&#125;/trsyb/rest/regularPlan/changePerson
+</code></pre>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220308110954297.png" alt="image-20220308110954297"></p>
+<ul>
+<li>获取某日空闲人员接口</li>
+</ul>
+<pre><code>&#123;&#123;base_url&#125;&#125;/trsyb/rest/regularPlan/getFreePerson?queryDate=2022-03-05
+</code></pre>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220308111118649.png" alt="image-20220308111118649"></p>
+<h3 id="11-考勤报表"><a href="#11-考勤报表" class="headerlink" title="11.考勤报表"></a>11.考勤报表</h3><pre><code>&#123;&#123;base_url&#125;&#125;/trsyb/rest/ctPlan/checkInForms
+</code></pre>
+<p>参数示例</p>
+<pre><code>&#123;
+    &quot;queryMonth&quot;: &quot;2022-03&quot;,
+    &quot;curPage&quot;: &quot;1&quot;,
+    &quot;pageSize&quot;: &quot;10&quot;,
+    &quot;driverName&quot;: &quot;王绍军&quot;,
+    &quot;postName&quot;: &quot;司机&quot;
+&#125;
+</code></pre>
+<ul>
+<li>返回结果字段解释</li>
+</ul>
+<pre><code>@ApiModelProperty(value = &quot;岗位名称&quot;)
+private String postName;
+@ApiModelProperty(value = &quot;用户名称&quot;)
+private String userName;
+@ApiModelProperty(value = &quot;用户Id&quot;)
+private String userId;
+@ApiModelProperty(value = &quot;工作天数&quot;)
+private int workDays;
+@ApiModelProperty(value = &quot;休息天数&quot;)
+private int restDays;
+@ApiModelProperty(value = &quot;请假天数&quot;)
+private int offDays;
+@ApiModelProperty(value = &quot;加班天数&quot;)
+private int extraDays;
+
+@ApiModelProperty(value = &quot;日期详情&quot;)
+private List&lt;PlanDayInfoDto&gt; dayInfo;
+</code></pre>
+<ul>
+<li>PlanDayInfoDto （字段解释）</li>
+</ul>
+<pre><code>@ApiModelProperty(value = &quot;日期&quot;)
+private String day;
+
+@ApiModelProperty(value = &quot;1.正常上班 2.休息 3.请假 4.加班&quot;)
+private Integer workType;
+</code></pre>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220308182121613.png" alt="image-20220308182121613"></p>
+<h3 id="12-统计数据"><a href="#12-统计数据" class="headerlink" title="12.统计数据"></a>12.统计数据</h3><p>统计接口参数和列表接口基本一致，只是少了分页参数，同时接口url后拼接<code>/total</code></p>
+<p>返回字段解释</p>
+<pre><code>amount: 数量
+money: 金额
+</code></pre>
+<p>油脂收运统计数据</p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220314110458024.png" alt="image-20220314110458024"></p>
+<p>油脂销售统计数据</p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220314110510672.png" alt="image-20220314110510672"></p>
+<p>地磅称重统计</p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220314110524100.png" alt="image-20220314110524100"></p>
+<h3 id="13-导入导出接口"><a href="#13-导入导出接口" class="headerlink" title="13.导入导出接口"></a>13.导入导出接口</h3><h5 id="收运历史"><a href="#收运历史" class="headerlink" title="收运历史"></a>收运历史</h5><h5 id="油脂销售"><a href="#油脂销售" class="headerlink" title="油脂销售"></a>油脂销售</h5><p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220314210540975.png" alt="image-20220314210540975"></p>
+<h5 id="地磅称重"><a href="#地磅称重" class="headerlink" title="地磅称重"></a>地磅称重</h5><p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220314210604363.png" alt="image-20220314210604363"></p>
+<h5 id="商铺导出"><a href="#商铺导出" class="headerlink" title="商铺导出"></a>商铺导出</h5><p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220314210628799.png" alt="image-20220314210628799"></p>
+<h3 id="14-增加排班的适用时间"><a href="#14-增加排班的适用时间" class="headerlink" title="14.增加排班的适用时间"></a>14.增加排班的适用时间</h3><p>在原生成排班接口的基础上增加参数，不传则默认生成当月</p>
+<pre><code>&#123;&#123;base_url&#125;&#125;/trsyb/rest/regularPlan/generate?month=2022-04
+</code></pre>
+<h3 id="15-数据看板油脂详情"><a href="#15-数据看板油脂详情" class="headerlink" title="15.数据看板油脂详情"></a>15.数据看板油脂详情</h3><p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220314224651490.png" alt="image-20220314224651490"><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220314224712263.png" alt="image-20220314224712263"></p>
+<h3 id="16-商户提报计划字段补充"><a href="#16-商户提报计划字段补充" class="headerlink" title="16.商户提报计划字段补充"></a>16.商户提报计划字段补充</h3><p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/bP-JTZn1_4GQ5cnW3iJqvg.png" alt="img"></p>
+<p>接口名：</p>
+<pre><code>&#123;&#123;base_url&#125;&#125;/trsyb/rest/collectPlan/queryNamePage
+</code></pre>
+<p>根据返回的字段<code>shippingRouteId</code>判断，<code>shippingRouteId</code>有值则在计划内，反之则不在计划内</p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220314225654241.png" alt="image-20220314225654241"></p>
+<h3 id="17-商铺列表接口添加是否在计划内字段"><a href="#17-商铺列表接口添加是否在计划内字段" class="headerlink" title="17.商铺列表接口添加是否在计划内字段"></a>17.商铺列表接口添加是否在计划内字段</h3><p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220315003314442.png" alt="image-20220315003314442"></p>
+<h3 id="18-导出接口补充"><a href="#18-导出接口补充" class="headerlink" title="18.导出接口补充"></a>18.导出接口补充</h3><p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220315211326578.png" alt="image-20220315211326578"><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220315211348092.png" alt="image-20220315211348092"></p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220315211403352.png" alt="image-20220315211403352"></p>
+<h3 id="19-排班预览车辆选择接口"><a href="#19-排班预览车辆选择接口" class="headerlink" title="19.排班预览车辆选择接口"></a>19.排班预览车辆选择接口</h3><p>form表单传参</p>
+<p>参数名<code>carId</code></p>
+<pre><code>&#123;&#123;base_url&#125;&#125;/trsyb/rest/regularPlan/carPreview
+</code></pre>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20220316231312708.png" alt="image-20220316231312708"></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2022 Eric的博客
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @Eric Du
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

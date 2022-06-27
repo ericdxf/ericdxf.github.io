@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+<html lang="en ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eric的博客 || My personal blog</title>
+    <meta name="referrer" content="no-referrer" />
+    <meta name="author" content="Eric Du">
+    <meta name="description" content="记录、分享、交流 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/head_image.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Eric的博客" type="application/atom+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Eric的博客</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/like/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/like/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://en.korilin.com">
+            <span>
+                <a-icon type="compass" theme="filled" />
+            </span>
+            <span>英文博客</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Eric的博客</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/like/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/like/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+            <a target="_blank" rel="noopener" href="https://en.korilin.com">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="compass" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">英文博客</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1> </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/6/16
+        </span>
+
+        
+
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h2 id="商铺接口文档"><a href="#商铺接口文档" class="headerlink" title="商铺接口文档"></a>商铺接口文档</h2><h4 id="1-查询餐饮类别-GET请求"><a href="#1-查询餐饮类别-GET请求" class="headerlink" title="1.查询餐饮类别(GET请求)"></a>1.查询餐饮类别(GET请求)</h4><pre><code>&#123;&#123;base_url&#125;&#125;:5556/travel/shop/type/food
+</code></pre>
+<h5 id="请求参数：无"><a href="#请求参数：无" class="headerlink" title="请求参数：无"></a>请求参数：无</h5><h5 id="返回结果示例"><a href="#返回结果示例" class="headerlink" title="返回结果示例"></a>返回结果示例</h5><pre><code>&#123;
+    &quot;code&quot;: 200,
+    &quot;message&quot;: null,
+    &quot;content&quot;: [
+        &#123;
+            &quot;dictId&quot;: 44,
+            &quot;dictName&quot;: &quot;各地美食&quot;,
+            &quot;dictDesc&quot;: &quot;ShopFoodTypeAll&quot;,
+            &quot;enable&quot;: true,
+            &quot;sort&quot;: 1
+        &#125;,
+        &#123;
+            &quot;dictId&quot;: 45,
+            &quot;dictName&quot;: &quot;咖啡甜品&quot;,
+            &quot;dictDesc&quot;: &quot;ShopFoodTypeCoffee&quot;,
+            &quot;enable&quot;: true,
+            &quot;sort&quot;: 2
+        &#125;
+    ]
+&#125;
+</code></pre>
+<h4 id="2-查询购物类别-GET请求"><a href="#2-查询购物类别-GET请求" class="headerlink" title="2.查询购物类别(GET请求)"></a>2.查询购物类别(GET请求)</h4><pre><code>&#123;&#123;base_url&#125;&#125;:5556/travel/shop/type/shopping
+</code></pre>
+<h5 id="请求参数：无-1"><a href="#请求参数：无-1" class="headerlink" title="请求参数：无"></a>请求参数：无</h5><h5 id="返回结果示例-1"><a href="#返回结果示例-1" class="headerlink" title="返回结果示例"></a>返回结果示例</h5><pre><code>&#123;
+    &quot;code&quot;: 200,
+    &quot;message&quot;: null,
+    &quot;content&quot;: [
+        &#123;
+            &quot;dictId&quot;: 47,
+            &quot;dictName&quot;: &quot;化妆品&quot;,
+            &quot;dictDesc&quot;: &quot;ShopTypeMakeup&quot;,
+            &quot;enable&quot;: true,
+            &quot;sort&quot;: 1
+        &#125;,
+        &#123;
+            &quot;dictId&quot;: 48,
+            &quot;dictName&quot;: &quot;免税店&quot;,
+            &quot;dictDesc&quot;: &quot;ShopTypeDutyFree&quot;,
+            &quot;enable&quot;: true,
+            &quot;sort&quot;: 2
+        &#125;
+    ]
+&#125;
+</code></pre>
+<h4 id="3-商铺分页查询接口（POST请求）"><a href="#3-商铺分页查询接口（POST请求）" class="headerlink" title="3.商铺分页查询接口（POST请求）"></a>3.商铺分页查询接口（POST请求）</h4><pre><code>&#123;&#123;base_url&#125;&#125;:5556/travel/shop/page
+</code></pre>
+<h5 id="请求参数示例"><a href="#请求参数示例" class="headerlink" title="请求参数示例"></a>请求参数示例</h5><p>terminal：航站楼</p>
+<p>shopType：商铺类别</p>
+<p>floor：楼层</p>
+<p>inSecurityArea：是否在安全区</p>
+<p>enable：是否可用</p>
+<pre><code>&#123;
+    &quot;enable&quot;: true,
+    &quot;inSecurityArea&quot;: true,
+    &quot;pageNumber&quot;: 0,
+    &quot;pageSize&quot;: 10,
+    &quot;floor&quot;: &quot;2&quot;,
+    &quot;shopName&quot;: &quot;测试商铺名称&quot;,
+    &quot;shopType&quot;: &quot;免税店&quot;,
+    &quot;terminal&quot;: &quot;T2&quot;
+&#125;
+</code></pre>
+<h5 id="返回结果示例-2"><a href="#返回结果示例-2" class="headerlink" title="返回结果示例"></a>返回结果示例</h5><pre><code>&#123;
+    &quot;code&quot;: 200,
+    &quot;message&quot;: null,
+    &quot;content&quot;: 
+    &#123;
+        &quot;total&quot;: 1,
+        &quot;currentPage&quot;: 0,
+        &quot;totalPage&quot;: 1,
+        &quot;content&quot;: [
+            &#123;
+                &quot;id&quot;: 3,
+                &quot;shopName&quot;: &quot;测试商铺名称&quot;,
+                &quot;shopNameEnglish&quot;:&quot;Starbucks&quot;,
+                &quot;shopType&quot;: &quot;免税店&quot;,
+                &quot;shopPosition&quot;: &quot;机场对面&quot;,
+                &quot;shopPositionEnglish&quot;:null,
+                &quot;businessScope&quot;: &quot;测试经营范围&quot;,
+                &quot;businessScopeEnglish&quot;:null,
+                &quot;openTime&quot;: &quot;早8点营业&quot;,
+                   &quot;openTimeEnglish&quot;:null,
+                &quot;pricePerPerson&quot;: 50.0,
+                &quot;phone&quot;: &quot;15621083376,15621083378&quot;,
+                &quot;description&quot;: &quot;测试商铺描述d&quot;,
+                &quot;descriptionEnglish&quot;:null,
+                &quot;logo&quot;: &quot;617b4f7b5600425654c27b19&quot;,
+                &quot;points&quot;: &quot;1213131231&quot;,
+                &quot;shopImageList&quot;: [
+                    &#123;
+                        &quot;fileId&quot;: &quot;617b4f7b5600425654c27b19&quot;,
+                        &quot;fileName&quot;: &quot;abc.png&quot;,
+                        &quot;fileUrl&quot;: &quot;http://192.16.1.151:6001/space/617b4f7b5600425654c27b19/preview&quot;
+                    &#125;,
+                    &#123;
+                        &quot;fileId&quot;: &quot;617b4f7b5600425654c27b19&quot;,
+                        &quot;fileName&quot;: &quot;bc.png&quot;,
+                        &quot;fileUrl&quot;: &quot;http://192.16.1.151:6001/space/617b4f7b5600425654c27b19/preview&quot;
+                    &#125;,
+                    &#123;
+                        &quot;fileId&quot;: &quot;621db3e99957b7197431bba7&quot;,
+                        &quot;fileName&quot;: &quot;juxing.jpg&quot;,
+                        &quot;fileUrl&quot;: &quot;http://192.16.1.151:6001/space/621db3e99957b7197431bba7/preview&quot;
+                    &#125;
+                ],
+                &quot;terminal&quot;: &quot;T2&quot;,
+                &quot;floor&quot;: &quot;2&quot;,
+                &quot;inSecurityArea&quot;: true,
+                &quot;username&quot;: null,
+                &quot;atTop&quot;: false,
+                &quot;enable&quot;: true,
+                &quot;del&quot;: false,
+                &quot;createTime&quot;: &quot;2022-02-28 15:51:37&quot;,
+                &quot;updateTime&quot;: &quot;2022-03-01 13:54:33&quot;,
+                &quot;yvalue&quot;: &quot;26.01231&quot;,
+                &quot;xvalue&quot;: &quot;121.12151&quot;
+            &#125;
+        ]
+    &#125;
+&#125;
+</code></pre>
+<h4 id="4-商铺详情接口（GET请求）"><a href="#4-商铺详情接口（GET请求）" class="headerlink" title="4.商铺详情接口（GET请求）"></a>4.商铺详情接口（GET请求）</h4><pre><code>&#123;&#123;base_url&#125;&#125;:5556/travel/shop/info/&#123;id&#125;
+</code></pre>
+<h5 id="请求参数示例-1"><a href="#请求参数示例-1" class="headerlink" title="请求参数示例"></a>请求参数示例</h5><pre><code>&#123;&#123;base_url&#125;&#125;:5556/travel/shop/info/2
+</code></pre>
+<h5 id="返回结果示例-3"><a href="#返回结果示例-3" class="headerlink" title="返回结果示例"></a>返回结果示例</h5><pre><code>&#123;
+    &quot;code&quot;: 200,
+    &quot;message&quot;: null,
+    &quot;content&quot;: &#123;
+        &quot;id&quot;: 2,
+        &quot;shopName&quot;: &quot;测试商铺名称&quot;,
+        &quot;shopNameEnglish&quot;:&quot;Starbucks&quot;,
+        &quot;shopType&quot;: &quot;各地美食&quot;,
+        &quot;shopPosition&quot;: &quot;机场对面&quot;,
+        &quot;shopPositionEnglish&quot;:null,
+        &quot;businessScope&quot;: &quot;测试经营范围&quot;,
+        &quot;businessScopeEnglish&quot;:null,
+        &quot;openTime&quot;: &quot;早8点营业&quot;,
+        &quot;openTimeEnglish&quot;:null,
+        &quot;pricePerPerson&quot;: 50.0,
+        &quot;phone&quot;: &quot;15621083376,15621083377&quot;,
+        &quot;description&quot;: &quot;测试商铺描述&quot;,
+        &quot;descriptionEnglish&quot;:null,
+        &quot;logo&quot;: &quot;617b4f7b5600425654c27b19&quot;,
+        &quot;points&quot;: &quot;1213131231&quot;,
+        &quot;shopImageList&quot;: [
+            &#123;
+                &quot;fileId&quot;: &quot;617b4f7b5600425654c27b19&quot;,
+                &quot;fileName&quot;: &quot;abc.png&quot;,
+                &quot;fileUrl&quot;: &quot;http://192.16.1.151:6001/space/617b4f7b5600425654c27b19/preview&quot;
+            &#125;,
+            &#123;
+                &quot;fileId&quot;: &quot;617b4f7b5600425654c27b19&quot;,
+                &quot;fileName&quot;: &quot;bc.png&quot;,
+                &quot;fileUrl&quot;: &quot;http://192.16.1.151:6001/space/617b4f7b5600425654c27b19/preview&quot;
+            &#125;
+        ],
+        &quot;terminal&quot;: &quot;T1&quot;,
+        &quot;floor&quot;: &quot;3&quot;,
+        &quot;inSecurityArea&quot;: true,
+        &quot;username&quot;: null,
+        &quot;atTop&quot;: false,
+        &quot;enable&quot;: true,
+        &quot;del&quot;: false,
+        &quot;createTime&quot;: &quot;2022-02-28 16:50:45&quot;,
+        &quot;updateTime&quot;: &quot;2022-03-01 11:23:47&quot;,
+        &quot;yvalue&quot;: &quot;26.01231&quot;,
+        &quot;xvalue&quot;: &quot;121.12151&quot;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="5-根据点位查询商铺信息接口（POST请求）"><a href="#5-根据点位查询商铺信息接口（POST请求）" class="headerlink" title="5.根据点位查询商铺信息接口（POST请求）"></a>5.根据点位查询商铺信息接口（POST请求）</h4><pre><code>&#123;&#123;base_url&#125;&#125;:5556/travel/shop/searchByPoiId
+</code></pre>
+<h5 id="请求参数示例-2"><a href="#请求参数示例-2" class="headerlink" title="请求参数示例"></a>请求参数示例</h5><pre><code>&#123;
+  &quot;points&quot;: &quot;F1_545&quot;
+&#125;
+</code></pre>
+<h5 id="返回结果示例-4"><a href="#返回结果示例-4" class="headerlink" title="返回结果示例"></a>返回结果示例</h5><pre><code>&#123;
+    &quot;code&quot;:200,
+    &quot;message&quot;:null,
+    &quot;content&quot;:&#123;
+        &quot;id&quot;:1,
+        &quot;shopName&quot;:&quot;星巴克&quot;,
+        &quot;shopNameEnglish&quot;:&quot;Starbucks&quot;,
+        &quot;shopType&quot;:&quot;各地美食&quot;,
+        &quot;shopPosition&quot;:&quot;测试位置描述&quot;,
+        &quot;shopPositionEnglish&quot;:&quot;H&quot;,
+        &quot;businessScope&quot;:&quot;测试经营范围&quot;,
+        &quot;businessScopeEnglish&quot;:null,
+        &quot;openTime&quot;:&quot;上午8点/8 a.m&quot;,
+        &quot;openTimeEnglish&quot;:null,
+        &quot;pricePerPerson&quot;:26,
+        &quot;phone&quot;:&quot;16653237865&quot;,
+        &quot;description&quot;:&quot;我是介绍，巴拉巴拉&quot;,
+        &quot;descriptionEnglish&quot;:null,
+        &quot;logo&quot;:&quot;62271bc88fb865195020ad2f&quot;,
+        &quot;points&quot;:&quot;F1_545&quot;,
+        &quot;shopImageList&quot;:null,
+        &quot;terminal&quot;:&quot;T3&quot;,
+        &quot;floor&quot;:&quot;2&quot;,
+        &quot;inSecurityArea&quot;:true,
+        &quot;username&quot;:null,
+        &quot;atTop&quot;:false,
+        &quot;enable&quot;:false,
+        &quot;del&quot;:false,
+        &quot;createTime&quot;:&quot;2022-03-08 17:03:19&quot;,
+        &quot;updateTime&quot;:&quot;2022-03-08 17:04:05&quot;,
+        &quot;yvalue&quot;:&quot;23.5&quot;,
+        &quot;xvalue&quot;:&quot;234.4&quot;
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2022 Eric的博客
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @Eric Du
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>

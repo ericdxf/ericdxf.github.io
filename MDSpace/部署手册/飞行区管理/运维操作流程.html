@@ -1,0 +1,601 @@
+
+<!DOCTYPE html>
+<html lang="en ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eric的博客 || My personal blog</title>
+    <meta name="referrer" content="no-referrer" />
+    <meta name="author" content="Eric Du">
+    <meta name="description" content="记录、分享、交流 ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/images/head_image.jpg">
+    <link rel="stylesheet" href="/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/css/full-theme.css">
+    
+    <script src="/js/vue.js"></script>
+    <script src="/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Eric的博客" type="application/atom+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/">
+            <span class="title">Eric的博客</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/about">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/archives">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/like/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/like/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+        <a target="_blank" rel="noopener" href="https://en.korilin.com">
+            <span>
+                <a-icon type="compass" theme="filled" />
+            </span>
+            <span>英文博客</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>Eric的博客</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/about">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/archives">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/like/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/like/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+            <a target="_blank" rel="noopener" href="https://en.korilin.com">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="compass" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">英文博客</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/css/post-body.css">
+<div class="article">
+    <div>
+        <h1> </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2022/6/27
+        </span>
+
+        
+
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h4 id="打开飞行区Web端地址http-10-64-57-2-8000-login，输入账号-admin-密码-Aams-2021-登入系统，如下图所示，依次点击权限管理，功能管理选项："><a href="#打开飞行区Web端地址http-10-64-57-2-8000-login，输入账号-admin-密码-Aams-2021-登入系统，如下图所示，依次点击权限管理，功能管理选项：" class="headerlink" title="打开飞行区Web端地址http://10.64.57.2:8000/login，输入账号`admin`密码`Aams,.@2021`登入系统，如下图所示，依次点击权限管理，功能管理选项："></a>打开飞行区Web端地址<a target="_blank" rel="noopener" href="http://10.64.57.2:8000/login%EF%BC%8C%E8%BE%93%E5%85%A5%E8%B4%A6%E5%8F%B7%60admin%60%E5%AF%86%E7%A0%81%60Aams,.@2021%60%E7%99%BB%E5%85%A5%E7%B3%BB%E7%BB%9F%EF%BC%8C%E5%A6%82%E4%B8%8B%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%8C%E4%BE%9D%E6%AC%A1%E7%82%B9%E5%87%BB%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%EF%BC%8C%E5%8A%9F%E8%83%BD%E7%AE%A1%E7%90%86%E9%80%89%E9%A1%B9%EF%BC%9A">http://10.64.57.2:8000/login，输入账号`admin`密码`Aams,.@2021`登入系统，如下图所示，依次点击权限管理，功能管理选项：</a></h4><p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20210805181233055.png" alt="image-20210805181233055"></p>
+<h4 id="点击飞行区管理系统-APP行的新增子权限配置权限"><a href="#点击飞行区管理系统-APP行的新增子权限配置权限" class="headerlink" title="点击飞行区管理系统-APP行的新增子权限配置权限"></a>点击飞行区管理系统-APP行的新增子权限配置权限</h4><p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/image-20210805181432826.png" alt="image-20210805181432826"></p>
+<h3 id="下表为需要新增的配置项"><a href="#下表为需要新增的配置项" class="headerlink" title="下表为需要新增的配置项"></a>下表为需要新增的配置项</h3><table>
+<thead>
+<tr>
+<th align="left">权限名称</th>
+<th>权限Code</th>
+<th>权限类型</th>
+<th>级别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">飞行区</td>
+<td>areaApp</td>
+<td>菜单</td>
+<td>1</td>
+</tr>
+<tr>
+<td align="left">道面管理</td>
+<td>surfaceChildApp</td>
+<td>菜单</td>
+<td>2</td>
+</tr>
+<tr>
+<td align="left">编辑</td>
+<td>surfaceAppChildEdit</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">删除</td>
+<td>surfaceAppChildDelete</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">处理</td>
+<td>surfaceAppChildHandle</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">上报</td>
+<td>surfaceAppChildReport</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">FOD</td>
+<td>fodChildApp</td>
+<td>菜单</td>
+<td>2</td>
+</tr>
+<tr>
+<td align="left">上报</td>
+<td>fodAppChildReport</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">处理</td>
+<td>fodAppChildHandle</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">编辑</td>
+<td>fodAppChildEdit</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">删除</td>
+<td>fodAppChildDelete</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">鸟情</td>
+<td>birdChildApp</td>
+<td>菜单</td>
+<td>2</td>
+</tr>
+<tr>
+<td align="left">编辑</td>
+<td>birdAppChildEdit</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">处理</td>
+<td>birdAppChildHandle</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">上报</td>
+<td>birdAppChildReport</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">删除</td>
+<td>birdAppChildDelete</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">催促</td>
+<td>birdAppChildRemind</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">除冰</td>
+<td>deicingChildApp</td>
+<td>菜单</td>
+<td>2</td>
+</tr>
+<tr>
+<td align="left">编辑</td>
+<td>deicingAppChildEdit</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">删除</td>
+<td>deicingAppChildDelete</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">处理</td>
+<td>deicingAppChildHandle</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">上报</td>
+<td>deicingAppChildReport</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">催促</td>
+<td>deicingAppChildRemind</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">审批</td>
+<td>deicingAppChildCheck</td>
+<td>功能</td>
+<td>2</td>
+</tr>
+<tr>
+<td align="left">准入</td>
+<td>permissionApp</td>
+<td>菜单</td>
+<td>3</td>
+</tr>
+<tr>
+<td align="left">巡视</td>
+<td>permissionCheck</td>
+<td>功能</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<h3 id="移动管理平台地址"><a href="#移动管理平台地址" class="headerlink" title="移动管理平台地址"></a>移动管理平台地址</h3><h3 id="http-10-64-57-4-82"><a href="#http-10-64-57-4-82" class="headerlink" title="http://10.64.57.4:82"></a><a target="_blank" rel="noopener" href="http://10.64.57.4:82/">http://10.64.57.4:82</a></h3><h3 id="移动管理平台需要新增的内容"><a href="#移动管理平台需要新增的内容" class="headerlink" title="移动管理平台需要新增的内容"></a>移动管理平台需要新增的内容</h3><table>
+<thead>
+<tr>
+<th>功能名称</th>
+<th>功能编码</th>
+<th>路由类型</th>
+<th>路由路径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>鸟情-催促</td>
+<td>&#x2F;bird&#x2F;remind</td>
+<td>原生</td>
+<td>&#x2F;bird&#x2F;remind</td>
+</tr>
+<tr>
+<td>道面管理-上报</td>
+<td>&#x2F;surface&#x2F;report</td>
+<td>原生</td>
+<td>&#x2F;surface&#x2F;report</td>
+</tr>
+<tr>
+<td>除冰-删除</td>
+<td>&#x2F;deice&#x2F;delete</td>
+<td>原生</td>
+<td>&#x2F;deice&#x2F;delete</td>
+</tr>
+<tr>
+<td>除冰-审批</td>
+<td>&#x2F;deice&#x2F;check</td>
+<td>原生</td>
+<td>&#x2F;deice&#x2F;check</td>
+</tr>
+<tr>
+<td>除冰-催促</td>
+<td>&#x2F;deice&#x2F;remind</td>
+<td>原生</td>
+<td>&#x2F;deice&#x2F;remind</td>
+</tr>
+<tr>
+<td>鸟情-首页</td>
+<td>&#x2F;bird&#x2F;index</td>
+<td>原生</td>
+<td>&#x2F;bird&#x2F;index</td>
+</tr>
+<tr>
+<td>准入-首页</td>
+<td>&#x2F;permission&#x2F;index</td>
+<td>原生</td>
+<td>&#x2F;permission&#x2F;index</td>
+</tr>
+<tr>
+<td>FOD-上报</td>
+<td>&#x2F;fod&#x2F;index&#x2F;report</td>
+<td>原生</td>
+<td>&#x2F;fod&#x2F;index&#x2F;report</td>
+</tr>
+<tr>
+<td>道面管理-编辑</td>
+<td>&#x2F;surface&#x2F;edit</td>
+<td>原生</td>
+<td>&#x2F;surface&#x2F;edit</td>
+</tr>
+<tr>
+<td>除冰-上报</td>
+<td>&#x2F;deice&#x2F;report</td>
+<td>原生</td>
+<td>&#x2F;deice&#x2F;report</td>
+</tr>
+<tr>
+<td>道面管理-处理</td>
+<td>&#x2F;surface&#x2F;handle</td>
+<td>原生</td>
+<td>&#x2F;surface&#x2F;handle</td>
+</tr>
+<tr>
+<td>FOD-处理</td>
+<td>&#x2F;fod&#x2F;index&#x2F;handle</td>
+<td>原生</td>
+<td>&#x2F;fod&#x2F;index&#x2F;handle</td>
+</tr>
+<tr>
+<td>飞行区</td>
+<td>&#x2F;area&#x2F;index</td>
+<td>原生</td>
+<td>&#x2F;area&#x2F;index</td>
+</tr>
+<tr>
+<td>除冰-处理</td>
+<td>&#x2F;deice&#x2F;handle</td>
+<td>原生</td>
+<td>&#x2F;deice&#x2F;handle</td>
+</tr>
+<tr>
+<td>除冰-编辑</td>
+<td>&#x2F;deice&#x2F;edit</td>
+<td>原生</td>
+<td>&#x2F;deice&#x2F;edit</td>
+</tr>
+<tr>
+<td>鸟情-删除</td>
+<td>&#x2F;bird&#x2F;delete</td>
+<td>原生</td>
+<td>&#x2F;bird&#x2F;delete</td>
+</tr>
+<tr>
+<td>道面管理-删除</td>
+<td>&#x2F;surface&#x2F;delete</td>
+<td>原生</td>
+<td>&#x2F;surface&#x2F;delete</td>
+</tr>
+<tr>
+<td>鸟情-编辑</td>
+<td>&#x2F;bird&#x2F;edit</td>
+<td>原生</td>
+<td>&#x2F;bird&#x2F;edit</td>
+</tr>
+<tr>
+<td>FOD-删除</td>
+<td>&#x2F;fod&#x2F;index&#x2F;delete</td>
+<td>原生</td>
+<td>&#x2F;fod&#x2F;index&#x2F;delete</td>
+</tr>
+<tr>
+<td>FOD-首页</td>
+<td>&#x2F;fod&#x2F;index</td>
+<td>原生</td>
+<td>&#x2F;fod&#x2F;index</td>
+</tr>
+<tr>
+<td>准入-巡视</td>
+<td>&#x2F;permission&#x2F;check</td>
+<td>原生</td>
+<td>&#x2F;permission&#x2F;check</td>
+</tr>
+<tr>
+<td>FOD-编辑</td>
+<td>&#x2F;fod&#x2F;index&#x2F;edit</td>
+<td>原生</td>
+<td>&#x2F;fod&#x2F;index&#x2F;edit</td>
+</tr>
+<tr>
+<td>鸟情-上报</td>
+<td>&#x2F;bird&#x2F;report</td>
+<td>原生</td>
+<td>&#x2F;bird&#x2F;report</td>
+</tr>
+<tr>
+<td>道面管理-首页</td>
+<td>&#x2F;surface&#x2F;index</td>
+<td>原生</td>
+<td>&#x2F;surface&#x2F;index</td>
+</tr>
+<tr>
+<td>除冰-首页</td>
+<td>&#x2F;deice&#x2F;index</td>
+<td>原生</td>
+<td>&#x2F;deice&#x2F;index</td>
+</tr>
+<tr>
+<td>鸟情-处理</td>
+<td>&#x2F;bird&#x2F;handle</td>
+<td>原生</td>
+<td>&#x2F;bird&#x2F;handle</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2018 - 2022 Eric的博客
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @Eric Du
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/js/highlight.min.js"></script>
+<script src="/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>
