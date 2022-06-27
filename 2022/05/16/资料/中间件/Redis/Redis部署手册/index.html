@@ -201,7 +201,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/中间件" style=color:#ff7d73>
+                <a href="/tags/中间件" style=color:#00a596>
                     中间件
                 </a>
             </span>
@@ -213,23 +213,23 @@
     <div class="content" v-pre>
         <h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>下载地址： <a target="_blank" rel="noopener" href="https://github.com/MicrosoftArchive/redis/releases">https://github.com/MicrosoftArchive/redis/releases</a></p>
 <p>安装包已提供，如需下载则根据系统下载的版本：以（64位为例）</p>
-<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201051.png" alt="202201051"></p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/202201051.png" alt="202201051"></p>
 <p>下载后一般解压到根目录下：如（E:\Redis-x64-3.2.100）</p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>打开cmd命令窗口，使用命令进行安装和注册redis到window服务</p>
 <p>安装命令：redis-server.exe –service-install redis.windows.conf –loglevel verbose</p>
 <p>启动服务命令：redis-server.exe –service-start</p>
 <p>关闭服务命令：redis-server.exe –service-stop</p>
-<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201052.png" alt="202201052">最后返回的successfully表示安装成功。</p>
-<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201053.png" alt="202201053"></p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/202201052.png" alt="202201052">最后返回的successfully表示安装成功。</p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/202201053.png" alt="202201053"></p>
 <p>也可以通过任务管理器中查看后台中是否有redis-service来判断是否启动成功。</p>
 <h3 id="客户端使用redis"><a href="#客户端使用redis" class="headerlink" title="客户端使用redis"></a>客户端使用redis</h3><p>我们重新打开一个cmd ,作为一个客户端调用redis服务，如下图所示，调用命令是：redis-cli.exe -h [本机ip] -p 6379，如下图显示地址和端口，说明调用成功</p>
 <p>然后我们使用set 和get 命令进行测试一下，set uname “abc”,然后使用get uname可以获取到对应set的值，说明调用成功</p>
-<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201054.png" alt="202201054"></p>
-<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201055.png" alt="202201055"></p>
-<h3 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h3><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201056.png" alt="202201056"></p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/202201054.png" alt="202201054"></p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/202201055.png" alt="202201055"></p>
+<h3 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h3><p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/202201056.png" alt="202201056"></p>
 <p>上图中的root可以改为自己设置的密码</p>
 <p>还可以通过将字符串设置为空来清空密码：<br>CONFIG SET requirepass “”</p>
-<h3 id="问题记录：Creating-Server-TCP-listening-socket-127-0-0-1-6379-bind-No-error"><a href="#问题记录：Creating-Server-TCP-listening-socket-127-0-0-1-6379-bind-No-error" class="headerlink" title="问题记录：Creating Server TCP listening socket 127.0.0.1:6379: bind: No error"></a>问题记录：Creating Server TCP listening socket 127.0.0.1:6379: bind: No error</h3><p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201057.png" alt="202201057"></p>
+<h3 id="问题记录：Creating-Server-TCP-listening-socket-127-0-0-1-6379-bind-No-error"><a href="#问题记录：Creating-Server-TCP-listening-socket-127-0-0-1-6379-bind-No-error" class="headerlink" title="问题记录：Creating Server TCP listening socket 127.0.0.1:6379: bind: No error"></a>问题记录：Creating Server TCP listening socket 127.0.0.1:6379: bind: No error</h3><p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/202201057.png" alt="202201057"></p>
 <p>解决办法：</p>
 <pre><code>E:\Redis-x64-3.2.100&gt;redis-cli.exe
 127.0.0.1:6379&gt; shutdown
@@ -241,7 +241,7 @@ not connected&gt; exit
 
 E:\Redis-x64-3.2.100&gt;redis-server.exe redis.windows.conf
 </code></pre>
-<p><img src="https://gitee.com/dxf136/blog-image/raw/master/img/202201058.png" alt="202201058"></p>
+<p><img src="https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/202201058.png" alt="202201058"></p>
 
     </div>
 

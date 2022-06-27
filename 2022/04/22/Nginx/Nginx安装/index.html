@@ -214,6 +214,8 @@
         <h3 id="Nginx部署"><a href="#Nginx部署" class="headerlink" title="Nginx部署"></a>Nginx部署</h3><h5 id="1-安装依赖包"><a href="#1-安装依赖包" class="headerlink" title="1.安装依赖包"></a>1.安装依赖包</h5><pre><code>//一键安装上面四个依赖
 yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel
 </code></pre>
+<pre><code>yum -y install zlib zlib-devel --skip-broken
+</code></pre>
 <h5 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="2.下载并解压安装包"></a>2.下载并解压安装包</h5><pre><code>//创建一个文件夹
 cd /usr/local
 mkdir nginx
@@ -240,7 +242,9 @@ vim /usr/local/nginx/conf/nginx.conf
 </code></pre>
 <h5 id="6-添加到环境变量"><a href="#6-添加到环境变量" class="headerlink" title="6.添加到环境变量"></a>6.添加到环境变量</h5><pre><code>ln -s /usr/local/nginx/sbin/nginx /usr/local/bin/
 </code></pre>
-<p>&#x2F;usr&#x2F;local&#x2F;bin&#x2F;就是环境变量目录</p>
+<ul>
+<li>&#x2F;usr&#x2F;local&#x2F;bin&#x2F;就是环境变量目录</li>
+</ul>
 
     </div>
 
