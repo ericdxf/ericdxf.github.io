@@ -1,10 +1,3 @@
----
-title: MongoDB常用命令
-category: MongoDB
-date: 2022-05-16 18:45:53
-tags: 中间件
----
-
 ### 启动Mongodb
 
 ```

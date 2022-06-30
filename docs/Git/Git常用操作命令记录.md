@@ -1,10 +1,3 @@
----
-title: Git常用操作命令记录
-category: Git
-date: 2017-08-30 17:45:53
-tags: Git基础
----
-
 ### git init
 选择一个路径初始化代码版本库，目录下会多一个`.git`目录，这里面保存的是当前Git存储库保存的信息，用户要严格注意不要手动修改它。
 ### git add xxx.xxx

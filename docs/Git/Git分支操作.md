@@ -1,10 +1,3 @@
----
-title: Git分支操作
-category: Git
-date: 2017-08-31 17:45:53
-tags: Git基础
----
-
 ### git checkout
 首先，我们创建dev分支，然后切换到dev分支：
 ```

@@ -1,10 +1,3 @@
----
-title: Git忽略规则
-category: Git
-date: 2017-08-30 17:45:53
-tags: Git基础
----
-
 在git中如果想忽略掉某个文件，不让这个文件提交到版本库中，可以使用修改根目录中 .gitignore 文件的方法（如果没有这个文件，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则例如：
 
 ```代码块
@@ -35,4 +28,5 @@ $ git check-ignore -v App.class
 .gitignore:3:*.class    App.class
 ```
 Git会告诉我们，`.gitignore`的第3行规则忽略了该文件，于是我们就可以知道应该修订哪个规则。
+
 ### 最后附上官方的`.ignore`文件链接 [传送门](https://github.com/github/gitignore)

@@ -1,9 +1,3 @@
----
-title: Arthas手册
-category: 工具
-date: 2022-05-16 17:45:53
----
-
 ### Windows系统
 
 1. jdk路径下打开jvisualvm.exe软件

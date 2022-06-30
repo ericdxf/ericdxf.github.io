@@ -1,10 +1,3 @@
----
-title: Android系统路径
-category: Android
-date: 2017-10-18 17:45:53
-tags: 安卓基础
----
-
 ### 1.通过Environment获取的
 Environment.getDataDirectory().getPath()  
 获得根目录/data 内部存储路径

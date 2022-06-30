@@ -1,9 +1,3 @@
----
-title: Nginx缓存
-category: Nginx
-date: 2022-04-22 19:45:53
-tags: 优化
----
 ### Nginx缓存
 
 #### proxy_cache_path

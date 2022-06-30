@@ -1,10 +1,3 @@
----
-title: Redis集群部署
-category: Redis
-date: 2022-05-16 18:45:53
-tags: 中间件
----
-
 ### 下载
 
 下载地址： https://github.com/MicrosoftArchive/redis/releases

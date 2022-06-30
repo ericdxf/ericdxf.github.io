@@ -1,9 +1,3 @@
----
-title: Nginx常用命令
-category: Nginx
-date: 2022-04-22 19:48:53
-tags: 优化
----
 # Nginx常用命令
 
 ### 启动命令

@@ -1,9 +1,3 @@
----
-title: 将Nginx注册为windows系统服务
-category: Nginx
-date: 2022-04-22 19:45:53
-tags: 优化
----
 ### 将Nginx注册为windows系统服务
 
 - 在项目主页内找到winsw的下载页面（我用的是最新2.0.2版本，你可以下载最新的）

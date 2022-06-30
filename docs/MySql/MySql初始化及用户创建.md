@@ -1,9 +1,3 @@
----
-title: MySql初始化及用户创建
-category: MySql
-date: 2018-08-17 17:45:53
-tags: MySql
----
 CentOS安装MySql8.0之后，部分配置和之前的5.7有比较大的差异，在这里整理一下  
 使用的安装方式是rpm安装
 ```

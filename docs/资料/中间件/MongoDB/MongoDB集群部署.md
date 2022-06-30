@@ -1,10 +1,3 @@
----
-title: MongoDB集群部署
-category: MongoDB
-date: 2022-05-16 18:45:53
-tags: 中间件
----
-
 参考链接
 
 https://www.1024sou.com/article/809940.html
