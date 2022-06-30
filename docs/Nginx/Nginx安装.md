@@ -1,9 +1,3 @@
----
-title: Nginx部署
-category: Nginx
-date: 2022-04-22 19:45:53
-tags: 部署
----
 ### Nginx部署
 
 ##### 1.安装依赖包

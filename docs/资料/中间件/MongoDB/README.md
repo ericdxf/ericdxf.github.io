@@ -1,4 +1,4 @@
-- [返回上一级 [中间件]](资料/中间件/)
-- [MongoDB](资料/中间件/MongoDB/)
-  - [MongoDB导出导入](资料/中间件/MongoDB/MongoDB导出导入.md)
-  - [MongoDB集群部署](资料/中间件/MongoDB/MongoDB集群部署.md)
+- [返回上一级 [中间件]](/资料/中间件)
+- [MongoDB](/资料/中间件/MongoDB/)
+  - [MongoDB导出导入](/资料/中间件/MongoDB/MongoDB导出导入.md)
+  - [MongoDB集群部署](/资料/中间件/MongoDB/MongoDB集群部署.md)
