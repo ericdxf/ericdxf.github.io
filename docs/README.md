@@ -13,6 +13,7 @@
   - [GROUPBY小记](/MySql/GROUPBY小记.md)
   - [MySql初始化及用户创建](/MySql/MySql初始化及用户创建.md)
   - [MySql常见错误整理](/MySql/MySql常见错误整理.md)
+  - [常用SQL记录](/MySql/常用SQL记录.md)
 - [Nginx](/Nginx/)
   - [Nginx使用记录](/Nginx/Nginx使用记录.md)
   - [Nginx安装](/Nginx/Nginx安装.md)
