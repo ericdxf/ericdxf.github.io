@@ -151,18 +151,20 @@ location /proxy/ {
 - 反向代理结果：http://192.16.1.144:9999/travel-service/travel/lostFound/list
 
 
-	location ^~ /api/lostFound-service {
-	    proxy_pass http://192.16.1.144:9999/travel-service;
-	    proxy_redirect off;
-	    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	    proxy_read_timeout 180s;
-	    #proxy_set_header Host $proxy_host;
-	}
+```nginx
+location ^~ /api/lostFound-service {
+    proxy_pass http://192.16.1.144:9999/travel-service;
+    proxy_redirect off;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_read_timeout 180s;
+    #proxy_set_header Host $proxy_host;
+}
+```
 
 - 访问Url：   http://192.16.1.144:5556/api/lostFound-servic1/travel/lostFound/list
 - 反向代理结果：http://192.16.1.144:8767/travel/lostFound/list
 
-```
+```nginx
 location ^~ /api/lostFound-servic1/ {
     proxy_pass http://192.16.1.144:8767/;
     proxy_redirect off;
@@ -175,7 +177,7 @@ location ^~ /api/lostFound-servic1/ {
 - 访问Url：   http://192.16.1.144:5556/api/lostFound-servic2/travel/lostFound/list
 - 反向代理结果：http://192.16.1.144:8767/api/lostFound-servic2/travel/lostFound/list (可以发现这种方式只修改location匹配字段前面的信息)
 
-```
+```nginx
 location ^~ /api/lostFound-servic2/ {
     proxy_pass http://192.16.1.144:8767;
     proxy_redirect off;
@@ -188,7 +190,7 @@ location ^~ /api/lostFound-servic2/ {
 - 访问Url：   http://192.16.1.144:5556/api/lostFound-servic3/travel/lostFound/list
 - 反向代理结果：http://192.16.1.144:8767/travel/lostFound/list
 
-```
+```nginx
 location ^~ /api/lostFound-servic3 {
     rewrite /api/lostFound-servic3/(.*) /$1 break;
     proxy_pass http://192.16.1.144:8767;
@@ -202,7 +204,7 @@ location ^~ /api/lostFound-servic3 {
 - 访问Url：   http://192.16.1.144:5556/api/lostFound-servic4/travel/lostFound/list
 - 反向代理结果：http://192.16.1.144:9999/travel-service/travel/lostFound/list
 
-```
+```nginx
 location ^~ /api/lostFound-servic4/ {
     proxy_pass http://192.16.1.144:9999/travel-service/;
     proxy_redirect off;
@@ -216,7 +218,7 @@ location ^~ /api/lostFound-servic4/ {
 - 反向代理结果：http://192.16.1.144:9999/travel-service/travel/lostFound/list
 - 类比上一条可以发现：location和proxy_pass结尾都写`/`等价于都不写
 
-```
+```nginx
 location ^~ /api/lostFound-servic5 {
     proxy_pass http://192.16.1.144:9999/travel-service;
     proxy_redirect off;
@@ -229,7 +231,7 @@ location ^~ /api/lostFound-servic5 {
 - 访问Url：   http://192.16.1.144:5556/api/lostFound-servic6/travel/lostFound/list
 - 反向代理结果：http://192.16.1.144:9999/travel-service/travel/lostFound/list
 
-```
+```nginx
 location ^~ /api/lostFound-servic6 {
     rewrite /api/lostFound-servic6/(.*) /travel-service/$1 break;
     proxy_pass http://192.16.1.144:9999;

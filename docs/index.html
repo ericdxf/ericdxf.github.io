@@ -3,14 +3,18 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>The Blog Of Eric</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
+  <meta name="description" content="The Blog Of Eric·Du">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <!-- toc导航 -->
   <link rel="stylesheet" href="https://unpkg.com/docsify-plugin-toc@1.3.1/dist/light.css">
   <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css"> -->
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/pure.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" title="vue" />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dark.css" title="dark" disabled />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/buble.css" title="buble" disabled />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/pure.css" title="pure" disabled />
   <!--数学符号样式-->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"/>
   <link rel="shortcut icon" type="image/x-icon" href="icon.png">
@@ -18,6 +22,16 @@
   <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar-folder.min.css" /> -->
   <!-- 箭头样式 -->
   <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css" /> -->
+  <style>
+    nav.app-nav li ul {
+      min-width: 100px;
+    }
+
+    #carbonads {
+      box-shadow: none !important;
+      width: auto !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -27,7 +41,8 @@
       // 侧边栏
       loadSidebar: true,
       loadNavbar: true,
-      name: '长梦未央，星光不问赶路人',
+      name: '木萧萧',
+      homepage: 'HomePage.md',
       repo: 'https://github.com/ericdxf/ericdxf.github.io',
       subMaxLevel: 2,
       alias: {
@@ -78,6 +93,8 @@
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <!-- 代码高亮  https://cdn.jsdelivr.net/npm/prismjs@1/components/ -->
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-nginx.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-cmake.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
