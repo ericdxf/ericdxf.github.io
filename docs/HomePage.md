@@ -1,14 +1,11 @@
 <div align="center">
-
-<!--lint ignore no-dead-urls-->
-
 # The Blog Of Eric·Du  
 
 
 
 ![](https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/%E5%88%A8%E5%86%B0.svg)
 
-</div>
+
 
 ## Enterprise Usage
 

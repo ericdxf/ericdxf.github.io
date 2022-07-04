@@ -2,7 +2,7 @@
 
 #### 按密码出现次数排序，并查询出现次数
 
-```
+```sql
 SELECT password,
 	count( 1 ) AS number 
 FROM
@@ -15,13 +15,13 @@ ORDER BY
 
 #### 查询数据库所有外键及启用情况
 
-```
+```sql
 select name,is_disabled from sys.foreign_keys
 ```
 
 #### 启用或禁用所有数据库外键
 
-```
+```sql
 -- 禁用某个数据库的所有表的外键约束
 EXEC sp_MSforeachtable @command1='alter table ? NOCHECK constraint all;'
 -- 启用某个数据库的所有表的外键约束
@@ -30,7 +30,7 @@ EXEC sp_MSforeachtable @command1='alter table ? CHECK constraint all;'
 
 #### 查询某个表的所有外键
 
-```
+```sql
 SELECT
 	fk.name,
 	fk.object_id,
@@ -44,7 +44,7 @@ WHERE
 
 #### replace函数
 
-```
+```sql
 -- 更新apss_light_application，替换entry_address字段中的192.16.1.144和192.16.1.151为10.235.68.12
 UPDATE [dbo].[apss_light_application] 
 SET entry_address = REPLACE( entry_address, '192.16.1.144', '10.235.68.12' );
@@ -60,21 +60,21 @@ WHERE substance LIKE '%10.235.68.%';
 
 #### 设置id插入允许
 
-```
+```sql
 set identity_insert dbo.apss_material_management_module on;
 set identity_insert dbo.apss_material_management_module off;
 ```
 
 #### 修改列长度
 
-```
+```sql
 -- 修改列 auth_code 长度为255
 alter table [dbo].[membership_auth_record] alter column auth_code varchar(255)
 ```
 
 #### 替换列内容
 
-```
+```sql
 alter table [dbo].[apss_material_management_module] add substance_n ntext;
 UPDATE [dbo].[apss_material_management_module] SET substance_n = substance;
 alter table [dbo].[apss_material_management_module] DROP COLUMN substance;
@@ -84,11 +84,11 @@ exec sp_rename '[dbo].[apss_material_management_module].substance_n','substance'
 
 #### MYSQL中group_concat长度限制！默认1024
 
-```
-1).在MySQL配置文件中加上
-	group_concat_max_len = 102400 #你要的最大长度
-2).可以简单一点，执行语句,可以设置作用范围
-    SET GLOBAL group_concat_max_len=102400;
-    SET SESSION group_concat_max_len=102400;
+```sql
+-- 在MySQL配置文件中加上
+group_concat_max_len = 102400 #你要的最大长度
+-- 可以简单一点，执行语句,可以设置作用范围
+SET GLOBAL group_concat_max_len=102400;
+SET SESSION group_concat_max_len=102400;
 ```
 
