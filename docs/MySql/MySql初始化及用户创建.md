@@ -21,6 +21,7 @@ Nothing to do
 ```
 其他一些相关指令记录如下  
 查看默认密码
+
 ```sql
 mysql> grep "A temporary password" /var/log/mysqld.log
 ```
