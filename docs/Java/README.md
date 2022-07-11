@@ -1,3 +1,3 @@
 - [返回首页](/)
 - [Java](/Java/)
-  - [as](/Java/as.md)
+  - [Float精度](/Java/Float精度.md)
