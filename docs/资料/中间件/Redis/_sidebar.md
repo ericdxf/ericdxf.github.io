@@ -1,3 +1,4 @@
 - [返回上一级 [中间件]](/资料/中间件)
 - [Redis](/资料/中间件/Redis/)
-  - [Redis部署手册](/资料/中间件/Redis/Redis部署手册.md)
+  - [Redis部署手册-Linux](/资料/中间件/Redis/Redis部署手册-Linux.md)
+  - [Redis部署手册-Windows](/资料/中间件/Redis/Redis部署手册-Windows.md)
