@@ -242,3 +242,29 @@ location ^~ /api/lostFound-servic6 {
 }
 ```
 
+### 缓存配置
+
+频繁请求时，需添加缓存解决nginx 502错误，或者header过大也会导致502错误，需要添加缓存解决
+
+```nginx
+location ^~ /jkqd/ {
+    resolver 114.114.114.114  valid=10s;
+    resolver_timeout 3s;
+
+    rewrite /jkqd/(.*) /api/$1 break;
+    proxy_pass http://$jkqdnginx;
+    proxy_redirect off;
+    proxy_set_header Host $proxy_host;
+    proxy_set_header Connection "Keep-Alive";			
+    proxy_connect_timeout 30s;
+    proxy_read_timeout 600s;
+    proxy_send_timeout 100s;
+    # 缓存配置
+    proxy_buffering on;
+    proxy_buffer_size 100k;
+    proxy_buffers 32 256k;
+    proxy_busy_buffers_size 512k;
+    proxy_temp_file_write_size 256k;
+}
+```
+
