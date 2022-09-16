@@ -22,6 +22,7 @@
   - [Nginx安装](/Nginx/Nginx安装.md)
   - [Nginx缓存](/Nginx/Nginx缓存.md)
   - [Nginx配置成Windows服务](/Nginx/Nginx配置成Windows服务.md)
+  - [日志拆分](/Nginx/日志拆分.md)
   - [漏洞修复](/Nginx/漏洞修复.md)
 - [资料](/资料/)
   - [Linux命令整理](/资料/Linux命令整理.md)
