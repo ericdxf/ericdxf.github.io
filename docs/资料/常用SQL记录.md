@@ -92,3 +92,13 @@ exec sp_rename '[dbo].[apss_material_management_module].substance_n','substance'
     SET SESSION group_concat_max_len=102400;
 ```
 
+#### SqlServer设置主键自增
+
+```
+ALTER TABLE dbo.psms_flight_airport DROP COLUMN id;
+
+ALTER TABLE dbo.psms_flight_airport ADD id BIGINT IDENTITY ( 1, 1 ) NOT NULL;
+
+ALTER TABLE dbo.psms_flight_airport ADD CONSTRAINT prim_Id PRIMARY KEY ( id );
+```
+
