@@ -1,5 +1,6 @@
 - [返回首页](/)
 - [资料](/资料/)
+  - [Excel实用公式](/资料/Excel实用公式.md)
   - [Linux命令整理](/资料/Linux命令整理.md)
   - [Session](/资料/Session.md)
   - [arthas手册](/资料/arthas手册.md)
