@@ -2,7 +2,7 @@
 
 本教程将带您完成使用 Cesium for Unreal 构建虚拟现实 (VR) 应用程序的过程。它将讨论将您的应用程序部署到有线和独立耳机，并将提供 C++ 和蓝图的示例代码。
 
-![](https://prismic-io.s3.amazonaws.com/cesium/03d461fc-ee15-4a55-a454-8315e2d6d792_CesiumVRTutorial_000.png)
+![img](https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/03d461fc-ee15-4a55-a454-8315e2d6d792_CesiumVRTutorial_000.png)
 
 您将学习如何：
 
@@ -26,7 +26,7 @@
 
 1在 Unreal 中创建一个新项目，然后在**New Project Categories**下选择**Games**。单击**下一步**。
 
-![](https://images.prismic.io/cesium/769f6e3b-4582-4f0c-b157-b7b6c32892dc_CesiumVRTutorial_010.png?auto=compress%2Cformat&w=852)
+![img](https://images.prismic.io/cesium/769f6e3b-4582-4f0c-b157-b7b6c32892dc_CesiumVRTutorial_010.png?auto=compress%2Cformat&w=852)
 
 ![](https://images.prismic.io/cesium/0dd1ebff-5bf9-41b5-9101-eb120e8c7bc2_CesiumVRTutorial_020.png?auto=compress%2Cformat&w=1320)
 
