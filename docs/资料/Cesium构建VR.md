@@ -26,15 +26,17 @@
 
 1在 Unreal 中创建一个新项目，然后在**New Project Categories**下选择**Games**。单击**下一步**。
 
-![img](https://images.prismic.io/cesium/769f6e3b-4582-4f0c-b157-b7b6c32892dc_CesiumVRTutorial_010.png?auto=compress%2Cformat&w=852)
+![](https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/769f6e3b-4582-4f0c-b157-b7b6c32892dc_CesiumVRTutorial_010.png)
 
-![](https://images.prismic.io/cesium/0dd1ebff-5bf9-41b5-9101-eb120e8c7bc2_CesiumVRTutorial_020.png?auto=compress%2Cformat&w=1320)
+![](https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/0dd1ebff-5bf9-41b5-9101-eb120e8c7bc2_CesiumVRTutorial_020.png)
 
 3在**项目设置**下，您可以选择**C++**或**蓝图**。本教程将为这两种项目类型提供说明。
 
 4同样在**Project Settings**下，选择**Scalable 3D or 2D**、**Raytracing Disabled**、**Mobile/Tablet**和**No Starter Content**。为您的项目命名（例如，“CesiumVRTutorial”）。
 
-![](https://images.prismic.io/cesium/b8697634-518b-4a5e-bae5-a5a6817add3a_CesiumVRTutorial_030.png?auto=compress%2Cformat&w=1012)
+![b8697634-518b-4a5e-bae5-a5a6817add3a_CesiumVRTutorial_030](https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/b8697634-518b-4a5e-bae5-a5a6817add3a_CesiumVRTutorial_030.png)
+
+
 
 6项目完全加载后，转到顶部菜单中的**编辑 > 插件**。找到**Cesium for Unreal**并确保它已**启用**。如果不是，请启用它，然后重新启动 Unreal。
 
@@ -44,7 +46,7 @@
 
 9在屏幕的左侧，您应该会看到一个**Cesium**选项卡。点击它。
 
-![](https://images.prismic.io/cesium/e8098adf-019b-46cd-8a68-b30fa4da99ec_CesiumVRTutorial_040.png?auto=compress%2Cformat&w=453)
+![e8098adf-019b-46cd-8a68-b30fa4da99ec_CesiumVRTutorial_040](https://bucket-1312501492.cos.ap-nanjing.myqcloud.com/img/e8098adf-019b-46cd-8a68-b30fa4da99ec_CesiumVRTutorial_040.png)
 
 10在 Cesium 选项卡中，单击**连接**按钮。您的网络浏览器将打开并显示登录您的 Cesium ion 帐户的说明。按照说明进行操作，然后在出现提示时返回 Unreal。
 
