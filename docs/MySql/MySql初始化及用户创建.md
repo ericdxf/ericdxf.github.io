@@ -44,3 +44,4 @@ mysql> flush privileges;
 mysql> grant all on *.* to 'eric'@'%';
 ```
 需要注意的一点是，8.0以后的MySql版本里密码验证是很严格的，必须要有大小写字母和特殊字符，上面的your password替换时要注意下。
+
