@@ -74,7 +74,32 @@ cat filename | head -n 3000 | tail -n +1000  显示1000行到3000行
 cat filename | tail -n +3000 | head -n 1000  从第3000行开始，显示1000(即显示3000~3999行)
 ```
 
-**三.文件搜索**
+### 三.文件搜索
+
+文件内容搜索
+
+```
+1、递归搜索文件内容，如果查找"hello,world!"字符串,可以这样:
+    grep -rn "hello,world!" *
+ 
+    * : 表示当前目录所有文件，也可以是某个文件名
+    -r 是递归查找
+    -n 是显示行号
+    -R 查找所有文件包含子目录
+    -i 忽略大小写
+    
+2、搜索文件
+    find / -name 'pay.html'
+    /：表示根目录，也可以自己指定搜索的目录。
+    -name：表示搜索文件名称。
+    pay.html：搜索的文件名称。
+    
+3、批量替换。
+    替换server.xml文件中的”2020”为”8008”
+    sed -i 's/2020/8080/g' ./conf/server.xml
+    批量替换，替换server.xml文件中的”2020”为”8008”，将结果输出到result1.xml
+    sed -i 's/2020/8080/g' ./conf/server.xml > result1.xml
+```
 
 find命令，用来查找系统的
 
