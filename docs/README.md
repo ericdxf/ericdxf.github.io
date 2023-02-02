@@ -28,6 +28,7 @@
   - [漏洞修复](/Nginx/漏洞修复.md)
 - [资料](/资料/)
   - [Cesium构建VR](/资料/Cesium构建VR.md)
+  - [ClashLinux安装](/资料/ClashLinux安装.md)
   - [Excel实用公式](/资料/Excel实用公式.md)
   - [Linux命令整理](/资料/Linux命令整理.md)
   - [Session](/资料/Session.md)
