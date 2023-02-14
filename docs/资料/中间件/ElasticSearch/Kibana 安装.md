@@ -1,4 +1,4 @@
-## Kibana 安装
+## Kibana安装
 
 #### 1. 安装 Kibana
 

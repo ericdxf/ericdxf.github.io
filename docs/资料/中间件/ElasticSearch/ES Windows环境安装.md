@@ -1,4 +1,4 @@
-## ES Windows环境安装
+## Windows环境安装ES
 
 #### 1. 下载安装包
 
