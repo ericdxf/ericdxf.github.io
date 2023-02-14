@@ -32,3 +32,4 @@ i18n.locale: "zh-CN"
 #### 3. 启动Kibana
 
 双击执行`bin`目录下`kibana.bat`；
+
