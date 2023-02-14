@@ -1,5 +1,8 @@
 - [返回上一级 [资料]](/资料)
 - [中间件](/资料/中间件/)
+  - [ElasticSearch](/资料/中间件/ElasticSearch/)
+    - [ES Windows环境安装](/资料/中间件/ElasticSearch/ES Windows环境安装.md)
+    - [Kibana 安装](/资料/中间件/ElasticSearch/Kibana 安装.md)
   - [Minio](/资料/中间件/Minio.md)
   - [MongoDB](/资料/中间件/MongoDB/)
     - [MongoDB安装](/资料/中间件/MongoDB/MongoDB安装.md)
