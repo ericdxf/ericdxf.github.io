@@ -118,3 +118,6 @@ elasticsearch-service.bat install
 - 服务启动：右键服务名称后启动；
 
 - 脚本启动：双击执行`bin`目录下`elasticsearch.bat`；
+
+**注意：9300是tcp通信端口，es集群之间使用tcp进行通信，9200是http协议端口。**
+
