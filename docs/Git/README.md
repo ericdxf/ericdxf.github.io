@@ -2,6 +2,7 @@
 - [Git](/Git/)
   - [Git代码首次提交到远程仓库](/Git/Git代码首次提交到远程仓库.md)
   - [Git分支操作](/Git/Git分支操作.md)
+  - [Git合并多次commit](/Git/Git合并多次commit.md)
   - [Git常用操作命令记录](/Git/Git常用操作命令记录.md)
   - [Git忽略规则](/Git/Git忽略规则.md)
   - [Git提交时间修改](/Git/Git提交时间修改.md)
