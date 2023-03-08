@@ -27,6 +27,8 @@
   - [Nginx配置成Windows服务](/Nginx/Nginx配置成Windows服务.md)
   - [日志拆分](/Nginx/日志拆分.md)
   - [漏洞修复](/Nginx/漏洞修复.md)
+- [SkyWalking](/SkyWalking/)
+  - [Agent参数](/SkyWalking/Agent参数.md)
 - [资料](/资料/)
   - [Cesium构建VR](/资料/Cesium构建VR.md)
   - [ClashLinux安装](/资料/ClashLinux安装.md)
